@@ -1,7 +1,6 @@
 package db;
 
 import java.sql.*;
-import com.mysql.jdbc.Driver;
 
 public class DBManager {
 
@@ -34,6 +33,27 @@ public class DBManager {
             if (rs.next()) {
                 return true;
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeStatement(statement);
+        }
+        return false;
+    }
+
+    public boolean addUser(String username, String password, String email) {
+        String role = "client";
+        String query = String.format("SELECT * FROM clients WHERE login='%s' or mail='%s'", username, email);
+        String insertQuery = String.format("INSERT INTO clients (login, password, mail, role) VALUES ( '%s', '%s', '%s', '%s' )", username, password, email, role);
+        Statement statement = null;
+        try {
+            statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            if (rs.next()) {
+                return false;
+            }
+            statement.executeUpdate(insertQuery);
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
