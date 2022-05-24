@@ -1,10 +1,12 @@
-body {
-    background-color: #ffda28;
+* {
     font-family: Ayuthaya, serif;
 }
 
+body {
+    background-color: #ffda28;
+}
+
 #header {
-    font-family: Ayuthaya, serif;
     position: absolute;
     margin: 0;
     top: 0;
@@ -54,7 +56,6 @@ a:hover {
     min-width: 10%;
     top: 25%;
     right: 10%;
-    font-family: Ayuthaya, serif;
     color: white;
     font-size: 2vh;
     background-color: #00a082;
@@ -67,7 +68,8 @@ a:hover {
     background-color: #00c3a5;
 }
 
-form {
+.floatingMenu {
+    display: block;
     position: relative;
     width: 60vw;
     height: 60vh;
@@ -79,9 +81,13 @@ form {
     transition: 0.5s;
 }
 
-form:hover {
+.floatingMenu:hover {
     box-shadow: 0 10px 20px 7px rgba(170,170,170,0.98);
     top: 24vh;
+}
+
+form {
+    height: 100%;
 }
 
 table {
@@ -89,18 +95,22 @@ table {
     height: 100%;
 }
 
-input {
-    display: block;
+input, #wrongLogin, #logoutButton, .inFormButton {
     position: relative;
     width: 50vw;
-    height: 7vh;
+    height: 6vh;
     margin: auto;
     border-radius: 20px;
     border-color: #ffda28;
-    border-width: 3px;
+    border-style: solid;
+    border-width: 2px;
     font-size: 3vh;
     text-align: center;
     background-color: rgba(245,245,245,0.98);
+}
+
+td {
+    text-align: center;
 }
 
 #submitButton {
@@ -119,14 +129,32 @@ input {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    width: 50vw;
-    height: 7vh;
-    margin: auto;
-    top: 10%;
-    border-radius: 20px;
+    top: 3vh;
     font-size: 2vh;
     background-color: red;
     opacity: 70%;
     color: white;
+}
+
+#logoutButton {
+    top: 30%;
+    background-color: #a00035;
+    border-width: 0;
+    color: white;
+    transition: 0.3s;
+}
+
+#logoutButton:active {
+    background-color: #c3003a;
+}
+
+.inFormButton {
+    border-width: 0;
+    background-color: #00a082;
+    color: white;
+    transition: 0.3s;
+}
+
+.inFormButton:active {
+    background-color: #00c3a5;
 }
