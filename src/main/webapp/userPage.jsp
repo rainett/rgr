@@ -19,9 +19,16 @@
         <a href="http://localhost:8080/final/" class="logo" id="soloLogo">dlvr.</a>
     </div>
 
-    <form action="logout">
-        тут має бути обліковий запис юзера
-        <input type="submit" value="Вийти">
-    </form>
+    <div class="floatingMenu">
+            <table>
+                <tr><td><button class="inFormButton">Адреси доставки</button><br></td></tr>
+                <tr><td><button class="inFormButton">Способи оплати</button></td></tr>
+                <tr><td>
+                    <form action="logout">
+                        <input type="submit" value="Вийти" id="logoutButton">
+                    </form>
+                </td></tr>
+            </table>
+    </div>
 </body>
 </html>
