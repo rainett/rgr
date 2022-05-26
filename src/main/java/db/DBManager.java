@@ -14,7 +14,7 @@ public class DBManager {
         return instance;
     }
 
-    public DBManager(){
+    private DBManager(){
         try {
             String url = "jdbc:mysql://localhost:3306/rgrdb?user=root&password=11111111";
             Class.forName("com.mysql.jdbc.Driver");

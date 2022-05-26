@@ -10,13 +10,18 @@
     <%
         String loginButtonText = "Увійти";
         if (session.getAttribute("username") != null) {
-            loginButtonText = String.format("Hi, %s!", session.getAttribute("username"));
+            loginButtonText = String.format("Привіт, %s!", session.getAttribute("username"));
         }
     %>
 
     <div id="header">
-        <a href="http://localhost:8080/final/" class="logo">dlvr.</a>
-        <button id="login" onclick="document.location.href='login.jsp'"><%=loginButtonText%></button>
+        <table>
+            <tr>
+                <td><a href="http://localhost:8080/final/" class="logo">dlvr.</a></td>
+                <td><button id="meals" onclick="document.location.href='meals.html'">Меню страв</button></td>
+                <td><button id="login" onclick="document.location.href='login.jsp'"><%=loginButtonText%></button></td>
+            </tr>
+        </table>
     </div>
 </body>
 </html>

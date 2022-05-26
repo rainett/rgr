@@ -14,8 +14,12 @@
 %>
 
     <div id="header">
-        <a href="http://localhost:8080/final/" class="logo">dlvr.</a>
-        <button id="login" onclick="document.location.href='registration.jsp'">Реєстрація</button>
+        <table>
+            <tr>
+                <td><a href="http://localhost:8080/final/" class="logo">dlvr.</a></td>
+                <td><button id="login" onclick="document.location.href='registration.jsp'">Реєстрація</button></td>
+            </tr>
+        </table>
     </div>
     <div class="floatingMenu">
         <form action="login" method="post" onsubmit="validate()">
