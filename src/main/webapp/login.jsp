@@ -12,6 +12,15 @@
     if (session.getAttribute("username") != null) {
         response.sendRedirect(Path.PAGE__USER_PAGE);
     }
+    String errorMessage = "";
+    boolean somethingWentWrong = false;
+    if (session.getAttribute("wrongUsername") != null) {
+        errorMessage = "Неправильно введене ім'я котристувача";
+        somethingWentWrong = true;
+    } else if ( session.getAttribute("wrongPassword") != null) {
+        errorMessage = "Неправильно введений пароль користувача";
+        somethingWentWrong = true;
+    }
 %>
 
     <div id="header">
@@ -27,9 +36,9 @@
             <input type="hidden" name="command" value="login"/>
             <table>
                 <%
-                    if (session.getAttribute("failedToLogin") != null) {
+                    if (somethingWentWrong) {
                 %>
-                <tr><td id="wrongLogin">Неправильно введене ім'я, або пароль</td></tr>
+                <tr><td id="wrongLogin"><%=errorMessage%></td></tr>
                 <%
                     }
                 %>

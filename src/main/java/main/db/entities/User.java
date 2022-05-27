@@ -1,4 +1,4 @@
-package main.entities;
+package main.db.entities;
 
 public class User {
     private int clientId;

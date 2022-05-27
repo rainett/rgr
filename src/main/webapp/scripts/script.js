@@ -59,7 +59,7 @@ function validate() {
             passwordInput.style.color = wrongInputColor;
             return true;
         }
-        const regex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$", "g");
+        const regex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$", "g");
         const found = regex.test(passwordInput.value);
         console.log(found);
         if (!found) {
