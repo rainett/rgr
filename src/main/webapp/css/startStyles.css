@@ -131,6 +131,7 @@ td {
     top: 3vh;
     font-size: 2vh;
     background-color: red;
+    border-width: 0;
     opacity: 70%;
     color: white;
 }

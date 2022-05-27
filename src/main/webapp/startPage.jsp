@@ -1,3 +1,4 @@
+<%@ page import="main.Path" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -18,8 +19,8 @@
         <table>
             <tr>
                 <td><a href="http://localhost:8080/final/" class="logo">dlvr.</a></td>
-                <td><button id="meals" onclick="document.location.href='meals.html'">Меню страв</button></td>
-                <td><button id="login" onclick="document.location.href='login.jsp'"><%=loginButtonText%></button></td>
+                <td><button id="meals" onclick="document.location.href='<%=Path.PAGE__MEALS%>'">Меню страв</button></td>
+                <td><button id="login" onclick="document.location.href='<%=Path.PAGE__LOGIN%>'"><%=loginButtonText%></button></td>
             </tr>
         </table>
     </div>

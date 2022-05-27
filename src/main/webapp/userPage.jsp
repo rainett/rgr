@@ -26,7 +26,8 @@
             <tr><td><button class="inFormButton">Адреси доставки</button><br></td></tr>
             <tr><td><button class="inFormButton">Способи оплати</button></td></tr>
             <tr><td>
-                <form action="logout">
+                <form action="controller">
+                    <input type="hidden" name="command" value="logout"/>
                     <input type="submit" value="Вийти" id="logoutButton">
                 </form>
             </td></tr>

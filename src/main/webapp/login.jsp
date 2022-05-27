@@ -1,3 +1,4 @@
+<%@ page import="main.Path" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -9,7 +10,7 @@
 
 <%
     if (session.getAttribute("username") != null) {
-        response.sendRedirect("userPage.jsp");
+        response.sendRedirect(Path.PAGE__USER_PAGE);
     }
 %>
 
@@ -17,12 +18,13 @@
         <table>
             <tr>
                 <td><a href="http://localhost:8080/final/" class="logo">dlvr.</a></td>
-                <td><button id="login" onclick="document.location.href='registration.jsp'">Реєстрація</button></td>
+                <td><button id="login" onclick="document.location.href='<%=Path.PAGE__REGISTRATION%>'">Реєстрація</button></td>
             </tr>
         </table>
     </div>
     <div class="floatingMenu">
-        <form action="login" method="post" onsubmit="validate()">
+        <form action="controller" method="post" onsubmit="validate()">
+            <input type="hidden" name="command" value="login"/>
             <table>
                 <%
                     if (session.getAttribute("failedToLogin") != null) {
