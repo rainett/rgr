@@ -28,9 +28,9 @@
                 for (Dish d : dishes) {
             %>
             <tr class="mealsRow">
-                <td><img src="<%=d.getPic()%>" class="images"></td>
+                <td><img src="<%=d.getPic()%>" class="images" alt="Food image"></td>
                 <td><%=d.getName()%></td>
-                <td><%=d.getPrice()%></td>
+                <td><%=d.getPrice()%> UAH</td>
             </tr>
             <%
                 }
