@@ -18,7 +18,7 @@
     <div id="header">
         <table>
             <tr>
-                <td><a href="<%=Path.PAGE__START_PAGE%>" class="logo">dlvr.</a></td>
+                <td><a href="<%=Path.PAGE__START%>" class="logo">dlvr.</a></td>
                 <td><button id="meals" onclick="document.location.href='<%=Path.PAGE__MEALS%>'">Меню страв</button></td>
                 <td><button id="login" onclick="document.location.href='<%=Path.PAGE__LOGIN%>'"><%=loginButtonText%></button></td>
             </tr>

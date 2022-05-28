@@ -18,14 +18,14 @@
 
     <div id="header">
         <table>
-            <tr><td><a href="<%=Path.PAGE__START_PAGE%>" class="logo" id="soloLogo">dlvr.</a></td></tr>
+            <tr><td><a href="<%=Path.PAGE__START%>" class="logo" id="soloLogo">dlvr.</a></td></tr>
         </table>
     </div>
 
     <div class="floatingMenu">
         <table>
-            <tr><td><button class="inFormButton">Адреси доставки</button><br></td></tr>
-            <tr><td><button class="inFormButton">Способи оплати</button></td></tr>
+            <tr><td><button class="inFormButton" onclick="document.location.href='<%=Path.PAGE__ADDRESSES%>'">Адреси доставки</button><br></td></tr>
+            <tr><td><button class="inFormButton" onclick="document.location.href='<%=Path.PAGE__PAYMENTS%>'">Способи оплати</button></td></tr>
             <tr><td>
                 <form action="controller">
                     <input type="hidden" name="command" value="logout"/>

@@ -12,6 +12,6 @@ public class LogoutCommand implements Command {
         HttpSession session = request.getSession();
         session.removeAttribute("username");
         session.invalidate();
-        return Path.PAGE__START_PAGE;
+        return Path.PAGE__START;
     }
 }

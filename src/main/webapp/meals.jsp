@@ -18,7 +18,7 @@
 
     <div id="header">
         <table>
-            <tr><td><a href="<%=Path.PAGE__START_PAGE%>" class="logo" id="soloLogo">dlvr.</a></td></tr>
+            <tr><td><a href="<%=Path.PAGE__START%>" class="logo" id="soloLogo">dlvr.</a></td></tr>
         </table>
     </div>
 

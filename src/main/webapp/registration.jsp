@@ -11,14 +11,14 @@
 
 <%
     if (session.getAttribute("username") != null) {
-        response.sendRedirect(Path.PAGE__USER_PAGE);
+        response.sendRedirect(Path.PAGE__USER);
     }
 %>
 
     <div id="header">
         <table>
             <tr>
-                <td><a href="<%=Path.PAGE__START_PAGE%>" class="logo">dlvr.</a></td>
+                <td><a href="<%=Path.PAGE__START%>" class="logo">dlvr.</a></td>
                 <td><button id="login" onclick="document.location.href='<%=Path.PAGE__LOGIN%>'">Увійти</button></td>
             </tr>
         </table>

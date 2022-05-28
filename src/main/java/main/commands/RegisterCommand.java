@@ -25,7 +25,7 @@ public class RegisterCommand implements Command {
             session.setAttribute("username", username);
             session.removeAttribute("failedToRegister");
             session.setMaxInactiveInterval(60*60*24); // 1 day
-            return Path.PAGE__START_PAGE;
+            return Path.PAGE__START;
         }
     }
 }

@@ -1,7 +1,5 @@
 package main.commands;
 
-import main.db.DBManager;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -33,7 +31,7 @@ public class LoginCommand implements Command {
             session.removeAttribute("wrongUsername");
             session.removeAttribute("wrongPassword");
             session.setMaxInactiveInterval(60*60*24); // 1 day
-            return Path.PAGE__START_PAGE;
+            return Path.PAGE__START;
         }
     }
 }
