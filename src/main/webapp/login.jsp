@@ -26,7 +26,7 @@
     <div id="header">
         <table>
             <tr>
-                <td><a href="http://localhost:8080/final/" class="logo">dlvr.</a></td>
+                <td><a href="<%=Path.PAGE__START_PAGE%>" class="logo">dlvr.</a></td>
                 <td><button id="login" onclick="document.location.href='<%=Path.PAGE__REGISTRATION%>'">Реєстрація</button></td>
             </tr>
         </table>

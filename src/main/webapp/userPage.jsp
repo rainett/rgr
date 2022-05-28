@@ -1,3 +1,4 @@
+<%@ page import="main.Path" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -17,7 +18,7 @@
 
     <div id="header">
         <table>
-            <tr><td><a href="http://localhost:8080/final/" class="logo" id="soloLogo">dlvr.</a></td></tr>
+            <tr><td><a href="<%=Path.PAGE__START_PAGE%>" class="logo" id="soloLogo">dlvr.</a></td></tr>
         </table>
     </div>
 
