@@ -24,6 +24,20 @@
 
     <div class="floatingMenu" id="floatingMeals">
         <table class="tableClass">
+            <tr>
+                <td></td>
+                <td>
+                    <div class="dropdown">
+                        <button class="dropbtn">Сортувати</button>
+                        <div class="dropdown-content">
+                            <a href="#">Link 1</a>
+                            <a href="#">Link 2</a>
+                            <a href="#">Link 3</a>
+                        </div>
+                    </div>
+                </td>
+                <td></td>
+            </tr>
             <%
                 for (Dish d : dishes) {
             %>

@@ -73,9 +73,14 @@ create table dishes
 alter table dishes
     add primary key (dish_id);
 
-INSERT INTO dishes VALUES (1, 'Sushi', 400, 'images/sushi.jpeg');
-INSERT INTO dishes VALUES (2,'Varenyky', 100, 'images/varenyky.jpeg');
-INSERT INTO dishes VALUES (3, 'Borsch', 80, 'images/borsch.jpeg');
+INSERT INTO dishes(dish_name, dish_price, dish_pic) VALUES ('Суші', 400, 'images/sushi.jpeg');
+INSERT INTO dishes(dish_name, dish_price, dish_pic) VALUES ('Вареники', 100, 'images/varenyky.jpeg');
+INSERT INTO dishes(dish_name, dish_price, dish_pic) VALUES ('Борщ', 80, 'images/borsch.jpeg');
+INSERT INTO dishes(dish_name, dish_price, dish_pic) VALUES ('Цезар з куркою', 170, 'images/caesar_w_chicken.jpg');
+INSERT INTO dishes(dish_name, dish_price, dish_pic) VALUES ('Грецький салат', 120, 'images/greek_salad.jpeg');
+INSERT INTO dishes(dish_name, dish_price, dish_pic) VALUES ('Паста Карбонара', 132, 'images/pasta_carbonara.jpg');
+INSERT INTO dishes(dish_name, dish_price, dish_pic) VALUES ('Крем-суп з лососем', 136, 'images/salmon_soup.jpg');
+INSERT INTO dishes(dish_name, dish_price, dish_pic) VALUES ('Шашлик з телятини', 130, 'images/shashlyk.jpg');
 
 create table ordered_dishes
 (
