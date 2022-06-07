@@ -2,6 +2,7 @@
 <%@ page import="main.db.entities.Dish" %>
 <%@ page import="java.util.List" %>
 <%@ page import="main.db.dao.DishesDAO" %>
+<%@ page import="main.db.dao.DishesSorting" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -12,7 +13,9 @@
 <body>
 
 <%
-    List<Dish> dishes = new DishesDAO().getAllDishes();
+    String currentSorting = request.getParameter("sorting");
+    List<Dish> dishes = new DishesDAO().getAllDishes(currentSorting);
+    String uri = request.getRequestURL()+"?sorting=";
 %>
 
 
@@ -30,9 +33,9 @@
                     <div class="dropdown">
                         <button class="dropbtn">Сортувати</button>
                         <div class="dropdown-content">
-                            <a href="#">Link 1</a>
-                            <a href="#">Link 2</a>
-                            <a href="#">Link 3</a>
+                            <a href=<%=uri+ DishesSorting.SORT__FROM_EXPENSIVE%>>Від дорожчих</a>
+                            <a href=<%=uri+DishesSorting.SORT__FROM_CHEAP%>>Від дешевших</a>
+                            <a href=<%=uri+DishesSorting.SORT__BY_ALPHABET%>>За алфавітом</a>
                         </div>
                     </div>
                 </td>

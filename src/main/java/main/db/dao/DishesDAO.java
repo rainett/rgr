@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class DishesDAO {
     private static final String SQL__GET_ALL_DISHES =
@@ -29,7 +30,16 @@ public class DishesDAO {
     private static final String SQL_INSERT_DISH =
             "INSERT INTO dishes (dish_name, dish_price, dish_pic) VALUES ( ?, ?, ? )";
 
-    public List<Dish> getAllDishes() {
+    public List<Dish> getAllDishes(String sorting) {
+        String query = SQL__GET_ALL_DISHES;
+        if (sorting != null) {
+            for (Map.Entry<String, String> sortingType : DishesSorting.getSorts().entrySet()) {
+                if (sorting.equals(sortingType.getKey())) {
+                    query = sortingType.getValue();
+                    break;
+                }
+            }
+        }
         List<Dish> dishes = new ArrayList<>();
         PreparedStatement pstmt;
         ResultSet rs;
@@ -37,7 +47,7 @@ public class DishesDAO {
         try {
             con = DBManager.getInstance().getConnection();
             DishMapper mapper = new DishMapper();
-            pstmt = con.prepareStatement(SQL__GET_ALL_DISHES);
+            pstmt = con.prepareStatement(query);
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 dishes.add(mapper.mapRow(rs));
