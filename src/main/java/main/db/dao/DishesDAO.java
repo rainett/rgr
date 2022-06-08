@@ -31,15 +31,7 @@ public class DishesDAO {
             "INSERT INTO dishes (dish_name, dish_price, dish_pic) VALUES ( ?, ?, ? )";
 
     public List<Dish> getAllDishes(String sorting) {
-        String query = SQL__GET_ALL_DISHES;
-        if (sorting != null) {
-            for (Map.Entry<String, String> sortingType : DishesSorting.getSorts().entrySet()) {
-                if (sorting.equals(sortingType.getKey())) {
-                    query = sortingType.getValue();
-                    break;
-                }
-            }
-        }
+        String query = sorting == null ? SQL__GET_ALL_DISHES : DishesSorting.getSortQuery(sorting);
         List<Dish> dishes = new ArrayList<>();
         PreparedStatement pstmt;
         ResultSet rs;

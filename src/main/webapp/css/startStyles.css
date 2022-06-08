@@ -101,6 +101,7 @@ form {
 
 table {
     table-layout: fixed;
+    border-collapse: collapse;
     width: 100%;
     height: 100%;
 }
@@ -189,6 +190,19 @@ td {
 .mealsRow {
     height: 20vh;
 }
+
+.addressRow, .addressNamingRow {
+    height: 10vh;
+    transition: 0.3s;
+}
+
+.addressRow:hover td {
+    background-color: #FF9900;
+    -webkit-transition: all 1s linear;
+}
+
+
+
 
 .dropbtn {
     margin: 2vh;
