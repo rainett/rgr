@@ -47,7 +47,7 @@ create table addresses
     city             varchar(20) not null,
     street           varchar(30) not null,
     house_number     varchar(10) not null,
-    apartment_number int         null,
+    apartment_number varchar(10)     null,
     constraint address_id
         unique (address_id)
 );

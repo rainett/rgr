@@ -26,13 +26,15 @@
         <table>
             <tr><td><button class="inFormButton" onclick="document.location.href='<%=Path.PAGE__ADDRESSES%>'">Адреси доставки</button><br></td></tr>
             <tr><td><button class="inFormButton" onclick="document.location.href='<%=Path.PAGE__PAYMENTS%>'">Способи оплати</button></td></tr>
-            <tr><td>
-                <form action="controller">
-                    <input type="hidden" name="command" value="logout"/>
-                    <input type="submit" value="Вийти" id="logoutButton">
-                </form>
-            </td></tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Вийти" id="logoutButton" form="logoutForm">
+                </td>
+            </tr>
         </table>
+        <form action="controller" method="post">
+            <input id="logoutForm" type="hidden" name="command" value="logout"/>
+        </form>
     </div>
 </body>
 </html>

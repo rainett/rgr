@@ -36,19 +36,20 @@
                 <td>Квартира</td>
             </tr>
             <%
-                for (Address a : addresses) {
+                Address a;
+                for (int i = 0; i <addresses.size(); i++) {
+                    a = addresses.get(i);
             %>
-            <tr class="addressRow">
-                <td><%=a.getCity()%></td>
+            <tr class="addressRow" onclick="window.location.href = '<%=Path.PAGE__UPDATE_ADDRESS%>?addressId=<%=a.getAddressId()%>';">
+                <td <% if (i == addresses.size() - 1) {%> class="last-left-cell" <%}%>><%=a.getCity()%></td>
                 <td><%=a.getStreet()%></td>
                 <td><%=a.getHouseNumber()%></td>
-                <%
-                    if (a.getApartmentNumber() != null) {
-                %>
-                <td><%=a.getApartmentNumber()%></td>
-                <%
-                    }
-                %>
+
+                <td <% if (i == addresses.size() - 1) {%> class="last-right-cell" <%}%>>
+                    <%  if (a.getApartmentNumber() != null) {   %>
+                    <%=a.getApartmentNumber()%>
+                    <%  }   %>
+                </td>
             </tr>
             <%
                 }
