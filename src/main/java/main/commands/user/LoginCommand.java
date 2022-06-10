@@ -1,9 +1,10 @@
-package main.commands;
+package main.commands.user;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import main.Path;
+import main.commands.Command;
 import main.db.dao.UserDAO;
 import main.db.entities.User;
 

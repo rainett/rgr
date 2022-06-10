@@ -1,6 +1,7 @@
-package main.commands;
+package main.commands.user;
 
 import main.Path;
+import main.commands.Command;
 import main.db.dao.UserDAO;
 
 import javax.servlet.http.HttpServletRequest;

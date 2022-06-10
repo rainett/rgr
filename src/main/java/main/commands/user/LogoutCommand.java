@@ -1,6 +1,7 @@
-package main.commands;
+package main.commands.user;
 
 import main.Path;
+import main.commands.Command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -31,7 +31,7 @@
         <table>
             <%  if (addresses.size() == 0) { %>
             <tr style="height: 20vh">
-                <td colspan="4">Ви ще не додали жодної адреси!</td>
+                <td>Ви ще не додали жодної адреси!</td>
             </tr>
             <%  } else { %>
             <tr class="addressNamingRow">
@@ -41,9 +41,7 @@
                 <td>Квартира</td>
             </tr>
             <%  }
-                Address a;
-                for (Address address : addresses) {
-                    a = address;
+                for (Address a : addresses) {
             %>
             <tr class="addressRow"
                 onclick="window.location.href = '<%=Path.PAGE__UPDATE_ADDRESS%>?addressId=<%=a.getAddressId()%>';">
@@ -59,7 +57,7 @@
             </tr>
             <%  } %>
             <tr style="height: 20vh">
-                <td colspan="4">
+                <td <% if (addresses.size() != 0) { %> colspan="4" <% } %> >
                     <button class="inFormButton" onclick="window.location.href='<%=Path.PAGE__NEW_ADDRESS%>'">
                         Нова адреса
                     </button>

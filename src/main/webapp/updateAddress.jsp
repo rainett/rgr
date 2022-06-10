@@ -15,7 +15,7 @@
         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         AddressDAO addressDAO = new AddressDAO();
         long addressId = Long.parseLong(request.getParameter("addressId"));
-        if (session.getAttribute("username") == null || new UserDAO().findUser((String) session.getAttribute("username")).getClientId() != addressDAO.findAddress(Long.parseLong(request.getParameter("addressId"))).getClientId()) {
+        if (session.getAttribute("username") == null || new UserDAO().findUser((String) session.getAttribute("username")).getClientId() != addressDAO.findAddress(addressId).getClientId()) {
             response.sendRedirect("login.jsp");
         }
         Address address = addressDAO.findAddress(addressId);

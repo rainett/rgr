@@ -32,8 +32,8 @@
                 </td>
             </tr>
         </table>
-        <form action="controller" method="post">
-            <input id="logoutForm" type="hidden" name="command" value="logout"/>
+        <form id="logoutForm" action="controller" method="post">
+            <input type="hidden" name="command" value="logout"/>
         </form>
     </div>
 </body>

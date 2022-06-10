@@ -1,6 +1,7 @@
 
+const wrongInputColor = '#800000';
+
 function validate() {
-    const wrongInputColor = '#800000';
 
     const usernameInput = document.getElementById("usernameInput");
     const emailInput = document.getElementById("emailInput");
@@ -85,3 +86,65 @@ function validate() {
     }
 }
 
+function validateCard() {
+    const numberInput = document.getElementById("numberInput");
+    const tillInput = document.getElementById("tillInput");
+    const cvvInput = document.getElementById("cvvInput");
+
+    if (validateNumber(numberInput)) {
+        return false;
+    }
+    if (validateTill(tillInput)) {
+        return false;
+    }
+    return !validateCvv(cvvInput);
+
+
+    function validateNumber(numberInput) {
+        if (numberInput.value.length !== 16 || !isNumeric(numberInput.value)) {
+            numberInput.placeholder = 'Довжина номеру картки - 16 цифр';
+            numberInput.style.color = wrongInputColor;
+            return true;
+        }
+        numberInput.placeholder = 'Number';
+        numberInput.style.color = 'black';
+        return false;
+    }
+
+    function validateTill(tillInput) {
+        const regex = new RegExp("^\\d{2}\\/\\d{2}$", "g");
+        const found = regex.test(tillInput.value);
+        console.log(found);
+        if (!found) {
+            tillInput.placeholder = 'Формат **/**';
+            tillInput.style.color = wrongInputColor;
+            return true;
+        }
+        tillInput.placeholder = 'Till';
+        tillInput.style.color = 'black';
+        return false;
+    }
+
+    function validateCvv(cvvInput) {
+        const regex = new RegExp("^\\d{3}$", "g");
+        const found = regex.test(cvvInput.value);
+        console.log(found);
+        if (!found) {
+            cvvInput.placeholder = '***';
+            cvvInput.style.color = wrongInputColor;
+            return true;
+        }
+        cvvInput.placeholder = 'Till';
+        cvvInput.style.color = 'black';
+        return false;
+    }
+}
+
+
+
+function isNumeric(str) {
+    if (typeof str != "string") {
+        return false
+    }
+    return !isNaN(str) && !isNaN(parseFloat(str))
+}

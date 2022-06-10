@@ -24,7 +24,7 @@ INSERT INTO clients VALUES (3, 'petrov', '4321', 'petrov@mail.com', 'client');
 
 create table cards
 (
-    card_id     int      not null,
+    card_id     int auto_increment not null,
     client_id   int      not null,
     card_number char(16) null,
     card_till   char(5)  null,
