@@ -200,16 +200,8 @@ td {
     -webkit-transition: 0.3s;
 }
 
-.last-left-cell {
-    border-radius: 0 0 0 5vh;
-}
-
-.last-right-cell {
-    border-radius: 0 0 5vh 0;
-}
-
 .address-input {
-    height: 30%;
+    height: 40%;
     width: 80%;
 }
 

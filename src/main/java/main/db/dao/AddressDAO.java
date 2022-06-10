@@ -22,6 +22,10 @@ public class AddressDAO {
     private static final String SQL_UPDATE_ADDRESS =
             "UPDATE addresses SET city=?, street=?, house_number=?, apartment_number=? WHERE address_id=?";
 
+    private static final String SQL_NEW_ADDRESS =
+            "INSERT INTO addresses(client_id, city, street, house_number, apartment_number) " +
+            "VALUES (?, ?, ?, ?, ?)";
+
     private static final String SQL_DELETE_ADDRESS =
             "DELETE FROM addresses WHERE address_id=?";
 
@@ -100,6 +104,33 @@ public class AddressDAO {
         pstmt.setString(k++, address.getHouseNumber());
         pstmt.setString(k++, address.getApartmentNumber());
         pstmt.setLong(k, address.getAddressId());
+        pstmt.executeUpdate();
+        pstmt.close();
+    }
+
+    public void newAddress(String login, Address address) {
+        Connection con = null;
+        try {
+            con = DBManager.getInstance().getConnection();
+            insertAddress(con, login, address);
+        } catch (SQLException e) {
+            assert con != null;
+            DBManager.getInstance().rollbackAndClose(con);
+            e.printStackTrace();
+        } finally {
+            assert con != null;
+            DBManager.getInstance().commitAndClose(con);
+        }
+    }
+
+    private void insertAddress(Connection con, String login, Address address) throws SQLException {
+        PreparedStatement pstmt = con.prepareStatement(SQL_NEW_ADDRESS);
+        int k = 1;
+        pstmt.setLong(k++, new UserDAO().findUser(login).getClientId());
+        pstmt.setString(k++, address.getCity());
+        pstmt.setString(k++, address.getStreet());
+        pstmt.setString(k++, address.getHouseNumber());
+        pstmt.setString(k, address.getApartmentNumber());
         pstmt.executeUpdate();
         pstmt.close();
     }

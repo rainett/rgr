@@ -29,31 +29,42 @@
 
     <div class="floatingMenu" id="floatingMeals">
         <table>
+            <%  if (addresses.size() == 0) { %>
+            <tr style="height: 20vh">
+                <td colspan="4">Ви ще не додали жодної адреси!</td>
+            </tr>
+            <%  } else { %>
             <tr class="addressNamingRow">
                 <td>Місто</td>
                 <td>Вулиця</td>
                 <td>Будинок</td>
                 <td>Квартира</td>
             </tr>
-            <%
+            <%  }
                 Address a;
-                for (int i = 0; i <addresses.size(); i++) {
-                    a = addresses.get(i);
+                for (Address address : addresses) {
+                    a = address;
             %>
-            <tr class="addressRow" onclick="window.location.href = '<%=Path.PAGE__UPDATE_ADDRESS%>?addressId=<%=a.getAddressId()%>';">
-                <td <% if (i == addresses.size() - 1) {%> class="last-left-cell" <%}%>><%=a.getCity()%></td>
+            <tr class="addressRow"
+                onclick="window.location.href = '<%=Path.PAGE__UPDATE_ADDRESS%>?addressId=<%=a.getAddressId()%>';">
+                <td><%=a.getCity()%></td>
                 <td><%=a.getStreet()%></td>
                 <td><%=a.getHouseNumber()%></td>
 
-                <td <% if (i == addresses.size() - 1) {%> class="last-right-cell" <%}%>>
-                    <%  if (a.getApartmentNumber() != null) {   %>
+                <td>
+                    <% if (a.getApartmentNumber() != null) { %>
                     <%=a.getApartmentNumber()%>
-                    <%  }   %>
+                    <% } %>
                 </td>
             </tr>
-            <%
-                }
-            %>
+            <%  } %>
+            <tr style="height: 20vh">
+                <td colspan="4">
+                    <button class="inFormButton" onclick="window.location.href='<%=Path.PAGE__NEW_ADDRESS%>'">
+                        Нова адреса
+                    </button>
+                </td>
+            </tr>
         </table>
     </div>
 </body>

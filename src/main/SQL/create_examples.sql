@@ -42,7 +42,7 @@ INSERT INTO cards VALUES (3, 2, '4321111122223333', '06-23', '999');
 
 create table addresses
 (
-    address_id       int         not null,
+    address_id       int auto_increment not null,
     client_id        int         not null,
     city             varchar(20) not null,
     street           varchar(30) not null,

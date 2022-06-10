@@ -13,6 +13,7 @@ public class CommandContainer {
         commands.put("logout", new LogoutCommand());
         commands.put("updateAddress", new UpdateAddressCommand());
         commands.put("deleteAddress", new DeleteAddressCommand());
+        commands.put("newAddress", new NewAddressCommand());
     }
 
     public static Command get(String commandName) {
