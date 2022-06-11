@@ -28,8 +28,7 @@
     <div class="floatingMenu" id="floatingMeals">
         <table class="tableClass">
             <tr>
-                <td></td>
-                <td>
+                <td colspan="3">
                     <div class="dropdown">
                         <button class="dropbtn">Сортувати</button>
                         <div class="dropdown-content">
@@ -39,13 +38,12 @@
                         </div>
                     </div>
                 </td>
-                <td></td>
             </tr>
             <%
                 for (Dish d : dishes) {
             %>
             <tr class="mealsRow">
-                <td><img src="images/<%=d.getPic()%>" class="images" alt="Food image"></td>
+                <td><img src="<%=d.getPic()%>" class="images" alt="Food image"></td>
                 <td><%=d.getName()%></td>
                 <td><%=d.getPrice()%> UAH</td>
             </tr>

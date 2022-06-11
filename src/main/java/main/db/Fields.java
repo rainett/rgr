@@ -24,4 +24,15 @@ public class Fields {
     public static final String FIELD__PAYMENT_NUMBER = "card_number";
     public static final String FIELD__PAYMENT_TILL = "card_till";
     public static final String FIELD__PAYMENT_CVV = "card_cvv";
+
+    public static final String FIELD__ORDERED_DISHES_ID = "ordered_id";
+    public static final String FIELD__ORDERED_DISHES_DISH_ID = "dish_id";
+    public static final String FIELD__ORDERED_DISHES_DISH_AMOUNT = "dish_amount";
+
+    public static final String FIELD__ORDER_ID = "order_id";
+    public static final String FIELD__ORDER_CLIENT_ID = "client_id";
+    public static final String FIELD__ORDER_ORDERED_ID = "ordered_id";
+    public static final String FIELD__ORDER_CARD_ID = "card_id";
+    public static final String FIELD__ORDER_ADDRESS_ID = "address_id";
+    public static final String FIELD__ORDER_PRICE = "price";
 }

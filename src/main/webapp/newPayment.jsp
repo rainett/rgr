@@ -12,7 +12,7 @@
     <%
         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         if (session.getAttribute("username") == null) {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect(Path.PAGE__LOGIN);
         }
     %>
 
@@ -24,9 +24,9 @@
 
     <div class="floatingMenu">
         <form action="controller" method="post" onsubmit="return validateCard()">
+            <input type="hidden" name="command" value="newPayment"/>
             <table>
                 <tr>
-                    <input type="hidden" name="command" value="newPayment"/>
                     <td colspan="2"><input style="width: 90%" id="numberInput" class="address-input" type="text" name="number" placeholder="Number" required></td>
                 </tr>
                 <tr>

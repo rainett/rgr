@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="main.db.entities.Address" %>
 <%@ page import="main.db.dao.AddressDAO" %>
+<%@ page import="main.db.entities.Order" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -16,8 +17,9 @@
 
         if (session.getAttribute("username") == null) {
             response.sendRedirect(Path.PAGE__LOGIN);
+        } else if (session.getAttribute("order") == null) {
+            response.sendRedirect(Path.PAGE__ORDER_MEALS);
         }
-
         List<Address> addresses = new AddressDAO().getUserAddresses((String)session.getAttribute("username"));
     %>
 
@@ -44,7 +46,7 @@
                 for (Address a : addresses) {
             %>
             <tr class="addressRow"
-                onclick="window.location.href = '<%=Path.PAGE__UPDATE_ADDRESS%>?addressId=<%=a.getAddressId()%>';">
+                onclick="window.location.href = '<%=Path.PAGE__ORDER_PAYMENTS%>?addressId=<%=a.getAddressId()%>';">
                 <td><%=a.getCity()%></td>
                 <td><%=a.getStreet()%></td>
                 <td><%=a.getHouseNumber()%></td>

@@ -11,7 +11,7 @@
     <%
         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         if (session.getAttribute("username") == null) {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect(Path.PAGE__LOGIN);
         }
     %>
 
@@ -23,9 +23,9 @@
 
     <div class="floatingMenu">
         <form action="controller" method="post">
+            <input type="hidden" name="command" value="newAddress"/>
             <table>
                 <tr>
-                    <input type="hidden" name="command" value="newAddress"/>
                     <td><input class="address-input" type="text" name="city" placeholder="City" required></td>
                     <td><input class="address-input" type="text" name="street" placeholder="Street" required></td>
                 </tr>

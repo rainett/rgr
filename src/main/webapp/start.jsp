@@ -24,5 +24,7 @@
             </tr>
         </table>
     </div>
+
+    <button id="make-order-btn" onclick="document.location.href='<%=Path.PAGE__ORDER_MEALS%>'">Оформити замовлення</button>
 </body>
 </html>

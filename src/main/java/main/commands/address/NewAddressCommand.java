@@ -25,6 +25,6 @@ public class NewAddressCommand implements Command {
         address.setCity(request.getParameter("city"));
 
         new AddressDAO().newAddress(login, address);
-        return Path.PAGE__ADDRESSES;
+        return session.getAttribute("order") == null ? Path.PAGE__ADDRESSES : Path.PAGE__ORDER_ADDRESS;
     }
 }

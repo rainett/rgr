@@ -17,7 +17,7 @@
         PaymentDAO paymentDAO = new PaymentDAO();
         long cardId = Long.parseLong(request.getParameter("cardId"));
         if (session.getAttribute("username") == null || new UserDAO().findUser((String) session.getAttribute("username")).getClientId() != paymentDAO.findPayment(cardId).getClientId()) {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect(Path.PAGE__LOGIN);
         }
         Payment payment = paymentDAO.findPayment(cardId);
     %>
@@ -30,10 +30,10 @@
 
     <div class="floatingMenu">
         <form action="controller" method="post" onsubmit="return validateCard()">
+            <input type="hidden" name="command" value="updatePayment"/>
+            <input type="hidden" name="cardId" value="<%=cardId%>"/>
             <table>
                 <tr>
-                    <input type="hidden" name="command" value="updatePayment"/>
-                    <input type="hidden" name="cardId" value="<%=cardId%>"/>
                     <td colspan="2"><input style="width: 90%" class="address-input" id="numberInput" type="text" name="number" value="<%=payment.getNumber()%>" placeholder="Number" required></td>
                 </tr>
                 <tr>

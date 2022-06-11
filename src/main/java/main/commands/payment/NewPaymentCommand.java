@@ -2,9 +2,7 @@ package main.commands.payment;
 
 import main.Path;
 import main.commands.Command;
-import main.db.dao.AddressDAO;
 import main.db.dao.PaymentDAO;
-import main.db.entities.Address;
 import main.db.entities.Payment;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +22,6 @@ public class NewPaymentCommand implements Command {
         payment.setCvv(request.getParameter("cvv"));
 
         new PaymentDAO().newPayment(login, payment);
-        return Path.PAGE__PAYMENTS;
+        return session.getAttribute("order") == null ? Path.PAGE__PAYMENTS : Path.PAGE__ORDER_PAYMENTS;
     }
 }

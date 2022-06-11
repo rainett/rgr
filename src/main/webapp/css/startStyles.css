@@ -51,13 +51,21 @@ a:hover {
 }
 
 button {
+    border: 0;
     box-shadow: 0 0;
+    border-radius: 5vh;
+    background-color: #00a082;
     transition: 0.3s;
+    color: white;
 }
 
 button:hover {
     box-shadow: 0 0.5vh 2vh 0.3vh rgba(170,170,170,0.98);
     transform: translateY(-5%);
+}
+
+button:active {
+    background-color: #00c3a5;
 }
 
 #login, #meals {
@@ -203,6 +211,64 @@ td {
 .address-input {
     height: 40%;
     width: 80%;
+}
+
+#make-order-btn {
+    position: absolute;
+    top: 70vh;
+    border-radius: 5vh 0 0 5vh;
+    right: 0;
+    height: 8vh;
+    width: 35vw;
+    box-shadow: 0 0.5vh 1vh 0.3vh rgba(170,170,170,0.98);
+}
+
+#make-order-btn:hover {
+    box-shadow: 0 1vh 3vh 0.3vh rgba(170,170,170,0.98);
+}
+
+.counter {
+    position: relative;
+    margin: auto;
+    height: 70%;
+    width: 50%;
+    background-color: whitesmoke;
+    border-radius: 2vh;
+}
+
+.arrow-up, .arrow-down {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+}
+
+.arrow-down {
+    bottom: 1vh;
+    border-top: 10px solid black;
+}
+
+.arrow-up {
+    top: 1vh;
+    border-bottom: 10px solid black;
+}
+
+.number-input {
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    margin: auto;
+    height: 50%;
+    width: 60%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 

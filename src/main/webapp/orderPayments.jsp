@@ -2,6 +2,7 @@
 <%@ page import="main.db.entities.Payment" %>
 <%@ page import="java.util.List" %>
 <%@ page import="main.db.dao.PaymentDAO" %>
+<%@ page import="main.db.entities.Order" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -16,7 +17,15 @@
 
         if (session.getAttribute("username") == null) {
             response.sendRedirect(Path.PAGE__LOGIN);
+        } else if (session.getAttribute("order") == null) {
+            response.sendRedirect(Path.PAGE__ORDER_MEALS);
         }
+
+        Order order = (Order) session.getAttribute("order");
+        if (order.getAddressId() == 0)
+            order.setAddressId(Integer.parseInt(request.getParameter("addressId")));
+        session.setAttribute("order", order);
+
         List<Payment> payments = new PaymentDAO().getUserPayments((String)session.getAttribute("username"));
     %>
 
@@ -41,7 +50,7 @@
             for (Payment p : payments) {
             %>
             <tr class="addressRow"
-                onclick="window.location.href = '<%=Path.PAGE__UPDATE_PAYMENT%>?cardId=<%=p.getCardId()%>';">
+                onclick="window.location.href = '<%=Path.PAGE__CONFIRM_ORDER%>?cardId=<%=p.getCardId()%>';">
                 <td><%= p.getNumber().substring(0, p.getNumber().length()/2)+"********" %></td>
                 <td><%= p.getTill().substring(0, p.getTill().length()/2)+"***" %></td>
             </tr>

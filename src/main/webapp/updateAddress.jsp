@@ -16,7 +16,7 @@
         AddressDAO addressDAO = new AddressDAO();
         long addressId = Long.parseLong(request.getParameter("addressId"));
         if (session.getAttribute("username") == null || new UserDAO().findUser((String) session.getAttribute("username")).getClientId() != addressDAO.findAddress(addressId).getClientId()) {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect(Path.PAGE__LOGIN);
         }
         Address address = addressDAO.findAddress(addressId);
     %>
@@ -29,10 +29,10 @@
 
     <div class="floatingMenu">
         <form action="controller" method="post">
+            <input type="hidden" name="command" value="updateAddress"/>
+            <input type="hidden" name="addressId" value="<%=addressId%>"/>
             <table>
                 <tr>
-                    <input type="hidden" name="command" value="updateAddress"/>
-                    <input type="hidden" name="addressId" value="<%=addressId%>"/>
                     <td><input class="address-input" type="text" name="city" value="<%=address.getCity()%>" placeholder="City" required></td>
                     <td><input class="address-input" type="text" name="street" value="<%=address.getStreet()%>" placeholder="Street" required></td>
                 </tr>

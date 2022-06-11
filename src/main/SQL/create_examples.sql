@@ -85,8 +85,7 @@ INSERT INTO dishes(dish_name, dish_price, dish_pic) VALUES ('Шашлик з т�
 create table ordered_dishes
 (
     ordered_id  int         not null,
-    dish_id     varchar(40) not null
-        primary key,
+    dish_id     varchar(40) not null,
     dish_amount int         not null
 );
 
@@ -96,11 +95,12 @@ INSERT INTO ordered_dishes VALUES (2, 3, 1);
 
 create table orders
 (
-    order_id   int not null,
+    order_id   int auto_increment not null,
     client_id  int not null,
     ordered_id int not null,
     card_id    int not null,
     address_id int not null,
+    price      int not null,
     constraint order_id
         unique (order_id)
 );
@@ -108,7 +108,7 @@ create table orders
 alter table orders
     add primary key (order_id);
 
-INSERT INTO orders VALUES (2, 1, 1, 1, 2);
+INSERT INTO orders VALUES (2, 1, 1, 1, 2, 200);
 
 select c.login, crd.card_number, a.street, d.dish_name, od.dish_amount from orders
     inner join clients c on orders.client_id = c.client_id
