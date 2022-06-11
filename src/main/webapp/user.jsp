@@ -24,6 +24,7 @@
 
     <div class="floatingMenu">
         <table>
+            <tr><td><button class="inFormButton" onclick="document.location.href='<%=Path.PAGE__ORDERS%>'">Активні замовлення</button><br></td></tr>
             <tr><td><button class="inFormButton" onclick="document.location.href='<%=Path.PAGE__ADDRESSES%>'">Адреси доставки</button><br></td></tr>
             <tr><td><button class="inFormButton" onclick="document.location.href='<%=Path.PAGE__PAYMENTS%>'">Способи оплати</button></td></tr>
             <tr>

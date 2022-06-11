@@ -3,12 +3,14 @@ package main.db.dao;
 import main.db.DBManager;
 import main.db.EntityMapper;
 import main.db.Fields;
+import main.db.entities.Dish;
 import main.db.entities.OrderedDish;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderedDishesDAO {
@@ -19,6 +21,9 @@ public class OrderedDishesDAO {
             "SELECT SUM(dish_price*dish_amount) AS price FROM ordered_dishes " +
                     "INNER JOIN dishes d ON d.dish_id = ordered_dishes.dish_id " +
                     "WHERE ordered_id = ?;";
+
+    private static final String SQL_GET_USER_ORDERED_DISHES =
+            "SELECT * FROM ordered_dishes WHERE ordered_id = ?";
 
     private static final String SQL_NEW_ORDERED_DISH =
             "INSERT INTO ordered_dishes(ordered_id, dish_id, dish_amount) " +
@@ -107,6 +112,33 @@ public class OrderedDishesDAO {
             assert con != null;
             DBManager.getInstance().commitAndClose(con);
         }
+    }
+
+    public List<OrderedDish> getOrderedDishes(int orderedId) {
+        List<OrderedDish> orderedDishes = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement pstmt;
+        ResultSet rs;
+        try {
+            con = DBManager.getInstance().getConnection();
+            pstmt = con.prepareStatement(SQL_GET_USER_ORDERED_DISHES);
+            pstmt.setLong(1, orderedId);
+            rs = pstmt.executeQuery();
+            OrderedDishMapper orderedDishMapper = new OrderedDishMapper();
+            while (rs.next()) {
+                orderedDishes.add(orderedDishMapper.mapRow(rs));
+            }
+            pstmt.close();
+            rs.close();
+        } catch (SQLException e) {
+            assert con != null;
+            DBManager.getInstance().rollbackAndClose(con);
+            e.printStackTrace();
+        } finally {
+            assert con != null;
+            DBManager.getInstance().commitAndClose(con);
+        }
+        return orderedDishes;
     }
 
     private static class OrderedDishMapper implements EntityMapper<OrderedDish> {

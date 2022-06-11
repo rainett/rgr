@@ -57,7 +57,7 @@ public class DishesDAO {
         return dishes;
     }
 
-    public Dish findDish(Long id) {
+    public Dish findDish(int id) {
         Dish dish = null;
         PreparedStatement pstmt;
         ResultSet rs;

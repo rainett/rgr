@@ -10,12 +10,21 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDAO {
     private static final String SQL_NEW_ORDER =
             "INSERT INTO orders(client_id, ordered_id, card_id, address_id, price) " +
                     "VALUES (?, ?, ?, ?, ?)";
+
+    private static final String SQL_USER_ORDERS =
+            "SELECT * FROM orders " +
+                    "JOIN clients c on orders.client_id = c.client_id " +
+                    "WHERE c.login = BINARY ?";
+
+    private static final String SQL_FIND_ORDER =
+            "SELECT * FROM orders WHERE order_id = ?";
 
     private static final String SQL_DELETE_ORDER =
             "DELETE FROM orders WHERE order_id=?";
@@ -65,6 +74,58 @@ public class OrderDAO {
             assert con != null;
             DBManager.getInstance().commitAndClose(con);
         }
+    }
+
+    public List<Order> getUserOrders(String login) {
+        List<Order> orders = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement pstmt;
+        ResultSet rs;
+        try {
+            con = DBManager.getInstance().getConnection();
+            pstmt = con.prepareStatement(SQL_USER_ORDERS);
+            pstmt.setString(1, login);
+            rs = pstmt.executeQuery();
+            OrderMapper orderMapper = new OrderMapper();
+            while(rs.next()) {
+                orders.add(orderMapper.mapRow(rs));
+            }
+            pstmt.close();
+            rs.close();
+        } catch (SQLException e) {
+            assert con != null;
+            DBManager.getInstance().rollbackAndClose(con);
+            e.printStackTrace();
+        } finally {
+            assert con != null;
+            DBManager.getInstance().commitAndClose(con);
+        }
+        return orders;
+    }
+
+    public Order getOrder(int orderId) {
+        Order order = null;
+        Connection con = null;
+        PreparedStatement pstmt;
+        ResultSet rs;
+        try {
+            con = DBManager.getInstance().getConnection();
+            pstmt = con.prepareStatement(SQL_FIND_ORDER);
+            pstmt.setLong(1, orderId);
+            rs = pstmt.executeQuery();
+            OrderMapper orderMapper = new OrderMapper();
+            if (rs.next()) {
+                order = orderMapper.mapRow(rs);
+            }
+        } catch (SQLException e) {
+            assert con != null;
+            DBManager.getInstance().rollbackAndClose(con);
+            e.printStackTrace();
+        } finally {
+            assert con != null;
+            DBManager.getInstance().commitAndClose(con);
+        }
+        return order;
     }
 
     private static class OrderMapper implements EntityMapper<Order> {
