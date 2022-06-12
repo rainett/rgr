@@ -18,7 +18,9 @@ public class DBManager {
     }
 
     public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://oliadkuxrl9xdugh.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/hasvf5g259kwfoeu?user=yv5ivcp2saszvwwr&password=vipg57hn54jj2n1e");
+        Connection con = DriverManager.getConnection("jdbc:mysql://oliadkuxrl9xdugh.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/hasvf5g259kwfoeu?user=yv5ivcp2saszvwwr&password=vipg57hn54jj2n1e");
+        con.setAutoCommit(false);
+        return con;
     }
 
     public void commitAndClose(Connection con) {
