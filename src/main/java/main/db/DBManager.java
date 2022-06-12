@@ -18,18 +18,7 @@ public class DBManager {
     }
 
     public Connection getConnection() throws SQLException {
-        Connection con = null;
-        try {
-            Context initContext = new InitialContext();
-            Context envContext  = (Context)initContext.lookup("java:/comp/env");
-
-            // rgrdb - the name of data source
-            DataSource ds = (DataSource)envContext.lookup("jdbc/rgrdb");
-            con = ds.getConnection();
-        } catch (NamingException ex) {
-            System.out.println("Unable to get connection with the DB");
-        }
-        return con;
+        return DriverManager.getConnection("jdbc:mysql://oliadkuxrl9xdugh.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/hasvf5g259kwfoeu?user=yv5ivcp2saszvwwr&password=vipg57hn54jj2n1e");
     }
 
     public void commitAndClose(Connection con) {

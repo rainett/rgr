@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:mysql://localhost:3306/rgrdb</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="hasvf5g259kwfoeu@oliadkuxrl9xdugh.chr7pe7iynqr.eu-west-1.rds.amazonaws.com" uuid="a67f1c92-15e8-4d92-a920-c9e0fc63889f">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://oliadkuxrl9xdugh.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/hasvf5g259kwfoeu</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

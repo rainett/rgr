@@ -38,10 +38,10 @@ Data source and connection pool configuration
               auth="Container"
               type="javax.sql.DataSource"
               maxActive="100" maxIdle="30" maxWait="10000"
-              username="root" password="11111111"
+              username="yv5ivcp2saszvwwr" password="vipg57hn54jj2n1e"
               driverClassName="com.mysql.cj.jdbc.Driver"
               defaultAutoCommit="false"
               defaultTransactionIsolation="READ_COMMITTED"
-              url="jdbc:mysql://localhost:3306/rgrdb"/>
+              url="jdbc:mysql://oliadkuxrl9xdugh.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/hasvf5g259kwfoeu"/>
 
 </Context>
