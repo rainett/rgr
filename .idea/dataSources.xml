@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="rgrdb@localhost" uuid="3d4a3dd5-49f8-4ed0-a3f7-e8cb4ab586dc">
+    <data-source source="LOCAL" name="finaldb@localhost" uuid="1322ac83-f0b8-47be-b8dc-f99ca61dccb7">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/rgrdb</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/finaldb</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

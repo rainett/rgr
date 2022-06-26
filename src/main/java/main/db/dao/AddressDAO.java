@@ -14,7 +14,7 @@ import java.util.List;
 
 public class AddressDAO {
     private static final String SQL_GET_USER_ADDRESSES =
-            "SELECT * FROM addresses JOIN clients c ON addresses.client_id = c.client_id WHERE c.login = BINARY ?";
+            "SELECT * FROM addresses JOIN users u ON addresses.user_id = u.user_id WHERE u.user_id = ?";
 
     private static final String SQL_FIND_ADDRESS_BY_ID =
             "SELECT * FROM addresses WHERE address_id = ?";
@@ -23,13 +23,27 @@ public class AddressDAO {
             "UPDATE addresses SET city=?, street=?, house_number=?, apartment_number=? WHERE address_id=?";
 
     private static final String SQL_NEW_ADDRESS =
-            "INSERT INTO addresses(client_id, city, street, house_number, apartment_number) " +
+            "INSERT INTO addresses(user_id, city, street, house_number, apartment_number) " +
             "VALUES (?, ?, ?, ?, ?)";
 
     private static final String SQL_DELETE_ADDRESS =
             "DELETE FROM addresses WHERE address_id=?";
 
-    public List<Address> getUserAddresses(String login) {
+    private static AddressDAO instance;
+
+    public static synchronized AddressDAO getInstance() {
+        if (instance == null) {
+            instance = new AddressDAO();
+        }
+        return instance;
+    }
+
+    private AddressDAO() {
+
+    }
+
+
+    public List<Address> getUserAddresses(int id) {
         List<Address> addresses = new ArrayList<>();
         PreparedStatement pstmt;
         ResultSet rs;
@@ -38,7 +52,7 @@ public class AddressDAO {
             con = DBManager.getInstance().getConnection();
             AddressMapper addressMapper = new AddressMapper();
             pstmt = con.prepareStatement(SQL_GET_USER_ADDRESSES);
-            pstmt.setString(1, login);
+            pstmt.setLong(1, id);
             rs = pstmt.executeQuery();
             while(rs.next())
                 addresses.add(addressMapper.mapRow(rs));
@@ -55,7 +69,7 @@ public class AddressDAO {
         return addresses;
     }
 
-    public Address findAddress(long addressId) {
+    public Address getAddress(long addressId) {
         Address address = null;
         PreparedStatement pstmt;
         ResultSet rs;
@@ -103,16 +117,16 @@ public class AddressDAO {
         pstmt.setString(k++, address.getStreet());
         pstmt.setString(k++, address.getHouseNumber());
         pstmt.setString(k++, address.getApartmentNumber());
-        pstmt.setLong(k, address.getAddressId());
+        pstmt.setLong(k, address.getId());
         pstmt.executeUpdate();
         pstmt.close();
     }
 
-    public void newAddress(String login, Address address) {
+    public void newAddress(Address address) {
         Connection con = null;
         try {
             con = DBManager.getInstance().getConnection();
-            insertAddress(con, login, address);
+            insertAddress(con, address);
         } catch (SQLException e) {
             assert con != null;
             DBManager.getInstance().rollbackAndClose(con);
@@ -123,10 +137,10 @@ public class AddressDAO {
         }
     }
 
-    private void insertAddress(Connection con, String login, Address address) throws SQLException {
+    private void insertAddress(Connection con, Address address) throws SQLException {
         PreparedStatement pstmt = con.prepareStatement(SQL_NEW_ADDRESS);
         int k = 1;
-        pstmt.setLong(k++, new UserDAO().findUser(login).getClientId());
+        pstmt.setLong(k++, address.getUserId());
         pstmt.setString(k++, address.getCity());
         pstmt.setString(k++, address.getStreet());
         pstmt.setString(k++, address.getHouseNumber());
@@ -159,8 +173,8 @@ public class AddressDAO {
         public Address mapRow(ResultSet rs) {
             Address address = new Address();
             try {
-                address.setAddressId(rs.getInt(Fields.FIELD__ADDRESS_ID));
-                address.setClientId(rs.getInt(Fields.FIELD__ADDRESS_CLIENT_ID));
+                address.setId(rs.getInt(Fields.FIELD__ADDRESS_ID));
+                address.setUserId(rs.getInt(Fields.FIELD__ADDRESS_USER_ID));
                 address.setCity(rs.getString(Fields.FIELD__ADDRESS_CITY));
                 address.setStreet(rs.getString(Fields.FIELD__ADDRESS_STREET));
                 address.setHouseNumber(rs.getString(Fields.FIELD__ADDRESS_HOUSE_NUMBER));

@@ -1,57 +1,53 @@
-<%@ page import="main.Path" %>
-<%@ page import="main.db.entities.Payment" %>
-<%@ page import="java.util.List" %>
-<%@ page import="main.db.dao.PaymentDAO" %>
-<%@ page import="main.db.entities.Order" %>
+<%@page import="main.Path" %>
+<%@page import="main.commands.CommandNames" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Ресторан</title>
+    <title>final</title>
     <link href="css/startStyles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
-    <%
-        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-
-        if (session.getAttribute("username") == null) {
-            response.sendRedirect(Path.PAGE__LOGIN);
-        } else if (session.getAttribute("order") == null) {
-            response.sendRedirect(Path.PAGE__ORDER_MEALS);
-        }
-
-        Order order = (Order) session.getAttribute("order");
-        if (order.getCardId() == 0)
-            order.setCardId(Integer.parseInt(request.getParameter("cardId")));
-        session.setAttribute("order", order);
-
-    %>
-
     <div id="header">
         <table>
-            <tr><td><a href="<%=Path.PAGE__START%>" class="logo" id="soloLogo">dlvr.</a></td></tr>
+            <tr>
+                <td><a href="${Path.PAGE__START}" class="logo">dlvr.</a></td>
+                <td>
+                    <form action="controller">
+                        <button name="command" value="${CommandNames.COMMAND__SHOW_LOGIN}">
+                            Особистий кабінет
+                        </button>
+                    </form>
+                </td>
+            </tr>
         </table>
     </div>
 
-    <div class="floatingMenu" id="floatingMeals">
+    <div class="floating-div">
         <form action="controller" method="post">
-            <input type="hidden" name="command" value="confirmOrder"/>
+            <input type="hidden" name="command" value="${CommandNames.COMMAND__CONFIRM_ORDER}"/>
             <table>
-                <tr class="mealsRow">
+                <tr class="floating-row">
                     <td colspan="2">
-                        Підтверджуєте замовлення на суму ${order.price}?
+                        Підтверджуєте замовлення на суму ${sessionScope.orderA.price}?
                     </td>
                 </tr>
-                <tr class="mealsRow">
-                    <td><input style="width: 80%" id="logoutButton" type="submit" value="Вийти" form="cancelForm"></td>
-                    <td><input style="width: 80%" id="submitButton" type="submit" value="Зберегти"></td>
+                <tr class="floating-row">
+                    <td><input class="floating-button-danger" type="submit" value="Відмінити" form="cancelForm"></td>
+                    <td><input class="floating-button" id="submitButton" type="submit" value="Зберегти"></td>
                 </tr>
             </table>
         </form>
         <form id="cancelForm" action="controller" method="post">
-            <input type="hidden" name="command" value="cancelOrder"/>
+            <input type="hidden" name="command" value="${CommandNames.COMMAND__CANCEL_ORDER}"/>
         </form>
     </div>
+    <table style="height: 30vh">
+        <tr>
+            <td>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>

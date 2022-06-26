@@ -1,46 +1,100 @@
-<%@ page import="main.Path" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="main.commands.CommandNames" %>
+<%@page import="main.Path" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Ресторан</title>
+    <title>final</title>
     <link href="css/startStyles.css" rel="stylesheet" type="text/css">
-    <script src="scripts/script.js"></script>
 </head>
 <body>
-
-<%
-    if (session.getAttribute("username") != null) {
-        response.sendRedirect(Path.PAGE__USER);
-    }
-%>
 
     <div id="header">
         <table>
             <tr>
-                <td><a href="<%=Path.PAGE__START%>" class="logo">dlvr.</a></td>
-                <td><button id="login" onclick="document.location.href='<%=Path.PAGE__LOGIN%>'">Увійти</button></td>
+                <td><a href="${Path.PAGE__START}" class="logo">dlvr.</a></td>
+                <td><button name="command" value="${CommandNames.COMMAND__SHOW_LOGIN}"
+                            form="redirectForm">Увійти</button></td>
             </tr>
         </table>
+        <form id="redirectForm" action="controller"></form>
     </div>
-    <div class="floatingMenu">
-        <form action="controller" onsubmit="return validate()" method="post">
-            <input type="hidden" name="command" value="register"/>
+
+    <div class="floating-div">
+        <form action="controller" method="post">
+            <input type="hidden" name="command" value="${CommandNames.COMMAND__REGISTER}"/>
             <table>
-                <%
-                    if (session.getAttribute("failedToRegister") != null) {
-                %>
-                <tr><td id="wrongLogin">Користувач з таким іменем, чи e-mail'ом, вже існує</td></tr>
-                <%
-                    }
-                %>
-                <tr><td><input type="text" name="username" placeholder="Username" id="usernameInput" required></td></tr>
-                <tr><td><input type="text" name="email" placeholder="E-Mail" id="emailInput" required></td></tr>
-                <tr><td><input type="password" name="password" placeholder="Password" id="passwordInput" required></td></tr>
-                <tr><td><input type="password" name="repeatedPassword" placeholder="Repeat password" id="repeatedPassword" required></td></tr>
-                <tr><td><input id="submitButton" type="submit" value="Увійти"></td></tr>
+                <tr class="floating-row">
+                    <td>
+                        <label for="usernameInput"></label>
+                        <input class="floating-input" type="text" name="username"
+                               placeholder="Username" id="usernameInput"
+                               value="${sessionScope.username == null ? "" : sessionScope.username}" required>
+                    </td>
+                </tr>
+                <c:if test="${not empty sessionScope.wrongUsername}">
+                    <tr class="error-message">
+                        <td>
+                            ${sessionScope.wrongUsername}
+                        </td>
+                    </tr>
+                </c:if>
+                <tr class="floating-row">
+                    <td>
+                        <label for="emailInput"></label>
+                        <input class="floating-input" type="email" name="email" placeholder="E-Mail"
+                               id="emailInput" required>
+                    </td>
+                </tr>
+                <c:if test="${not empty sessionScope.wrongEmail}">
+                    <tr class="error-message">
+                        <td>
+                                ${sessionScope.wrongEmail}
+                        </td>
+                    </tr>
+                </c:if>
+                <tr class="floating-row">
+                    <td>
+                        <label for="passwordInput"></label>
+                        <input class="floating-input" type="password" name="password" placeholder="Password"
+                               id="passwordInput" required>
+                    </td>
+                </tr>
+                <c:if test="${not empty sessionScope.wrongPassword}">
+                    <tr class="error-message">
+                        <td>
+                                ${sessionScope.wrongPassword}
+                        </td>
+                    </tr>
+                </c:if>
+                <tr class="floating-row">
+                    <td>
+                        <label for="repeatedPassword"></label>
+                        <input class="floating-input" type="password" name="repeatedPassword"
+                               placeholder="Repeat password" id="repeatedPassword" required>
+                    </td>
+                </tr>
+                <c:if test="${not empty sessionScope.wrongRepeatedPassword}">
+                    <tr class="error-message">
+                        <td>
+                                ${sessionScope.wrongRepeatedPassword}
+                        </td>
+                    </tr>
+                </c:if>
+                <tr class="floating-row">
+                    <td>
+                        <input class="floating-button" id="submitButton" type="submit" value="Увійти">
+                    </td>
+                </tr>
             </table>
         </form>
     </div>
+    <table style="height: 30vh">
+        <tr>
+            <td>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>

@@ -3,7 +3,6 @@ package main.db.dao;
 import main.db.DBManager;
 import main.db.EntityMapper;
 import main.db.Fields;
-import main.db.entities.Address;
 import main.db.entities.Payment;
 
 import java.sql.Connection;
@@ -15,22 +14,35 @@ import java.util.List;
 
 public class PaymentDAO {
     private static final String SQL_GET_USER_PAYMENTS =
-            "SELECT * FROM cards JOIN clients c ON cards.client_id = c.client_id WHERE c.login = BINARY ?";
+            "SELECT * FROM payments JOIN users u ON payments.user_id = u.user_id WHERE u.user_id = ?";
 
     private static final String SQL_FIND_PAYMENT_BY_ID =
-            "SELECT * FROM cards WHERE card_id = ?";
+            "SELECT * FROM payments WHERE payment_id = ?";
 
     private static final String SQL_UPDATE_PAYMENT =
-            "UPDATE cards SET card_number=?, card_till=?, card_cvv=? WHERE card_id=?";
+            "UPDATE payments SET payment_number=?, payment_number=?, payment_cvv=? WHERE payment_id=?";
 
     private static final String SQL_NEW_PAYMENT =
-            "INSERT INTO cards(client_id, card_number, card_till, card_cvv) " +
+            "INSERT INTO payments(user_id, payment_number, payment_till, payment_cvv) " +
             "VALUES (?, ?, ?, ?)";
 
     private static final String SQL_DELETE_PAYMENT =
-            "DELETE FROM cards WHERE card_id=?";
+            "DELETE FROM payments WHERE payment_id=?";
 
-    public List<Payment> getUserPayments(String login) {
+    private static PaymentDAO instance;
+
+    public static synchronized PaymentDAO getInstance() {
+        if (instance == null) {
+            instance = new PaymentDAO();
+        }
+        return instance;
+    }
+
+    private PaymentDAO() {
+
+    }
+
+    public List<Payment> getUserPayments(int id) {
         List<Payment> payments = new ArrayList<>();
         PreparedStatement pstmt;
         ResultSet rs;
@@ -39,7 +51,7 @@ public class PaymentDAO {
             con = DBManager.getInstance().getConnection();
             PaymentMapper paymentMapper = new PaymentMapper();
             pstmt = con.prepareStatement(SQL_GET_USER_PAYMENTS);
-            pstmt.setString(1, login);
+            pstmt.setLong(1, id);
             rs = pstmt.executeQuery();
             while(rs.next())
                 payments.add(paymentMapper.mapRow(rs));
@@ -56,7 +68,7 @@ public class PaymentDAO {
         return payments;
     }
 
-    public Payment findPayment(long cardId) {
+    public Payment getPayment(long cardId) {
         Payment payment = null;
         PreparedStatement pstmt;
         ResultSet rs;
@@ -103,16 +115,16 @@ public class PaymentDAO {
         pstmt.setString(k++, payment.getNumber());
         pstmt.setString(k++, payment.getTill());
         pstmt.setString(k++, payment.getCvv());
-        pstmt.setLong(k, payment.getCardId());
+        pstmt.setLong(k, payment.getId());
         pstmt.executeUpdate();
         pstmt.close();
     }
 
-    public void newPayment(String login, Payment payment) {
+    public void newPayment(Payment payment) {
         Connection con = null;
         try {
             con = DBManager.getInstance().getConnection();
-            insertAddress(con, login, payment);
+            insertAddress(con, payment);
         } catch (SQLException e) {
             assert con != null;
             DBManager.getInstance().rollbackAndClose(con);
@@ -123,10 +135,10 @@ public class PaymentDAO {
         }
     }
 
-    private void insertAddress(Connection con, String login, Payment payment) throws SQLException {
+    private void insertAddress(Connection con, Payment payment) throws SQLException {
         PreparedStatement pstmt = con.prepareStatement(SQL_NEW_PAYMENT);
         int k = 1;
-        pstmt.setLong(k++, new UserDAO().findUser(login).getClientId());
+        pstmt.setLong(k++, payment.getUserId());
         pstmt.setString(k++, payment.getNumber());
         pstmt.setString(k++, payment.getTill());
         pstmt.setString(k, payment.getCvv());
@@ -158,8 +170,8 @@ public class PaymentDAO {
         public Payment mapRow(ResultSet rs) {
             Payment payment = new Payment();
             try {
-                payment.setCardId(rs.getInt(Fields.FIELD__PAYMENT_ID));
-                payment.setClientId(rs.getInt(Fields.FIELD__PAYMENT_CLIENT_ID));
+                payment.setId(rs.getInt(Fields.FIELD__PAYMENT_ID));
+                payment.setUserId(rs.getInt(Fields.FIELD__PAYMENT_USER_ID));
                 payment.setNumber(rs.getString(Fields.FIELD__PAYMENT_NUMBER));
                 payment.setTill(rs.getString(Fields.FIELD__PAYMENT_TILL));
                 payment.setCvv(rs.getString(Fields.FIELD__PAYMENT_CVV));

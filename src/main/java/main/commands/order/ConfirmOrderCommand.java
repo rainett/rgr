@@ -1,22 +1,31 @@
 package main.commands.order;
 
-import main.Path;
 import main.commands.Command;
+import main.commands.CommandNames;
 import main.db.dao.OrderDAO;
+import main.db.dao.OrderedDishesDAO;
 import main.db.entities.Order;
+import main.db.entities.OrderedDish;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
+
+import static main.Controller.controller;
 
 
 public class ConfirmOrderCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        Order order = (Order) session.getAttribute("order");
-        new OrderDAO().newOrder(order);
-        session.removeAttribute("order");
-        return Path.PAGE__START;
+        Order order = (Order) session.getAttribute("orderA");
+        List<OrderedDish> orderedDishes = (List<OrderedDish>) session.getAttribute("orderedDishesA");
+        int orderId = OrderDAO.getInstance().newOrder(order);
+        orderedDishes.forEach(oD -> oD.setOrderId(orderId));
+        OrderedDishesDAO.getInstance().newOrderedDishes(orderedDishes);
+        session.removeAttribute("orderA");
+        session.removeAttribute("orderedDishesA");
+        return controller + CommandNames.COMMAND__ORDERS;
     }
 }

@@ -1,10 +1,9 @@
 package main.db.entities;
 
 public class Order {
-    private int orderId;
-    private int clientId;
-    private int orderedId;
-    private int cardId;
+    private int id;
+    private int userId;
+    private int paymentId;
     private int addressId;
     private int price;
 
@@ -16,36 +15,28 @@ public class Order {
         this.price = price;
     }
 
-    public int getOrderId() {
-        return orderId;
+    public int getId() {
+        return id;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getClientId() {
-        return clientId;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setClientId(int clientId) {
-        this.clientId = clientId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public int getOrderedId() {
-        return orderedId;
+    public int getPaymentId() {
+        return paymentId;
     }
 
-    public void setOrderedId(int orderedId) {
-        this.orderedId = orderedId;
-    }
-
-    public int getCardId() {
-        return cardId;
-    }
-
-    public void setCardId(int cardId) {
-        this.cardId = cardId;
+    public void setPaymentId(int paymentId) {
+        this.paymentId = paymentId;
     }
 
     public int getAddressId() {
@@ -59,8 +50,8 @@ public class Order {
     @Override
     public String toString() {
         return String.format(
-                "Order[orderId = %d, clientId = %d, orderedId = %s, cardId = %s, addressId = %s, price = %s]",
-                orderId, clientId, orderedId, cardId, addressId, price
+                "Order[orderId = %d, clientId = %d, cardId = %s, addressId = %s, price = %s]",
+                id, userId, paymentId, addressId, price
         );
     }
 }

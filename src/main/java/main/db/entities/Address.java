@@ -1,27 +1,27 @@
 package main.db.entities;
 
 public class Address {
-    private int addressId;
-    private int clientId;
+    private int id;
+    private int userId;
     private String city;
     private String street;
     private String houseNumber;
     private String apartmentNumber;
 
-    public int getAddressId() {
-        return addressId;
+    public int getId() {
+        return id;
     }
 
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getClientId() {
-        return clientId;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setClientId(int clientId) {
-        this.clientId = clientId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getCity() {
@@ -60,7 +60,7 @@ public class Address {
     public String toString() {
         return String.format(
                 "Address[addressId = %d, clientId = %d, city = %s, street = %s, houseNumber = %s, apartmentNumber = %s]",
-                addressId, clientId, city, street, houseNumber, apartmentNumber
+                id, userId, city, street, houseNumber, apartmentNumber
         );
     }
 }

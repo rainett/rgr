@@ -1,16 +1,25 @@
 package main.db.entities;
 
 public class OrderedDish {
-    private int orderedId;
+    private int id;
+    private int orderId;
     private int dishId;
     private int dishAmount;
 
-    public int getOrderedId() {
-        return orderedId;
+    public int getId() {
+        return id;
     }
 
-    public void setOrderedId(int orderedId) {
-        this.orderedId = orderedId;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
     public int getDishId() {
@@ -33,7 +42,7 @@ public class OrderedDish {
     public String toString() {
         return String.format(
                 "OrderedDish[orderedId = %d, dishId = %d, dishAmount = %s]",
-                orderedId, dishId, dishAmount
+                id, dishId, dishAmount
         );
     }
 }

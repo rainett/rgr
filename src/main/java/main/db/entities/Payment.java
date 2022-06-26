@@ -1,26 +1,26 @@
 package main.db.entities;
 
 public class Payment {
-    private int cardId;
-    private int clientId;
+    private int id;
+    private int userId;
     private String number;
     private String till;
     private String cvv;
 
-    public int getCardId() {
-        return cardId;
+    public int getId() {
+        return id;
     }
 
-    public void setCardId(int cardId) {
-        this.cardId = cardId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getClientId() {
-        return clientId;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setClientId(int clientId) {
-        this.clientId = clientId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getNumber() {
@@ -51,7 +51,7 @@ public class Payment {
     public String toString() {
         return String.format(
                 "Address[cardId = %d, clientId = %d, number = %s, till = %s, cvv = %s]",
-                cardId, clientId, number, till, cvv
+                id, userId, number, till, cvv
         );
     }
 }

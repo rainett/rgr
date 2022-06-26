@@ -7,4 +7,64 @@
         <welcome-file>start.jsp</welcome-file>
     </welcome-file-list>
 
+
+    <filter>
+        <filter-name>EncodingFilter</filter-name>
+        <filter-class>main.filters.EncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>EncodingFilter</filter-name>
+        <url-pattern>/controller</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>UserAccessFilter</filter-name>
+        <filter-class>main.filters.UserAccessFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>UserAccessFilter</filter-name>
+        <url-pattern>/controller</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>UserActiveOrderFilter</filter-name>
+        <filter-class>main.filters.UserActiveOrderFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>UserActiveOrderFilter</filter-name>
+        <url-pattern>/controller</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>UserAddressFilter</filter-name>
+        <filter-class>main.filters.UserAddressFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>UserAddressFilter</filter-name>
+        <url-pattern>/controller</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>UserOrderFilter</filter-name>
+        <filter-class>main.filters.UserOrderFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>UserOrderFilter</filter-name>
+        <url-pattern>/controller</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>UserPaymentFilter</filter-name>
+        <filter-class>main.filters.UserPaymentFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>UserPaymentFilter</filter-name>
+        <url-pattern>/controller</url-pattern>
+    </filter-mapping>
+
+
 </web-app>

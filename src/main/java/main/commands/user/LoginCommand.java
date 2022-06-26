@@ -5,32 +5,36 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import main.Path;
 import main.commands.Command;
+import main.commands.CommandNames;
 import main.db.dao.UserDAO;
 import main.db.entities.User;
+
+import static main.Controller.controller;
 
 public class LoginCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        session.removeAttribute("wrongUsername");
+        session.removeAttribute("wrongPassword");
+        session.removeAttribute("wrongEmail");
+        session.removeAttribute("wrongRepeatedPassword");
+
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        UserDAO userDAO = new UserDAO();
-        User user = userDAO.findUser(username);
+        UserDAO userDAO = UserDAO.getInstance();
+        User user = userDAO.getUser(username);
 
         if (user == null) {
-            HttpSession session = request.getSession();
-            session.setAttribute("wrongUsername", true);
+            session.setAttribute("wrongUsername", "Неправильне ім'я користувача");
             return Path.PAGE__LOGIN;
         }
         else if (!user.getPassword().equals(password)) {
-            HttpSession session = request.getSession();
-            session.setAttribute("wrongPassword", true);
+            session.setAttribute("wrongPassword", "Неправильний пароль користувача");
             return Path.PAGE__LOGIN;
         }
         else {
-            HttpSession session = request.getSession();
-            session.setAttribute("username", username);
-            session.removeAttribute("wrongUsername");
-            session.removeAttribute("wrongPassword");
+            session.setAttribute("user", user);
             session.setMaxInactiveInterval(60*60*24); // 1 day
             return Path.PAGE__START;
         }

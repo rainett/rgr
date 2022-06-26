@@ -22,9 +22,7 @@ public class DBManager {
         try {
             Context initContext = new InitialContext();
             Context envContext  = (Context)initContext.lookup("java:/comp/env");
-
-            // rgrdb - the name of data source
-            DataSource ds = (DataSource)envContext.lookup("jdbc/rgrdb");
+            DataSource ds = (DataSource)envContext.lookup("jdbc/finaldb");
             con = ds.getConnection();
         } catch (NamingException ex) {
             System.out.println("Unable to get connection with the DB");

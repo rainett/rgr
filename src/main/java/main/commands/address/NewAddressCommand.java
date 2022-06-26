@@ -2,29 +2,40 @@ package main.commands.address;
 
 import main.Path;
 import main.commands.Command;
+import main.commands.CommandNames;
 import main.db.dao.AddressDAO;
 import main.db.entities.Address;
+import main.db.entities.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
+
+import static main.Controller.controller;
 
 
 public class NewAddressCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        String login = (String) session.getAttribute("username");
+        int userId = ((User) session.getAttribute("user")).getId();
         Address address = new Address();
+        setAddressFields(request, userId, address);
+        AddressDAO.getInstance().newAddress(address);
 
+        String resp = request.getParameter("resp");
+        switch(resp) {
+            case "addresses": return controller + CommandNames.COMMAND__ADDRESSES;
+            case "order": return controller + CommandNames.COMMAND__SHOW_ORDER_ADDRESSES;
+        }
+        return Path.PAGE__START;
+    }
+
+    private void setAddressFields(HttpServletRequest request, int userId, Address address) {
         address.setApartmentNumber(request.getParameter("apartmentNumber").equals("") ? null : request.getParameter("apartmentNumber"));
         address.setHouseNumber(request.getParameter("houseNumber"));
         address.setStreet(request.getParameter("street"));
         address.setCity(request.getParameter("city"));
-
-        new AddressDAO().newAddress(login, address);
-        return session.getAttribute("order") == null ? Path.PAGE__ADDRESSES : Path.PAGE__ORDER_ADDRESS;
+        address.setUserId(userId);
     }
 }

@@ -1,26 +1,27 @@
 package main.commands.payment;
 
-import main.Path;
 import main.commands.Command;
+import main.commands.CommandNames;
 import main.db.dao.PaymentDAO;
 import main.db.entities.Payment;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static main.Controller.controller;
+
 
 public class UpdatePaymentCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        PaymentDAO paymentDAO = new PaymentDAO();
-        String cardId = request.getParameter("cardId");
-        Payment payment = paymentDAO.findPayment(Long.parseLong(cardId));
+        int cardId = Integer.parseInt(request.getParameter("cardId"));
+        Payment payment = PaymentDAO.getInstance().getPayment(cardId);
 
         payment.setNumber(request.getParameter("number"));
         payment.setTill(request.getParameter("till"));
         payment.setCvv(request.getParameter("cvv"));
 
-        paymentDAO.updatePayment(payment);
-        return Path.PAGE__PAYMENTS;
+        PaymentDAO.getInstance().updatePayment(payment);
+        return controller + CommandNames.COMMAND__PAYMENTS;
     }
 }

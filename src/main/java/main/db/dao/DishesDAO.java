@@ -4,7 +4,6 @@ import main.db.DBManager;
 import main.db.EntityMapper;
 import main.db.Fields;
 import main.db.entities.Dish;
-import main.db.entities.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class DishesDAO {
     private static final String SQL__GET_ALL_DISHES =
@@ -29,6 +27,19 @@ public class DishesDAO {
 
     private static final String SQL_INSERT_DISH =
             "INSERT INTO dishes (dish_name, dish_price, dish_pic) VALUES ( ?, ?, ? )";
+
+    private static DishesDAO instance;
+
+    public static synchronized DishesDAO getInstance() {
+        if (instance == null) {
+            instance = new DishesDAO();
+        }
+        return instance;
+    }
+
+    private DishesDAO() {
+
+    }
 
     public List<Dish> getAllDishes(String sorting) {
         String query = sorting == null ? SQL__GET_ALL_DISHES : DishesSorting.getSortQuery(sorting);
@@ -129,17 +140,17 @@ public class DishesDAO {
         int k = 1;
         pstmt.setString(k++, dish.getName());
         pstmt.setLong(k++, dish.getPrice());
-        pstmt.setString(k++, dish.getPic());
+        pstmt.setBlob(k++, dish.getPic());
         pstmt.setLong(k, dish.getId());
         pstmt.executeUpdate();
         pstmt.close();
     }
 
-    public void addDish(String name, int price, String pic) {
+    public void newDish(Dish dish) {
         Connection con = null;
         try {
             con = DBManager.getInstance().getConnection();
-            insertDish(name, price, pic, con);
+            insertDish(con, dish);
         } catch (SQLException ex) {
             assert con != null;
             DBManager.getInstance().rollbackAndClose(con);
@@ -150,12 +161,12 @@ public class DishesDAO {
         }
     }
 
-    private void insertDish(String name, int price, String pic, Connection con) throws SQLException {
+    private void insertDish(Connection con, Dish dish) throws SQLException {
         PreparedStatement pstmt = con.prepareStatement(SQL_INSERT_DISH);
         int k = 1;
-        pstmt.setString(k++, name);
-        pstmt.setLong(k++, price);
-        pstmt.setString(k, pic);
+        pstmt.setString(k++, dish.getName());
+        pstmt.setLong(k++, dish.getPrice());
+        pstmt.setBlob(k, dish.getPic());
         pstmt.executeUpdate();
         pstmt.close();
     }
@@ -169,7 +180,7 @@ public class DishesDAO {
                 dish.setId(rs.getInt(Fields.FIELD__DISH_ID));
                 dish.setName(rs.getString(Fields.FIELD__DISH_NAME));
                 dish.setPrice(rs.getInt(Fields.FIELD__DISH_PRICE));
-                dish.setPic(rs.getString(Fields.FIELD__DISH_PIC));
+                dish.setPic(rs.getBinaryStream(Fields.FIELD__DISH_PIC));
             } catch (SQLException e) {
                 e.printStackTrace();
             }

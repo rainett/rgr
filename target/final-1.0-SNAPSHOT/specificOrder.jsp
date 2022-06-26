@@ -1,73 +1,96 @@
-<%@ page import="main.Path" %>
-<%@ page import="main.db.entities.Dish" %>
-<%@ page import="java.util.List" %>
-<%@ page import="main.db.dao.DishesDAO" %>
-<%@ page import="main.db.entities.Order" %>
-<%@ page import="main.db.dao.OrderDAO" %>
-<%@ page import="main.db.dao.OrderedDishesDAO" %>
-<%@ page import="main.db.entities.OrderedDish" %>
-<%@ page import="java.util.ArrayList" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="main.Path" %>
+<%@page import="main.commands.CommandNames" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Ресторан</title>
+    <title>final</title>
     <link href="css/startStyles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
-<%
-    if (session.getAttribute("username") == null) {
-        response.sendRedirect(Path.PAGE__LOGIN);
-    }
-    Order order = new OrderDAO().getOrder(Integer.parseInt(request.getParameter("orderId")));
-    List<OrderedDish> orderedDishes = new OrderedDishesDAO().getOrderedDishes(order.getOrderedId());
-    DishesDAO dishesDAO = new DishesDAO();
-    List<Dish> dishes = new ArrayList<>();
-    orderedDishes.forEach(o -> dishes.add(dishesDAO.findDish(o.getDishId())));
-%>
-
-
     <div id="header">
         <table>
-            <tr><td><a href="<%=Path.PAGE__START%>" class="logo" id="soloLogo">dlvr.</a></td></tr>
+            <tr>
+                <td><a href="${Path.PAGE__START}" class="logo">dlvr.</a></td>
+                <td>
+                    <form action="controller">
+                        <button name="command" value="${CommandNames.COMMAND__SHOW_LOGIN}">
+                            Особистий кабінет
+                        </button>
+                    </form>
+                </td>
+            </tr>
         </table>
     </div>
 
-    <div class="floatingMenu" id="floatingMeals">
-        <table class="tableClass">
-            <tr class="addressNamingRow">
-                <td></td>
-                <td colspan="2">Замовлення No:<%=order.getOrderId()%></td>
-                <td colspan="2">Ціна <%=order.getPrice()%></td>
-                <td></td>
+    <div class="floating-div">
+        <table>
+            <tr class="floating-row-s">
+                <td colspan="30">Замовлення №:${requestScope.order.id}</td>
+                <td colspan="30">Ціна ${requestScope.order.price}</td>
             </tr>
-            <%
-                Dish d;
-                for (int i = 0; i < orderedDishes.size(); i++) {
-                    d = dishes.get(i);
-            %>
-            <tr class="mealsRow">
-                <td colspan="2"><img src="<%=d.getPic()%>" class="images" alt="Food image"></td>
-                <td><%=d.getName()%></td>
-                <td><%=d.getPrice()%> UAH</td>
-                <td colspan="2">Кількість: <%=orderedDishes.get(i).getDishAmount()%></td>
-            </tr>
-            <%
-                }
-            %>
-            <tr style="height: 20vh">
-                <td></td>
-                <td colspan="4">
-                    <input style="width: 80%" type="submit" value="Відмінити замовлення" id="logoutButton" form="deleteAddress">
+            <tr class="floating-row-s">
+                <td colspan="${requestScope.address.apartmentNumber != null ? 15 : 20}">
+                    Місто
                 </td>
-                <td></td>
+                <td colspan="${requestScope.address.apartmentNumber != null ? 15 : 20}">
+                    Вулиця
+                </td>
+                <td colspan="${requestScope.address.apartmentNumber != null ? 15 : 20}">
+                    Будинок
+                </td>
+                <c:if test="${requestScope.address.apartmentNumber != null}">
+                    <td colspan="15">Квартира</td>
+                </c:if>
+            </tr>
+            <tr class="floating-row-s">
+                <td colspan="${requestScope.address.apartmentNumber != null ? 15 : 20}">
+                    ${requestScope.address.city}
+                </td>
+                <td colspan="${requestScope.address.apartmentNumber != null ? 15 : 20}">
+                    ${requestScope.address.street}
+                </td>
+                <td colspan="${requestScope.address.apartmentNumber != null ? 15 : 20}">
+                    ${requestScope.address.houseNumber}
+                </td>
+                <c:if test="${requestScope.address.apartmentNumber != null}">
+                    <td colspan="15">${requestScope.address.apartmentNumber}</td>
+                </c:if>
+            </tr>
+            <tr class="floating-row-s">
+                <td colspan="30">Номер картки</td>
+                <td colspan="30">Термін картки</td>
+            </tr>
+            <tr class="floating-row-s">
+                <td colspan="30">${requestScope.payment.number.substring(0, requestScope.payment.number.length()/2)}********</td>
+                <td colspan="30">${requestScope.payment.till.substring(0, requestScope.payment.till.length()/2)}/**</td>
+            </tr>
+            <c:forEach items="${requestScope.dishes}" var="d" varStatus="loop">
+            <tr class="floating-row-l">
+                <td colspan="24"><img src="data:image/jpeg;base64, ${d.pic64}" class="image" alt="Food image"></td>
+                <td colspan="12">${d.name}</td>
+                <td colspan="12">${d.price} UAH</td>
+                <td colspan="12">Кількість: ${requestScope.orderedDishes.get(loop.index).dishAmount}</td>
+            </tr>
+            </c:forEach>
+            <tr class="floating-row">
+                <td colspan="60">
+                    <input class="floating-button-danger" type="submit" value="Відмінити замовлення" form="cancelOrder">
+                </td>
             </tr>
         </table>
-        <form id="deleteAddress" action="controller" method="post">
-            <input type="hidden" name="command" value="cancelOrder"/>
-            <input type="hidden" name="orderId" value="<%=order.getOrderId()%>"/>
+        <form id="cancelOrder" action="controller" method="post">
+            <input type="hidden" name="command" value="${CommandNames.COMMAND__CANCEL_ORDER}"/>
+            <input type="hidden" name="orderId" value="${requestScope.order.id}"/>
         </form>
     </div>
+    <table style="height: 30vh">
+        <tr>
+            <td>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>

@@ -1,26 +1,26 @@
 package main.db.entities;
 
 public class User {
-    private int clientId;
-    private String login;
+    private int id;
+    private String username;
     private String password;
-    private String mail;
+    private String email;
     private String role;
 
-    public int getClientId() {
-        return clientId;
+    public int getId() {
+        return id;
     }
 
-    public void setClientId(int clientId) {
-        this.clientId = clientId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -31,12 +31,12 @@ public class User {
         this.password = password;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getRole() {
@@ -50,6 +50,6 @@ public class User {
     @Override
     public String toString() {
         return String.format("User[clientId = %d, login = %s, password = %s, mail = %s, role = %s]",
-                clientId, login, password, mail, role);
+                id, username, password, email, role);
     }
 }

@@ -4,37 +4,48 @@ import main.db.DBManager;
 import main.db.EntityMapper;
 import main.db.Fields;
 import main.db.entities.Order;
-import main.db.entities.OrderedDish;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDAO {
     private static final String SQL_NEW_ORDER =
-            "INSERT INTO orders(client_id, ordered_id, card_id, address_id, price) " +
-                    "VALUES (?, ?, ?, ?, ?)";
+            "INSERT INTO orders(user_id, payment_id, address_id, price) " +
+                    "VALUES (?, ?, ?, ?);";
 
     private static final String SQL_USER_ORDERS =
             "SELECT * FROM orders " +
-                    "JOIN clients c on orders.client_id = c.client_id " +
-                    "WHERE c.login = BINARY ?";
+                    "JOIN users u on orders.user_id = u.user_id " +
+                    "WHERE u.user_id = ?";
 
     private static final String SQL_FIND_ORDER =
             "SELECT * FROM orders WHERE order_id = ?";
 
     private static final String SQL_DELETE_ORDER =
-            "DELETE FROM orders WHERE order_id=?";
+            "DELETE FROM orders WHERE order_id = ?";
 
 
-    public void newOrder(Order order) {
+    private static OrderDAO instance;
+
+    public static synchronized OrderDAO getInstance() {
+        if (instance == null) {
+            instance = new OrderDAO();
+        }
+        return instance;
+    }
+
+    private OrderDAO() {
+
+    }
+
+
+    public int newOrder(Order order) {
         Connection con = null;
+        int id = 0;
         try {
             con = DBManager.getInstance().getConnection();
-            insertOrder(con, order);
+            id = insertOrder(con, order);
         } catch (SQLException e) {
             assert con != null;
             DBManager.getInstance().rollbackAndClose(con);
@@ -43,18 +54,24 @@ public class OrderDAO {
             assert con != null;
             DBManager.getInstance().commitAndClose(con);
         }
+        return id;
     }
 
-    private void insertOrder(Connection con, Order order) throws SQLException {
-        PreparedStatement pstmt = con.prepareStatement(SQL_NEW_ORDER);
+    private int insertOrder(Connection con, Order order) throws SQLException {
+        PreparedStatement pstmt = con.prepareStatement(SQL_NEW_ORDER, Statement.RETURN_GENERATED_KEYS);
         int k = 1;
-        pstmt.setLong(k++, order.getClientId());
-        pstmt.setLong(k++, order.getOrderedId());
-        pstmt.setLong(k++, order.getCardId());
+        pstmt.setLong(k++, order.getUserId());
+        pstmt.setLong(k++, order.getPaymentId());
         pstmt.setLong(k++, order.getAddressId());
         pstmt.setLong(k, order.getPrice());
         pstmt.executeUpdate();
+        int id = 0;
+        ResultSet rs = pstmt.getGeneratedKeys();
+        if (rs.next()) {
+            id = rs.getInt(1);
+        }
         pstmt.close();
+        return id;
     }
 
     public void deleteOrder(long orderId) {
@@ -76,7 +93,7 @@ public class OrderDAO {
         }
     }
 
-    public List<Order> getUserOrders(String login) {
+    public List<Order> getUserOrders(int id) {
         List<Order> orders = new ArrayList<>();
         Connection con = null;
         PreparedStatement pstmt;
@@ -84,7 +101,7 @@ public class OrderDAO {
         try {
             con = DBManager.getInstance().getConnection();
             pstmt = con.prepareStatement(SQL_USER_ORDERS);
-            pstmt.setString(1, login);
+            pstmt.setLong(1, id);
             rs = pstmt.executeQuery();
             OrderMapper orderMapper = new OrderMapper();
             while(rs.next()) {
@@ -133,10 +150,10 @@ public class OrderDAO {
         public Order mapRow(ResultSet rs) {
             Order order = new Order();
             try {
-                order.setOrderId(rs.getInt(Fields.FIELD__ORDER_ID));
-                order.setClientId(rs.getInt(Fields.FIELD__ORDER_CLIENT_ID));
-                order.setOrderedId(rs.getInt(Fields.FIELD__ORDER_ORDERED_ID));
-                order.setCardId(rs.getInt(Fields.FIELD__ORDER_CARD_ID));
+                order.setId(rs.getInt(Fields.FIELD__ORDER_ID));
+                order.setUserId(rs.getInt(Fields.FIELD__ORDER_USER_ID));
+                order.setPaymentId(rs.getInt(Fields.FIELD__ORDER_PAYMENT_ID));
+                order.setAddressId(rs.getInt(Fields.FIELD__ORDER_ADDRESS_ID));
                 order.setPrice(rs.getInt(Fields.FIELD__ORDER_PRICE));
             } catch (SQLException e) {
                 e.printStackTrace();

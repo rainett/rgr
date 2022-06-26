@@ -1,43 +1,66 @@
-<%@ page import="main.Path" %>
+<%@page import="main.Path" %>
+<%@page import="main.commands.CommandNames" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Ресторан</title>
+    <title>final</title>
     <link href="css/startStyles.css" rel="stylesheet" type="text/css">
-    <script src="scripts/script.js"></script>
 </head>
 <body>
 
-    <%
-        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-        if (session.getAttribute("username") == null) {
-            response.sendRedirect(Path.PAGE__LOGIN);
-        }
-    %>
-
     <div id="header">
         <table>
-            <tr><td><a href="<%=Path.PAGE__START%>" class="logo" id="soloLogo">dlvr.</a></td></tr>
+            <tr>
+                <td><a href="${Path.PAGE__START}" class="logo">dlvr.</a></td>
+                <td>
+                    <form action="controller">
+                        <button name="command" value="${CommandNames.COMMAND__SHOW_LOGIN}">
+                            Особистий кабінет
+                        </button>
+                    </form>
+                </td>
+            </tr>
         </table>
     </div>
 
-    <div class="floatingMenu">
-        <form action="controller" method="post" onsubmit="return validateCard()">
-            <input type="hidden" name="command" value="newPayment"/>
+    <div class="floating-div">
+        <form action="controller" method="post">
+            <input type="hidden" name="command" value="${CommandNames.COMMAND__NEW_PAYMENT}"/>
+            <input type="hidden" name="resp" value="${requestScope.resp}"/>
             <table>
-                <tr>
-                    <td colspan="2"><input style="width: 90%" id="numberInput" class="address-input" type="text" name="number" placeholder="Number" required></td>
+                <tr class="floating-row">
+                    <td colspan="2">
+                        <label>
+                            <input class="floating-input" type="text" name="number" placeholder="Number" required>
+                        </label>
+                    </td>
                 </tr>
-                <tr>
-                    <td><input class="address-input" id="tillInput" type="text" name="till" placeholder="Expiration date" required></td>
-                    <td><input class="address-input" id="cvvInput" type="password" name="cvv" placeholder="CVV" required></td>
+                <tr class="floating-row">
+                    <td>
+                        <label>
+                            <input class="floating-input" type="text" name="till" placeholder="Expiration date" required>
+                        </label>
+                    </td>
+                    <td>
+                        <label>
+                            <input class="floating-input" type="password" name="cvv" placeholder="CVV" required>
+                        </label>
+                    </td>
                 </tr>
-                <tr>
-                    <td colspan="2"><input id="submitButton" type="submit" value="Зберегти"></td>
+                <tr class="floating-row">
+                    <td colspan="2">
+                        <input class="floating-button" type="submit" value="Зберегти">
+                    </td>
                 </tr>
             </table>
         </form>
     </div>
+    <table style="height: 30vh">
+        <tr>
+            <td>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>
