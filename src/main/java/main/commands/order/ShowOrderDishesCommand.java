@@ -2,7 +2,7 @@ package main.commands.order;
 
 import main.Path;
 import main.commands.Command;
-import main.db.dao.DishesDAO;
+import main.db.dao.DishDAO;
 import main.db.dao.PhotoDAO;
 import main.db.entities.Dish;
 import main.db.entities.Photo;
@@ -21,7 +21,7 @@ public class ShowOrderDishesCommand implements Command {
 
     public static void ShowDishes(HttpServletRequest request) {
         String sorting = request.getParameter("sorting");
-        List<Dish> dishes = DishesDAO.getInstance().getAllDishes(sorting);
+        List<Dish> dishes = DishDAO.getInstance().getAllDishes(sorting);
         List<Photo> photos = new ArrayList<>();
         dishes.forEach(d -> photos.add(PhotoDAO.getInstance().getPhoto(d.getId())));
         request.setAttribute("dishes", dishes);

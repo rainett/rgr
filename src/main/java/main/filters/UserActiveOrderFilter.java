@@ -1,10 +1,9 @@
 package main.filters;
 
 import main.Path;
-import main.commands.CommandNames;
+import main.commands.CommandName;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,15 +16,15 @@ public class UserActiveOrderFilter implements Filter {
     private static final List<String> commands = new ArrayList<>();
 
     static {
-        commands.add(CommandNames.COMMAND__SET_ORDER_ADDRESS);
-        commands.add(CommandNames.COMMAND__SET_ORDER_PAYMENT);
-        commands.add(CommandNames.COMMAND__SHOW_ORDER_ADDRESSES);
-        commands.add(CommandNames.COMMAND__SHOW_ORDER_PAYMENTS);
-        commands.add(CommandNames.COMMAND__SHOW_ORDER_CONFIRM);
+        commands.add(CommandName.COMMAND__SET_ORDER_ADDRESS);
+        commands.add(CommandName.COMMAND__SET_ORDER_PAYMENT);
+        commands.add(CommandName.COMMAND__SHOW_ORDER_ADDRESSES);
+        commands.add(CommandName.COMMAND__SHOW_ORDER_PAYMENTS);
+        commands.add(CommandName.COMMAND__SHOW_ORDER_CONFIRM);
     }
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
         System.out.println("creating active order filter");
     }
 

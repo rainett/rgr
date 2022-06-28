@@ -1,7 +1,7 @@
 package main.commands.order;
 
 import main.commands.Command;
-import main.commands.CommandNames;
+import main.commands.CommandName;
 import main.db.dao.OrderDAO;
 import main.db.dao.OrderedDishesDAO;
 import main.db.entities.Order;
@@ -26,6 +26,6 @@ public class ConfirmOrderCommand implements Command {
         OrderedDishesDAO.getInstance().newOrderedDishes(orderedDishes);
         session.removeAttribute("orderA");
         session.removeAttribute("orderedDishesA");
-        return controller + CommandNames.COMMAND__ORDERS;
+        return controller + CommandName.COMMAND__ORDERS;
     }
 }

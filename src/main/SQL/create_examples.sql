@@ -1,10 +1,11 @@
 drop table if exists addresses;
 drop table if exists ordered_dishes;
-drop table if exists dishes;
 drop table if exists orders;
 drop table if exists payments;
 drop table if exists photos;
+drop table if exists dishes;
 drop table if exists users;
+drop table if exists applications;
 
 create table dishes
 (
@@ -20,6 +21,12 @@ create table dishes
 
 alter table dishes
     add primary key (dish_id);
+
+alter table dishes
+    add constraint dishes_photos_photo_id_fk
+        foreign key (dish_photo_id) references photos (photo_id)
+            on update cascade on delete cascade;
+
 
 create table photos
 (
@@ -121,4 +128,31 @@ create table payments
 
 alter table payments
     add primary key (payment_id);
+
+create table applications
+(
+    application_id int,
+    user_id int not null,
+    role varchar(20) not null,
+    application_state boolean not null default false,
+    constraint applications_users_user_id_fk
+        foreign key (user_id) references users (user_id)
+            on update cascade on delete cascade
+);
+
+create unique index applications_application_id_uindex
+    on applications (application_id);
+
+create unique index applications_user_id_uindex
+    on applications (user_id);
+
+alter table applications
+    add constraint applications_pk
+        primary key (application_id);
+
+alter table applications modify application_id int auto_increment;
+
+
+
+
 

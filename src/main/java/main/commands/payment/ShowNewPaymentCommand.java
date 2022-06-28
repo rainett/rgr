@@ -16,8 +16,6 @@ public class ShowNewPaymentCommand implements Command {
         String resp = request.getParameter("resp");
         request.setAttribute("resp", resp);
         session.removeAttribute("wrongNumber");
-        session.removeAttribute("wrongTill");
-        session.removeAttribute("wrongCvv");
         return Path.PAGE__NEW_PAYMENT;
     }
 }

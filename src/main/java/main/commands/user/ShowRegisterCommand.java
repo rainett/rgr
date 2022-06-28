@@ -2,7 +2,7 @@ package main.commands.user;
 
 import main.Path;
 import main.commands.Command;
-import main.commands.CommandNames;
+import main.commands.CommandName;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +15,7 @@ public class ShowRegisterCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         if (session.getAttribute("user") != null) {
-            return controller + CommandNames.COMMAND__USER;
+            return controller + CommandName.COMMAND__USER;
         }
 
         session.removeAttribute("wrongUsername");

@@ -19,8 +19,6 @@ public class ShowUpdatePaymentCommand implements Command {
         Payment payment = PaymentDAO.getInstance().getPayment(paymentId);
         request.setAttribute("payment", payment);
         session.removeAttribute("wrongNumber");
-        session.removeAttribute("wrongTill");
-        session.removeAttribute("wrongCvv");
         return Path.PAGE__UPDATE_PAYMENT;
     }
 }

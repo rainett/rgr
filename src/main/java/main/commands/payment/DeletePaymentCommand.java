@@ -1,7 +1,7 @@
 package main.commands.payment;
 
 import main.commands.Command;
-import main.commands.CommandNames;
+import main.commands.CommandName;
 import main.db.dao.PaymentDAO;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +15,6 @@ public class DeletePaymentCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String cardId = request.getParameter("paymentId");
         PaymentDAO.getInstance().deletePayment(Long.parseLong(cardId));
-        return controller + CommandNames.COMMAND__PAYMENTS;
+        return controller + CommandName.COMMAND__PAYMENTS;
     }
 }

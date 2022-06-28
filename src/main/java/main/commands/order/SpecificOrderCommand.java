@@ -8,7 +8,6 @@ import main.db.entities.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,7 @@ public class SpecificOrderCommand implements Command {
         List<OrderedDish> orderedDishes = OrderedDishesDAO.getInstance().getOrderedDishes(orderId);
         List<Dish> dishes = new ArrayList<>();
         for (OrderedDish orderedDish : orderedDishes) {
-            dishes.add(DishesDAO.getInstance().findDish(orderedDish.getDishId()));
+            dishes.add(DishDAO.getInstance().getDish(orderedDish.getDishId()));
         }
         request.setAttribute("order", order);
         request.setAttribute("orderedDishes", orderedDishes);

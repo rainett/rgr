@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="main.commands.CommandNames" %>
+<%@ page import="main.commands.CommandName" %>
 <%@page import="main.Path" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -16,7 +16,7 @@
                 <td><a href="${Path.PAGE__START}" class="logo">dlvr.</a></td>
                 <td>
                     <form action="controller">
-                        <button name="command" value="${CommandNames.COMMAND__SHOW_LOGIN}">
+                        <button name="command" value="${CommandName.COMMAND__SHOW_LOGIN}">
                             Особистий кабінет
                         </button>
                     </form>
@@ -43,7 +43,7 @@
                     <td>
                         <form action="controller" id="redirectForm${o.id}">
                             ${o.id}
-                            <input type="hidden" name="command" value="${CommandNames.COMMAND__SPECIFIC_ORDER}">
+                            <input type="hidden" name="command" value="${CommandName.COMMAND__SPECIFIC_ORDER}">
                             <input type="hidden" name="orderId" value="${o.id}">
                         </form>
                     </td>
@@ -53,7 +53,7 @@
             <tr class="floating-row">
                 <td <c:if test="${not empty requestScope.orders}"> colspan="2" </c:if>>
                     <button class="floating-button" name="command"
-                            value="${CommandNames.COMMAND__SHOW_ORDER_DISHES}" form="newOrderForm">
+                            value="${CommandName.COMMAND__SHOW_ORDER_DISHES}" form="newOrderForm">
                         Нове замовлення
                     </button>
                 </td>

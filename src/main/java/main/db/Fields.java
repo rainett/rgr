@@ -38,4 +38,9 @@ public class Fields {
 
     public static final String FIELD__PHOTO_ID = "photo_id";
     public static final String FIELD__PHOTO_BLOB = "photo_blob";
+
+    public static final String FIELD__APPLICATION_ID = "application_id";
+    public static final String FIELD__APPLICATION_USER_ID = "user_id";
+    public static final String FIELD__APPLICATION_ROLE = "role";
+    public static final String FIELD__APPLICATION_STATE = "application_state";
 }

@@ -1,5 +1,5 @@
 <%@page import="main.Path" %>
-<%@page import="main.commands.CommandNames" %>
+<%@page import="main.commands.CommandName" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -15,7 +15,7 @@
                 <td><a href="${Path.PAGE__START}" class="logo">dlvr.</a></td>
                 <td>
                     <form action="controller">
-                        <button name="command" value="${CommandNames.COMMAND__SHOW_LOGIN}">
+                        <button name="command" value="${CommandName.COMMAND__SHOW_LOGIN}">
                             Особистий кабінет
                         </button>
                     </form>
@@ -26,7 +26,7 @@
 
     <div class="floating-div">
         <form action="controller" method="post">
-            <input type="hidden" name="command" value="${CommandNames.COMMAND__NEW_ADDRESS}"/>
+            <input type="hidden" name="command" value="${CommandName.COMMAND__NEW_ADDRESS}"/>
             <input type="hidden" name="resp" value="${requestScope.resp}"/>
             <table>
                 <tr class="floating-row">

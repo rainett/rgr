@@ -39,7 +39,7 @@ public class UserDAO {
 
     }
 
-    public User getUser(Long id) {
+    public User getUser(int id) {
         User user = null;
         PreparedStatement pstmt;
         ResultSet rs;

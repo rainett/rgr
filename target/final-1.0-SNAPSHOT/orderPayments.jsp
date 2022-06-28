@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="main.commands.CommandNames" %>
+<%@ page import="main.commands.CommandName" %>
 <%@page import="main.Path" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -16,7 +16,7 @@
                 <td><a href="${Path.PAGE__START}" class="logo">dlvr.</a></td>
                 <td>
                     <form action="controller">
-                        <button name="command" value="${CommandNames.COMMAND__SHOW_LOGIN}">
+                        <button name="command" value="${CommandName.COMMAND__SHOW_LOGIN}">
                             Особистий кабінет
                         </button>
                     </form>
@@ -44,7 +44,7 @@
                     <td>
                             ${p.number.substring(0, p.number.length()/2)}********
                         <input type="hidden" name="command"
-                               value="${CommandNames.COMMAND__SET_ORDER_PAYMENT}" form="redirectForm">
+                               value="${CommandName.COMMAND__SET_ORDER_PAYMENT}" form="redirectForm">
                         <input type="hidden" name="paymentId" value="${p.id}" form="redirectForm">
                     </td>
                     <td>${p.till.substring(0, p.till.length()/2)}/**</td>
@@ -55,7 +55,7 @@
                 <td <c:if test="${not empty requestScope.payments}"> colspan="2" </c:if> >
                     <form action="controller">
                         <button class="floating-button" name="command"
-                                value="${CommandNames.COMMAND__SHOW_NEW_PAYMENT}">
+                                value="${CommandName.COMMAND__SHOW_NEW_PAYMENT}">
                             <input type="hidden" name="resp" value="order">
                             Нова картка
                         </button>

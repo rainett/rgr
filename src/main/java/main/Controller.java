@@ -5,6 +5,7 @@ import main.commands.CommandContainer;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/controller")
+@MultipartConfig(maxFileSize = 16177215)
 public class Controller extends HttpServlet {
 
     public static final String controller = "controller?command=";

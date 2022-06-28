@@ -1,8 +1,7 @@
 package main.commands.order;
 
-import main.Path;
 import main.commands.Command;
-import main.commands.CommandNames;
+import main.commands.CommandName;
 import main.db.entities.Order;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +18,6 @@ public class SetOrderPaymentCommand implements Command {
         Order order = (Order) session.getAttribute("orderA");
         int paymentId = Integer.parseInt(request.getParameter("paymentId"));
         order.setPaymentId(paymentId);
-        return controller + CommandNames.COMMAND__SHOW_ORDER_CONFIRM;
+        return controller + CommandName.COMMAND__SHOW_ORDER_CONFIRM;
     }
 }

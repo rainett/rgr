@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="main.db.dao.DishesSorting" %>
-<%@ page import="main.commands.CommandNames" %>
+<%@ page import="main.commands.CommandName" %>
 <%@page import="main.Path" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -18,7 +18,7 @@
                 <td><a href="${Path.PAGE__START}" class="logo">dlvr.</a></td>
                 <td>
                     <form action="controller">
-                        <button name="command" value="${CommandNames.COMMAND__SHOW_LOGIN}">
+                        <button name="command" value="${CommandName.COMMAND__SHOW_LOGIN}">
                             Особистий кабінет
                         </button>
                     </form>
@@ -29,7 +29,7 @@
 
     <div class="floating-div">
         <form id="dishForm" action="controller" method="post">
-            <input type="hidden" name="command" value="${CommandNames.COMMAND__ORDER_DISHES}"/>
+            <input type="hidden" name="command" value="${CommandName.COMMAND__ORDER_DISHES}"/>
             <table>
                 <tr class="floating-row">
                     <td colspan="5">
@@ -37,7 +37,7 @@
                             <button disabled class="dropbtn">Сортувати</button>
                             <div class="dropdown-content">
                                 <form action="controller">
-                                    <input type="hidden" name="command" value="${CommandNames.COMMAND__DISHES}">
+                                    <input type="hidden" name="command" value="${CommandName.COMMAND__DISHES}">
                                     <button name="sorting" value="${DishesSorting.SORT__PRICE_DESC}">Від дорожчих</button>
                                     <button name="sorting" value="${DishesSorting.SORT__PRICE_ASC}">Від дешевих</button>
                                     <button name="sorting" value="${DishesSorting.SORT__BY_ALPHABET}">За алфавітом</button>

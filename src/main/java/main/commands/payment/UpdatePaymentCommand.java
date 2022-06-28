@@ -2,7 +2,7 @@ package main.commands.payment;
 
 import main.Path;
 import main.commands.Command;
-import main.commands.CommandNames;
+import main.commands.CommandName;
 import main.db.dao.PaymentDAO;
 import main.db.entities.Payment;
 
@@ -18,9 +18,7 @@ public class UpdatePaymentCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         session.removeAttribute("wrongNumber");
-        session.removeAttribute("wrongTill");
-        session.removeAttribute("wrongCvv");
-        if (NewPaymentCommand.invalid(request, session)) {
+        if (validateNumber(request.getParameter("number"), session)) {
             return Path.PAGE__UPDATE_PAYMENT;
         }
 
@@ -33,6 +31,15 @@ public class UpdatePaymentCommand implements Command {
         payment.setCvv(request.getParameter("cvv"));
 
         PaymentDAO.getInstance().updatePayment(payment);
-        return controller + CommandNames.COMMAND__PAYMENTS;
+        return controller + CommandName.COMMAND__PAYMENTS;
+    }
+
+    private static boolean validateNumber(String number, HttpSession session) {
+        Payment payment = PaymentDAO.getInstance().getPayment(number);
+        if (payment != null) {
+            session.setAttribute("wrongNumber", "Ви намагаєтесь додати існуючу картку");
+            return false;
+        }
+        return true;
     }
 }

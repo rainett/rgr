@@ -1,4 +1,4 @@
-<%@ page import="main.commands.CommandNames" %>
+<%@ page import="main.commands.CommandName" %>
 <%@page import="main.Path" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -16,7 +16,7 @@
                 <td><a href="${Path.PAGE__START}" class="logo">dlvr.</a></td>
                 <td>
                     <form action="controller">
-                        <button name="command" value="${CommandNames.COMMAND__SHOW_LOGIN}">
+                        <button name="command" value="${CommandName.COMMAND__SHOW_LOGIN}">
                             Особистий кабінет
                         </button>
                     </form>
@@ -45,7 +45,7 @@
                     <td>
                             ${a.city}
                         <input type="hidden" name="command"
-                               value="${CommandNames.COMMAND__SET_ORDER_ADDRESS}" form="redirectForm">
+                               value="${CommandName.COMMAND__SET_ORDER_ADDRESS}" form="redirectForm">
                         <input type="hidden" name="addressId" value="${a.id}" form="redirectForm">
                     </td>
                     <td>${a.street}</td>
@@ -62,7 +62,7 @@
                 <td <c:if test="${not empty requestScope.addresses}"> colspan="4" </c:if>>
                     <form action="controller">
                         <button class="floating-button" name="command"
-                                value="${CommandNames.COMMAND__SHOW_NEW_ADDRESS}">
+                                value="${CommandName.COMMAND__SHOW_NEW_ADDRESS}">
                             <input type="hidden" name="resp" value="order">
                             Нова адреса
                         </button>

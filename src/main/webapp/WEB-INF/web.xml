@@ -27,6 +27,15 @@
     </filter-mapping>
 
     <filter>
+        <filter-name>ManagerAccessFilter</filter-name>
+        <filter-class>main.filters.ManagerAccessFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ManagerAccessFilter</filter-name>
+        <url-pattern>/controller</url-pattern>
+    </filter-mapping>
+
+    <filter>
         <filter-name>UserActiveOrderFilter</filter-name>
         <filter-class>main.filters.UserActiveOrderFilter</filter-class>
     </filter>

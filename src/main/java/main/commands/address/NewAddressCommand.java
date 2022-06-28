@@ -2,7 +2,7 @@ package main.commands.address;
 
 import main.Path;
 import main.commands.Command;
-import main.commands.CommandNames;
+import main.commands.CommandName;
 import main.db.dao.AddressDAO;
 import main.db.entities.Address;
 import main.db.entities.User;
@@ -25,8 +25,8 @@ public class NewAddressCommand implements Command {
 
         String resp = request.getParameter("resp");
         switch(resp) {
-            case "addresses": return controller + CommandNames.COMMAND__ADDRESSES;
-            case "order": return controller + CommandNames.COMMAND__SHOW_ORDER_ADDRESSES;
+            case "addresses": return controller + CommandName.COMMAND__ADDRESSES;
+            case "order": return controller + CommandName.COMMAND__SHOW_ORDER_ADDRESSES;
         }
         return Path.PAGE__START;
     }

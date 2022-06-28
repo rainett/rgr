@@ -1,4 +1,4 @@
-<%@ page import="main.commands.CommandNames" %>
+<%@ page import="main.commands.CommandName" %>
 <%@page import="main.Path" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -16,7 +16,7 @@
                 <td><a href="${Path.PAGE__START}" class="logo">dlvr.</a></td>
                 <td>
                     <form action="controller">
-                        <button name="command" value="${CommandNames.COMMAND__SHOW_LOGIN}">
+                        <button name="command" value="${CommandName.COMMAND__SHOW_LOGIN}">
                             Особистий кабінет
                         </button>
                     </form>
@@ -44,7 +44,7 @@
                         <form action="controller" id="updateForm${p.id}">
                             ${p.number.substring(0, p.number.length()/2)}********
                                 <input type="hidden" name="command"
-                                       value="${CommandNames.COMMAND__SHOW_UPDATE_PAYMENT}">
+                                       value="${CommandName.COMMAND__SHOW_UPDATE_PAYMENT}">
                                 <input type="hidden" name="paymentId"
                                        value="${p.id}">
                         </form>
@@ -55,7 +55,7 @@
             <tr class="floating-row">
                 <td <c:if test="${not empty requestScope.payments}"> colspan="2" </c:if> >
                     <button class="floating-button" name="command"
-                            value="${CommandNames.COMMAND__SHOW_NEW_PAYMENT}" form="newPaymentForm">
+                            value="${CommandName.COMMAND__SHOW_NEW_PAYMENT}" form="newPaymentForm">
                         <input type="hidden" name="resp" value="payments" form="newPaymentForm">
                         Нова картка
                     </button>

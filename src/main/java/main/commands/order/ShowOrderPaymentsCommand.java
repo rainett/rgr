@@ -2,14 +2,12 @@ package main.commands.order;
 
 import main.Path;
 import main.commands.Command;
-import main.db.dao.DishesDAO;
 import main.db.dao.PaymentDAO;
 import main.db.entities.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 

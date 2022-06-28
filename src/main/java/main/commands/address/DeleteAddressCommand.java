@@ -1,7 +1,7 @@
 package main.commands.address;
 
 import main.commands.Command;
-import main.commands.CommandNames;
+import main.commands.CommandName;
 import main.db.dao.AddressDAO;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +15,6 @@ public class DeleteAddressCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         int addressId = Integer.parseInt(request.getParameter("addressId"));
         AddressDAO.getInstance().deleteAddress(addressId);
-        return controller + CommandNames.COMMAND__ADDRESSES;
+        return controller + CommandName.COMMAND__ADDRESSES;
     }
 }

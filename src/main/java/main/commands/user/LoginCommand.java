@@ -5,11 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import main.Path;
 import main.commands.Command;
-import main.commands.CommandNames;
 import main.db.dao.UserDAO;
 import main.db.entities.User;
-
-import static main.Controller.controller;
 
 public class LoginCommand implements Command {
     @Override

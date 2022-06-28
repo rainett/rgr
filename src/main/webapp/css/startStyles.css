@@ -88,6 +88,10 @@ input[type="file"] {
     display: none;
 }
 
+input[type="radio"]:hover {
+    box-shadow: 0 0 0;
+}
+
 #header {
     display: block;
     position: relative;
@@ -172,7 +176,7 @@ input[type="file"] {
     height: 60%;
     width: 76%;
     border: 1px solid var(--primary);
-    display: inline-block;
+    align-items: center;
     padding: 6px 12px;
     cursor: pointer;
 }

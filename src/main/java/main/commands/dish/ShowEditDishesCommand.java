@@ -11,7 +11,7 @@ public class ShowEditDishesCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         ShowOrderDishesCommand.ShowDishes(request);
-        return Path.PAGE__DISHES;
+        return Path.PAGE__EDIT_DISHES;
     }
 
 }

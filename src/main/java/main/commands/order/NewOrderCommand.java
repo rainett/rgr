@@ -1,8 +1,8 @@
 package main.commands.order;
 
 import main.commands.Command;
-import main.commands.CommandNames;
-import main.db.dao.DishesDAO;
+import main.commands.CommandName;
+import main.db.dao.DishDAO;
 import main.db.entities.Dish;
 import main.db.entities.Order;
 import main.db.entities.OrderedDish;
@@ -24,7 +24,7 @@ public class NewOrderCommand implements Command {
         String[] dishAmounts = request.getParameterValues("dish_amount");
 
         if (dishIds == null || dishAmounts == null) {
-            return controller + CommandNames.COMMAND__SHOW_ORDER_DISHES;
+            return controller + CommandName.COMMAND__SHOW_ORDER_DISHES;
         }
 
         List<OrderedDish> orderedDishes = new ArrayList<>();
@@ -34,7 +34,7 @@ public class NewOrderCommand implements Command {
                 continue;
             }
             int dishAmount = Integer.parseInt(dishAmounts[i]);
-            Dish dish = DishesDAO.getInstance().findDish(Integer.parseInt(dishIds[i]));
+            Dish dish = DishDAO.getInstance().getDish(Integer.parseInt(dishIds[i]));
             price += dish.getPrice() * dishAmount;
             OrderedDish orderedDish = new OrderedDish();
             orderedDish.setDishId(dish.getId());
@@ -43,7 +43,7 @@ public class NewOrderCommand implements Command {
         }
 
         if (orderedDishes.isEmpty()) {
-            return controller + CommandNames.COMMAND__SHOW_ORDER_DISHES;
+            return controller + CommandName.COMMAND__SHOW_ORDER_DISHES;
         }
 
         HttpSession session = request.getSession();
@@ -53,6 +53,6 @@ public class NewOrderCommand implements Command {
         order.setPrice(price);
         session.setAttribute("orderedDishesA", orderedDishes);
         session.setAttribute("orderA", order);
-        return controller + CommandNames.COMMAND__SHOW_ORDER_ADDRESSES;
+        return controller + CommandName.COMMAND__SHOW_ORDER_ADDRESSES;
     }
 }

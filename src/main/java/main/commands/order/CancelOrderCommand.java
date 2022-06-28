@@ -1,11 +1,8 @@
 package main.commands.order;
 
-import main.Path;
 import main.commands.Command;
-import main.commands.CommandNames;
+import main.commands.CommandName;
 import main.db.dao.OrderDAO;
-import main.db.entities.Order;
-import main.db.entities.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +19,6 @@ public class CancelOrderCommand implements Command {
         session.removeAttribute("orderedDishesA");
         int orderId = Integer.parseInt(request.getParameter("orderId"));
         OrderDAO.getInstance().deleteOrder(orderId);
-        return controller + CommandNames.COMMAND__ORDERS;
+        return controller + CommandName.COMMAND__ORDERS;
     }
 }

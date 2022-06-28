@@ -2,7 +2,6 @@ package main.commands.user;
 
 import main.Path;
 import main.commands.Command;
-import main.commands.CommandNames;
 import main.db.dao.UserDAO;
 import main.db.entities.Role;
 import main.db.entities.User;
@@ -12,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static main.Controller.controller;
 
 public class RegisterCommand implements Command {
     @Override
@@ -47,7 +44,7 @@ public class RegisterCommand implements Command {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String repeatedPassword = request.getParameter("repeatedPassword");
-        return validateUsername(username, session) && validateEmail(email, session) && validatePassword(password, session) && validateRepeatedPassword(password, repeatedPassword, session);
+        return validateUsername(username, session) && validateEmail(email, session) && validateRepeatedPassword(password, repeatedPassword, session);
     }
 
     private boolean validateUsername(String username, HttpSession session) {
@@ -70,16 +67,6 @@ public class RegisterCommand implements Command {
         UserDAO userDAO = UserDAO.getInstance();
         if (userDAO.findUserByEmail(email) != null) {
             session.setAttribute("wrongEmail", "Адреса вже використовується іншим користувачем");
-            return false;
-        }
-        return true;
-    }
-
-    private boolean validatePassword(String password, HttpSession session) {
-        Pattern pattern = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
-        Matcher matcher = pattern.matcher(password);
-        if (!matcher.find()) {
-            session.setAttribute("wrongPassword", "Пароль має бути більшим за 7 симв. та  містити хоч одну цифру та літеру");
             return false;
         }
         return true;

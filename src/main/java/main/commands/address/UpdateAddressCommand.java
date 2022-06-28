@@ -1,17 +1,12 @@
 package main.commands.address;
 
-import main.Path;
 import main.commands.Command;
-import main.commands.CommandNames;
+import main.commands.CommandName;
 import main.db.dao.AddressDAO;
 import main.db.entities.Address;
-import main.db.entities.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import java.io.UnsupportedEncodingException;
 
 import static main.Controller.controller;
 
@@ -23,7 +18,7 @@ public class UpdateAddressCommand implements Command {
         Address address = AddressDAO.getInstance().getAddress(addressId);
         setAddressFields(request, address);
         AddressDAO.getInstance().updateAddress(address);
-        return controller + CommandNames.COMMAND__ADDRESSES;
+        return controller + CommandName.COMMAND__ADDRESSES;
     }
 
     private void setAddressFields(HttpServletRequest request, Address address) {

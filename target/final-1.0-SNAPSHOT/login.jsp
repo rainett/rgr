@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="main.commands.CommandNames" %>
+<%@page import="main.commands.CommandName" %>
 <%@page import="main.Path" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -14,14 +14,14 @@
         <table>
             <tr>
                 <td><a href="${Path.PAGE__START}" class="logo">dlvr.</a></td>
-                <td><button name="command" value="${CommandNames.COMMAND__SHOW_REGISTER}" form="redirectForm">Реєстрація</button></td>
+                <td><button name="command" value="${CommandName.COMMAND__SHOW_REGISTER}" form="redirectForm">Реєстрація</button></td>
             </tr>
         </table>
         <form id="redirectForm" action="controller"></form>
     </div>
     <div class="floating-div">
         <form action="controller" method="post">
-            <input type="hidden" name="command" value="${CommandNames.COMMAND__LOGIN}"/>
+            <input type="hidden" name="command" value="${CommandName.COMMAND__LOGIN}"/>
             <table>
                 <tr class="floating-row">
                     <td>

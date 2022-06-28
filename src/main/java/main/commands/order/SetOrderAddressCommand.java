@@ -2,7 +2,7 @@ package main.commands.order;
 
 import main.Path;
 import main.commands.Command;
-import main.commands.CommandNames;
+import main.commands.CommandName;
 import main.db.entities.Order;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +22,6 @@ public class SetOrderAddressCommand implements Command {
         }
         int addressId = Integer.parseInt(request.getParameter("addressId"));
         order.setAddressId(addressId);
-        return controller + CommandNames.COMMAND__SHOW_ORDER_PAYMENTS;
+        return controller + CommandName.COMMAND__SHOW_ORDER_PAYMENTS;
     }
 }

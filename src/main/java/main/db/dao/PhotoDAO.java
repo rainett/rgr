@@ -5,10 +5,7 @@ import main.db.EntityMapper;
 import main.db.Fields;
 import main.db.entities.Photo;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class PhotoDAO {
 
@@ -78,16 +75,18 @@ public class PhotoDAO {
     private void updatePhoto(Connection con, Photo photo) throws SQLException {
         PreparedStatement pstmt = con.prepareStatement(SQL_UPDATE_PHOTO);
         int k = 1;
-        pstmt.setBlob(k, photo.getPic());
+        pstmt.setBlob(k++, photo.getPic());
+        pstmt.setLong(k, photo.getId());
         pstmt.executeUpdate();
         pstmt.close();
     }
 
-    public void newPhoto(Photo photo) {
+    public int newPhoto(Photo photo) {
         Connection con = null;
+        int id = 0;
         try {
             con = DBManager.getInstance().getConnection();
-            insertPhoto(con, photo);
+            id = insertPhoto(con, photo);
         } catch (SQLException ex) {
             assert con != null;
             DBManager.getInstance().rollbackAndClose(con);
@@ -96,14 +95,21 @@ public class PhotoDAO {
             assert con != null;
             DBManager.getInstance().commitAndClose(con);
         }
+        return id;
     }
 
-    private void insertPhoto(Connection con, Photo photo) throws SQLException {
-        PreparedStatement pstmt = con.prepareStatement(SQL_INSERT_PHOTO);
+    private int insertPhoto(Connection con, Photo photo) throws SQLException {
+        PreparedStatement pstmt = con.prepareStatement(SQL_INSERT_PHOTO, Statement.RETURN_GENERATED_KEYS);
         int k = 1;
         pstmt.setBlob(k, photo.getPic());
         pstmt.executeUpdate();
+        int id = 0;
+        ResultSet rs = pstmt.getGeneratedKeys();
+        if (rs.next()) {
+            id = rs.getInt(1);
+        }
         pstmt.close();
+        return id;
     }
 
 

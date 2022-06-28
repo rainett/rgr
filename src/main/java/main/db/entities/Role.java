@@ -1,7 +1,7 @@
 package main.db.entities;
 
 public enum Role {
-    CLIENT("client"), MANAGER("client");
+    CLIENT("Client"), MANAGER("Manager"), COOK("Cook"), COURIER("Courier");
 
     Role(String role) {
         this.roleStr = role;

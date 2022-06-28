@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="main.commands.CommandNames" %>
+<%@page import="main.commands.CommandName" %>
 <%@page import="main.Path" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -14,7 +14,7 @@
         <table>
             <tr>
                 <td><a href="${Path.PAGE__START}" class="logo">dlvr.</a></td>
-                <td><button name="command" value="${CommandNames.COMMAND__SHOW_LOGIN}"
+                <td><button name="command" value="${CommandName.COMMAND__SHOW_LOGIN}"
                             form="redirectForm">Увійти</button></td>
             </tr>
         </table>
@@ -23,7 +23,7 @@
 
     <div class="floating-div">
         <form action="controller" method="post">
-            <input type="hidden" name="command" value="${CommandNames.COMMAND__REGISTER}"/>
+            <input type="hidden" name="command" value="${CommandName.COMMAND__REGISTER}"/>
             <table>
                 <tr class="floating-row">
                     <td>
@@ -58,16 +58,9 @@
                     <td>
                         <label for="passwordInput"></label>
                         <input class="floating-input" type="password" name="password" placeholder="Password"
-                               id="passwordInput" required>
+                               id="passwordInput" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" required>
                     </td>
                 </tr>
-                <c:if test="${not empty sessionScope.wrongPassword}">
-                    <tr class="error-message">
-                        <td>
-                                ${sessionScope.wrongPassword}
-                        </td>
-                    </tr>
-                </c:if>
                 <tr class="floating-row">
                     <td>
                         <label for="repeatedPassword"></label>

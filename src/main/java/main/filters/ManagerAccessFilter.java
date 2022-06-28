@@ -1,7 +1,7 @@
 package main.filters;
 
 import main.Path;
-import main.commands.CommandNames;
+import main.commands.CommandName;
 import main.db.entities.Role;
 import main.db.entities.User;
 
@@ -13,14 +13,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static main.Controller.controller;
-
 public class ManagerAccessFilter implements Filter {
 
     private static final List<String> commands = new ArrayList<>();
 
     static {
-        commands.add(CommandNames.COMMAND__SHOW_EDIT_DISHES);
+        commands.add(CommandName.COMMAND__SHOW_EDIT_DISHES);
+        commands.add(CommandName.COMMAND__SHOW_UPDATE_DISH);
+        commands.add(CommandName.COMMAND__SHOW_NEW_DISH);
+        commands.add(CommandName.COMMAND__NEW_DISH);
+        commands.add(CommandName.COMMAND__UPDATE_DISH);
+        commands.add(CommandName.COMMAND__SHOW_APPLICATIONS);
+        commands.add(CommandName.COMMAND__SHOW_APPLICATION_PROCESS);
+        commands.add(CommandName.COMMAND__APPLICATION_PROCESS);
     }
 
     @Override
@@ -42,6 +47,6 @@ public class ManagerAccessFilter implements Filter {
     private boolean isManager(ServletRequest request) {
         HttpSession session = ((HttpServletRequest) request).getSession();
         User user = (User) session.getAttribute("user");
-        return (user != null && user.getRole().equals(Role.MANAGER.getRoleStr()));
+        return (user.getRole().equals(Role.MANAGER.getRoleStr()));
     }
 }

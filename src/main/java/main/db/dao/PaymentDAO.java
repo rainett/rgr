@@ -19,6 +19,9 @@ public class PaymentDAO {
     private static final String SQL_FIND_PAYMENT_BY_ID =
             "SELECT * FROM payments WHERE payment_id = ?";
 
+    private static final String SQL_FIND_PAYMENT_BY_NUMBER =
+            "SELECT * FROM payments WHERE payment_number = binary ?";
+
     private static final String SQL_UPDATE_PAYMENT =
             "UPDATE payments SET payment_number=?, payment_number=?, payment_cvv=? WHERE payment_id=?";
 
@@ -163,6 +166,32 @@ public class PaymentDAO {
             assert con != null;
             DBManager.getInstance().commitAndClose(con);
         }
+    }
+
+    public Payment getPayment(String number) {
+        Payment payment = null;
+        PreparedStatement pstmt;
+        ResultSet rs;
+        Connection con = null;
+        try {
+            con = DBManager.getInstance().getConnection();
+            PaymentMapper mapper = new PaymentMapper();
+            pstmt = con.prepareStatement(SQL_FIND_PAYMENT_BY_NUMBER);
+            pstmt.setString(1, number);
+            rs = pstmt.executeQuery();
+            if (rs.next())
+                payment = mapper.mapRow(rs);
+            rs.close();
+            pstmt.close();
+        } catch (SQLException ex) {
+            assert con != null;
+            DBManager.getInstance().rollbackAndClose(con);
+            ex.printStackTrace();
+        } finally {
+            assert con != null;
+            DBManager.getInstance().commitAndClose(con);
+        }
+        return payment;
     }
 
     private static class PaymentMapper implements EntityMapper<Payment> {
