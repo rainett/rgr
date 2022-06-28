@@ -4,6 +4,7 @@ import main.Path;
 import main.commands.Command;
 import main.commands.CommandNames;
 import main.db.dao.UserDAO;
+import main.db.entities.Role;
 import main.db.entities.User;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +35,7 @@ public class RegisterCommand implements Command {
         user.setUsername(username);
         user.setEmail(email);
         user.setPassword(password);
+        user.setRole(Role.CLIENT.getRoleStr());
         UserDAO.getInstance().addUser(user);
         session.setAttribute("user", user);
         session.setMaxInactiveInterval(60*60*24); // 1 day

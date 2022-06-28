@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@page import="main.Path" %>
 <%@page import="main.commands.CommandNames" %>
@@ -31,17 +32,44 @@
             <table>
                 <tr class="floating-row">
                     <td colspan="2">
-                        <label for="numberInput"></label><input class="floating-input" id="numberInput" type="text" name="number" value="${requestScope.payment.number}" placeholder="Number" required>
+                        <label>
+                            <input class="floating-input" type="text" name="number" placeholder="Number" value="${requestScope.payment.number}" required>
+                        </label>
                     </td>
                 </tr>
+                <c:if test="${not empty sessionScope.wrongNumber}">
+                    <tr class="error-message">
+                        <td colspan="2">
+                                ${sessionScope.wrongNumber}
+                        </td>
+                    </tr>
+                </c:if>
                 <tr class="floating-row">
                     <td>
-                        <label for="tillInput"></label><input class="floating-input" id="tillInput" type="text" name="till" value="${requestScope.payment.till}" placeholder="Expiration date" required>
+                        <label>
+                            <input class="floating-input" type="text" name="till" placeholder="Expiration date" value="${requestScope.payment.till}" required>
+                        </label>
                     </td>
                     <td>
-                        <label for="cvvInput"></label><input class="floating-input" id="cvvInput" type="password" name="cvv" placeholder="CVV" required>
+                        <label>
+                            <input class="floating-input" type="password" name="cvv" placeholder="CVV" value="${requestScope.payment.cvv}" required>
+                        </label>
                     </td>
                 </tr>
+                <c:if test="${not empty sessionScope.wrongTill or not empty sessionScope.wrongCvv}">
+                    <tr class="error-message">
+                        <c:if test="${not empty sessionScope.wrongTill}">
+                            <td>
+                                    ${sessionScope.wrongTill}
+                            </td>
+                        </c:if>
+                        <c:if test="${not empty sessionScope.wrongCvv}">
+                            <td>
+                                    ${sessionScope.wrongCvv}
+                            </td>
+                        </c:if>
+                    </tr>
+                </c:if>
                 <tr class="floating-row">
                     <td colspan="2">
                         <input class="floating-button" type="submit" value="Зберегти">

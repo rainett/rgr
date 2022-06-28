@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="main.commands.CommandNames" %>
-<%@page import="main.Path" %>
+<%@ page import="main.Path" %>
+<%@ page import="main.db.entities.Role" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -37,6 +38,14 @@
                             value="${CommandNames.COMMAND__PAYMENTS}">Способи оплати</button>
                 </td>
             </tr>
+            <c:if test="${sessionScope.user.role.equals(Role.MANAGER.roleStr)}">
+                <tr class="floating-row">
+                    <td>
+                        <button class="floating-button" name="command" form="redirectForm"
+                                value="${CommandNames.COMMAND__SHOW_EDIT_DISHES}">Редагувати меню</button>
+                    </td>
+                </tr>
+            </c:if>
             <tr class="floating-row">
                 <td>
                     <button class="floating-button-danger" name="command" form="redirectForm"

@@ -10,6 +10,7 @@ public class CommandNames {
     public static final String COMMAND__SHOW_NEW_ADDRESS = "showNewAddress";
 
     public static final String COMMAND__DISHES = "dishes";
+    public static final String COMMAND__SHOW_EDIT_DISHES = "showEditDishes";
 
     public static final String COMMAND__ORDERS = "orders";
     public static final String COMMAND__SPECIFIC_ORDER = "specificOrder";

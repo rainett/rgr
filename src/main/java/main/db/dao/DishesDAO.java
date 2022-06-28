@@ -17,16 +17,16 @@ public class DishesDAO {
             "SELECT * FROM dishes";
 
     private static final String SQL__FIND_DISH_BY_ID =
-            "SELECT * FROM dishes WHERE dish_id = binary ?";
+            "SELECT * FROM dishes WHERE dish_id = ?";
 
     private static final String SQL__FIND_DISH_BY_NAME =
             "SELECT * FROM dishes WHERE dish_name = binary ?";
 
     private static final String SQL_UPDATE_DISH =
-            "UPDATE dishes SET dish_name=?, dish_price=?, dish_pic=? WHERE dish_id=?";
+            "UPDATE dishes SET dish_name=?, dish_price=?, dish_photo_id=? WHERE dish_id=?";
 
     private static final String SQL_INSERT_DISH =
-            "INSERT INTO dishes (dish_name, dish_price, dish_pic) VALUES ( ?, ?, ? )";
+            "INSERT INTO dishes (dish_name, dish_price, dish_photo_id) VALUES ( ?, ?, ? )";
 
     private static DishesDAO instance;
 
@@ -140,7 +140,7 @@ public class DishesDAO {
         int k = 1;
         pstmt.setString(k++, dish.getName());
         pstmt.setLong(k++, dish.getPrice());
-        pstmt.setBlob(k++, dish.getPic());
+        pstmt.setLong(k++, dish.getPhotoID());
         pstmt.setLong(k, dish.getId());
         pstmt.executeUpdate();
         pstmt.close();
@@ -166,7 +166,7 @@ public class DishesDAO {
         int k = 1;
         pstmt.setString(k++, dish.getName());
         pstmt.setLong(k++, dish.getPrice());
-        pstmt.setBlob(k, dish.getPic());
+        pstmt.setLong(k, dish.getPhotoID());
         pstmt.executeUpdate();
         pstmt.close();
     }
@@ -180,7 +180,7 @@ public class DishesDAO {
                 dish.setId(rs.getInt(Fields.FIELD__DISH_ID));
                 dish.setName(rs.getString(Fields.FIELD__DISH_NAME));
                 dish.setPrice(rs.getInt(Fields.FIELD__DISH_PRICE));
-                dish.setPic(rs.getBinaryStream(Fields.FIELD__DISH_PIC));
+                dish.setPhotoID(rs.getInt(Fields.FIELD__DISH_PHOTO_ID));
             } catch (SQLException e) {
                 e.printStackTrace();
             }

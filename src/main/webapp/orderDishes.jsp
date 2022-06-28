@@ -46,9 +46,9 @@
                         </div>
                     </td>
                 </tr>
-                <c:forEach items="${requestScope.dishes}" var="d">
+                <c:forEach items="${requestScope.dishes}" var="d" varStatus="loop">
                 <tr class="floating-row-l">
-                    <td colspan="2"><img src="data:image/jpeg;base64, ${d.pic64}" class="image" alt="Food image"></td>
+                    <td colspan="2"><img src="data:image/jpeg;base64, ${requestScope.photos.get(loop.index).pic64}" class="image" alt="Food image"></td>
                     <td>${d.name}</td>
                     <td>${d.price} UAH</td>
                     <td>

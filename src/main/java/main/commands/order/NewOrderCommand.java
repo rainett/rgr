@@ -22,6 +22,11 @@ public class NewOrderCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String[] dishIds = request.getParameterValues("dish_id");
         String[] dishAmounts = request.getParameterValues("dish_amount");
+
+        if (dishIds == null || dishAmounts == null) {
+            return controller + CommandNames.COMMAND__SHOW_ORDER_DISHES;
+        }
+
         List<OrderedDish> orderedDishes = new ArrayList<>();
         int price = 0;
         for (int i = 0; i < dishIds.length; i++) {
@@ -36,6 +41,11 @@ public class NewOrderCommand implements Command {
             orderedDish.setDishAmount(dishAmount);
             orderedDishes.add(orderedDish);
         }
+
+        if (orderedDishes.isEmpty()) {
+            return controller + CommandNames.COMMAND__SHOW_ORDER_DISHES;
+        }
+
         HttpSession session = request.getSession();
         int userId = ((User) session.getAttribute("user")).getId();
         Order order = new Order();

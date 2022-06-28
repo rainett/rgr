@@ -165,7 +165,7 @@ public class UserDAO {
         pstmt.setString(k++, user.getUsername());
         pstmt.setString(k++, user.getPassword());
         pstmt.setString(k++, user.getEmail());
-        pstmt.setString(k, "client");
+        pstmt.setString(k, user.getRole());
         pstmt.executeUpdate();
         pstmt.close();
     }

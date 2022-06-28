@@ -3,7 +3,6 @@ package main.filters;
 import main.commands.CommandNames;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -49,7 +48,7 @@ public class UserAccessFilter implements Filter {
     }
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
         System.out.println("creating access filter");
     }
 

@@ -69,7 +69,7 @@
             </tr>
             <c:forEach items="${requestScope.dishes}" var="d" varStatus="loop">
             <tr class="floating-row-l">
-                <td colspan="24"><img src="data:image/jpeg;base64, ${d.pic64}" class="image" alt="Food image"></td>
+                <td colspan="24"><img src="data:image/jpeg;base64, ${requestScope.photos.get(loop.index).pic64}" class="image" alt="Food image"></td>
                 <td colspan="12">${d.name}</td>
                 <td colspan="12">${d.price} UAH</td>
                 <td colspan="12">Кількість: ${requestScope.orderedDishes.get(loop.index).dishAmount}</td>

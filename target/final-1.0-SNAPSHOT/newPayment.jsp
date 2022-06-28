@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="main.Path" %>
 <%@page import="main.commands.CommandNames" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -36,6 +37,13 @@
                         </label>
                     </td>
                 </tr>
+                <c:if test="${not empty sessionScope.wrongNumber}">
+                    <tr class="error-message">
+                        <td colspan="2">
+                                ${sessionScope.wrongNumber}
+                        </td>
+                    </tr>
+                </c:if>
                 <tr class="floating-row">
                     <td>
                         <label>
@@ -48,6 +56,20 @@
                         </label>
                     </td>
                 </tr>
+                <c:if test="${not empty sessionScope.wrongTill or not empty sessionScope.wrongCvv}">
+                    <tr class="error-message">
+                        <c:if test="${not empty sessionScope.wrongTill}">
+                            <td>
+                                    ${sessionScope.wrongTill}
+                            </td>
+                        </c:if>
+                        <c:if test="${not empty sessionScope.wrongCvv}">
+                            <td>
+                                    ${sessionScope.wrongCvv}
+                            </td>
+                        </c:if>
+                    </tr>
+                </c:if>
                 <tr class="floating-row">
                     <td colspan="2">
                         <input class="floating-button" type="submit" value="Зберегти">
