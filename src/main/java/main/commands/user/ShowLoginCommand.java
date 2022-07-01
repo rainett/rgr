@@ -5,14 +5,13 @@ import main.commands.Command;
 import main.commands.CommandName;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import static main.Controller.controller;
 
 public class ShowLoginCommand implements Command {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (session.getAttribute("user") != null) {
             return controller + CommandName.COMMAND__USER;

@@ -1,14 +1,16 @@
 package main.db.dao;
 
+import main.db.Fields;
+
 public class DishesSorting {
     public static final String SORT__PRICE_DESC = "fromExp";
     public static final String SORT__PRICE_ASC = "fromCheap";
     public static final String SORT__BY_ALPHABET = "byAlphabet";
     public static final String SORT__BY_CATEGORY = "byCategory";
 
-    private static final String PRICE_FILTER = " WHERE dish_price BETWEEN ? AND ?";
-    private static final String FIRST_CATEGORY_FILTER = " AND dish_category = '?'";
-    private static final String CATEGORY_FILTER = " OR dish_category = '?'";
+    private static final String PRICE_FILTER = " WHERE "+ Fields.FIELD__DISH_PRICE +" BETWEEN ? AND ?";
+    private static final String FIRST_CATEGORY_FILTER = " AND "+ Fields.FIELD__DISH_CATEGORY_ID +" = ?";
+    private static final String CATEGORY_FILTER = " OR "+ Fields.FIELD__DISH_CATEGORY_ID +" = ?";
     private static final String SORTING = " ORDER BY ? ?";
 
     private final String priceQuery;
@@ -27,22 +29,22 @@ public class DishesSorting {
         String direction;
         switch (sortingParam) {
             case SORT__PRICE_DESC: {
-                column = "dish_price";
+                column = Fields.FIELD__DISH_PRICE;
                 direction = "DESC";
                 break;
             }
             case SORT__PRICE_ASC: {
-                column = "dish_price";
+                column = Fields.FIELD__DISH_PRICE;
                 direction = "ASC";
                 break;
             }
             case SORT__BY_ALPHABET: {
-                column = "dish_name";
+                column = Fields.FIELD__DISH_NAME;
                 direction = "ASC";
                 break;
             }
             case SORT__BY_CATEGORY: {
-                column = "dish_category";
+                column = Fields.FIELD__DISH_CATEGORY_ID;
                 direction = "ASC";
                 break;
             }

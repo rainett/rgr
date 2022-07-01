@@ -7,14 +7,13 @@ import main.db.entities.Role;
 import main.db.entities.User;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegisterCommand implements Command {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.removeAttribute("wrongUsername");
         session.removeAttribute("wrongPassword");

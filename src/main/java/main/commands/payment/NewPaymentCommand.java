@@ -8,18 +8,14 @@ import main.db.entities.Payment;
 import main.db.entities.User;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static main.Controller.controller;
 
 
 public class NewPaymentCommand implements Command {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.removeAttribute("wrongNumber");
         if (!validateNumber(request.getParameter("number"), session)) {

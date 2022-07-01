@@ -9,7 +9,6 @@ import main.db.entities.Photo;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import java.io.IOException;
@@ -18,22 +17,23 @@ import static main.Controller.controller;
 
 public class UpdateDishCommand implements Command {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String execute(HttpServletRequest request) throws ServletException, IOException {
         int dishId = Integer.parseInt(request.getParameter("dishId"));
         String dishName = request.getParameter("dishName");
-        String dishCategory = request.getParameter("dishCategory");
         int dishPrice = Integer.parseInt(request.getParameter("dishPrice"));
         Part filePart = request.getPart("dishPic");
         Dish dish = DishDAO.getInstance().getDish(dishId);
         dish.setName(dishName);
         dish.setPrice(dishPrice);
-        if (dishCategory != null)
-            dish.setCategory(dishCategory);
+        if (request.getParameter("dishCategory") != null) {
+            int dishCategoryId = Integer.parseInt(request.getParameter("dishCategory"));
+            dish.setCategoryId(dishCategoryId);
+        }
         DishDAO.getInstance().updateDish(dish);
         if (filePart.getSize() != 0) {
             Photo photo = new Photo();
             photo.setPic(filePart.getInputStream());
-            photo.setId(dish.getPhotoID());
+            photo.setId(dish.getPhotoId());
             PhotoDAO.getInstance().updatePhoto(photo);
         }
         return controller + CommandName.COMMAND__SHOW_EDIT_DISHES;

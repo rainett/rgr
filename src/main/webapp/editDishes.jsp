@@ -63,7 +63,7 @@
                             <c:forEach items="${Category.values()}" var="c">
                                 <label>
                                     <input type="checkbox" name="category" form="filterForm"
-                                           value="${c.categoryName}">${c.categoryName}
+                                           value="${c.ordinal()}">${c.categoryName}
                                 </label><br>
                             </c:forEach>
                         </div>
@@ -100,7 +100,7 @@
                     </td>
                     <td colspan="4">${d.name}</td>
                     <td colspan="4">${d.price} UAH</td>
-                    <td colspan="4">${d.category}</td>
+                    <td colspan="4">${d.categoryId}</td>
                 </tr>
             </c:forEach>
             <tr class="floating-row-s"></tr>

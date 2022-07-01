@@ -7,15 +7,11 @@ import main.db.dao.UserDAO;
 import main.db.entities.Application;
 import main.db.entities.User;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.List;
 
 public class ShowApplicationProcessCommand implements Command {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public String execute(HttpServletRequest request) {
         int applicationId = Integer.parseInt(request.getParameter("applicationId"));
         Application application = ApplicationDAO.getInstance().getApplication(applicationId);
         User user = UserDAO.getInstance().getUser(application.getUserId());

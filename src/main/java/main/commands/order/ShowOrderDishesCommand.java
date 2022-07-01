@@ -9,13 +9,12 @@ import main.db.entities.Dish;
 import main.db.entities.Photo;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShowOrderDishesCommand implements Command {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public String execute(HttpServletRequest request) {
         ShowDishes(request);
         return Path.PAGE__ORDER_DISHES;
     }

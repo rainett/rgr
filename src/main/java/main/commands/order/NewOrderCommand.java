@@ -9,7 +9,6 @@ import main.db.entities.OrderedDish;
 import main.db.entities.User;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,7 @@ import static main.Controller.controller;
 
 public class NewOrderCommand implements Command {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public String execute(HttpServletRequest request) {
         String[] dishIds = request.getParameterValues("dish_id");
         String[] dishAmounts = request.getParameterValues("dish_amount");
 

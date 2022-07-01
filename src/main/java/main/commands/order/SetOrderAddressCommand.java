@@ -6,7 +6,6 @@ import main.commands.CommandName;
 import main.db.entities.Order;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import static main.Controller.controller;
@@ -14,7 +13,7 @@ import static main.Controller.controller;
 
 public class SetOrderAddressCommand implements Command {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public String execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
         Order order = (Order) session.getAttribute("orderA");
         if (order == null) {

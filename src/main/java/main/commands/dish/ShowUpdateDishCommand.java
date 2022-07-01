@@ -6,11 +6,10 @@ import main.db.dao.DishDAO;
 import main.db.entities.Dish;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 public class ShowUpdateDishCommand implements Command {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public String execute(HttpServletRequest request) {
         int dishId = Integer.parseInt(request.getParameter("dishId"));
         Dish dish = DishDAO.getInstance().getDish(dishId);
         request.setAttribute("dish", dish);

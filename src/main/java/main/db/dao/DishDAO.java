@@ -26,10 +26,10 @@ public class DishDAO {
             "SELECT * FROM dishes WHERE dish_name = binary ?";
 
     private static final String SQL_UPDATE_DISH =
-            "UPDATE dishes SET dish_name=?, dish_price=?, dish_photo_id=?, dish_category=? WHERE dish_id=?";
+            "UPDATE dishes SET dish_name=?, dish_price=?, dish_photo_id=?, dish_category_id=? WHERE dish_id=?";
 
     private static final String SQL_INSERT_DISH =
-            "INSERT INTO dishes (dish_name, dish_price, dish_photo_id, dish_category) VALUES ( ?, ?, ?, ? )";
+            "INSERT INTO dishes (dish_name, dish_price, dish_photo_id, dish_category_id) VALUES ( ?, ?, ?, ? )";
 
     private static DishDAO instance;
 
@@ -170,8 +170,8 @@ public class DishDAO {
         int k = 1;
         pstmt.setString(k++, dish.getName());
         pstmt.setLong(k++, dish.getPrice());
-        pstmt.setLong(k++, dish.getPhotoID());
-        pstmt.setString(k++, dish.getCategory());
+        pstmt.setLong(k++, dish.getPhotoId());
+        pstmt.setLong(k++, dish.getCategoryId());
         pstmt.setLong(k, dish.getId());
         pstmt.executeUpdate();
         pstmt.close();
@@ -197,8 +197,8 @@ public class DishDAO {
         int k = 1;
         pstmt.setString(k++, dish.getName());
         pstmt.setLong(k++, dish.getPrice());
-        pstmt.setLong(k++, dish.getPhotoID());
-        pstmt.setString(k, dish.getCategory());
+        pstmt.setLong(k++, dish.getPhotoId());
+        pstmt.setLong(k, dish.getCategoryId());
         pstmt.executeUpdate();
         pstmt.close();
     }
@@ -212,8 +212,8 @@ public class DishDAO {
                 dish.setId(rs.getInt(Fields.FIELD__DISH_ID));
                 dish.setName(rs.getString(Fields.FIELD__DISH_NAME));
                 dish.setPrice(rs.getInt(Fields.FIELD__DISH_PRICE));
-                dish.setPhotoID(rs.getInt(Fields.FIELD__DISH_PHOTO_ID));
-                dish.setCategory(rs.getString(Fields.FIELD__DISH_CATEGORY));
+                dish.setPhotoId(rs.getInt(Fields.FIELD__DISH_PHOTO_ID));
+                dish.setCategoryId(rs.getInt(Fields.FIELD__DISH_CATEGORY_ID));
             } catch (SQLException e) {
                 e.printStackTrace();
             }

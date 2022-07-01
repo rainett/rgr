@@ -46,11 +46,11 @@
                     <td>
                         <label>
                             <select name="dishCategory">
-                                <option value="${requestScope.dish.category}" selected disabled>
-                                    ${requestScope.dish.category}
+                                <option value="${requestScope.dish.categoryId}" selected disabled>
+                                    ${Category.getCategory(requestScope.dish.categoryId).categoryName}
                                 </option>
                                 <c:forEach items="${Category.values()}" var="c">
-                                    <option value="${c.categoryName}">${c.categoryName}</option>
+                                    <option value="${c.ordinal()}">${c.categoryName}</option>
                                 </c:forEach>
                             </select>
                         </label>

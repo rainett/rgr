@@ -44,7 +44,7 @@
                         <label>
                             <select name="dishCategory" style="background: 0" required>
                                 <c:forEach items="${Category.values()}" var="c">
-                                    <option value="${c.categoryName}">${c.categoryName}</option>
+                                    <option value="${c.ordinal()}">${c.categoryName}</option>
                                 </c:forEach>
                             </select>
                         </label>

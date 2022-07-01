@@ -11,7 +11,7 @@ public class Fields {
     public static final String FIELD__DISH_NAME = "dish_name";
     public static final String FIELD__DISH_PRICE = "dish_price";
     public static final String FIELD__DISH_PHOTO_ID = "dish_photo_id";
-    public static final String FIELD__DISH_CATEGORY = "dish_category";
+    public static final String FIELD__DISH_CATEGORY_ID = "dish_category_id";
 
     public static final String FIELD__ADDRESS_ID = "address_id";
     public static final String FIELD__ADDRESS_USER_ID = "user_id";

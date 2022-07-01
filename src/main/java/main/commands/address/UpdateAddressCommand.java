@@ -6,14 +6,13 @@ import main.db.dao.AddressDAO;
 import main.db.entities.Address;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import static main.Controller.controller;
 
 
 public class UpdateAddressCommand implements Command {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public String execute(HttpServletRequest request) {
         int addressId = Integer.parseInt(request.getParameter("addressId"));
         Address address = AddressDAO.getInstance().getAddress(addressId);
         setAddressFields(request, address);

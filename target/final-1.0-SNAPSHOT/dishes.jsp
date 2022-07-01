@@ -63,7 +63,7 @@
                             <c:forEach items="${Category.values()}" var="c">
                                 <label>
                                     <input type="checkbox" name="category" form="filterForm"
-                                           value="${c.categoryName}">${c.categoryName}
+                                           value="${c.ordinal()}">${c.categoryName}
                                 </label><br>
                             </c:forEach>
                         </div>
@@ -81,7 +81,7 @@
                     <td colspan="8"><img src="data:image/jpeg;base64, ${requestScope.photos.get(loop.index).pic64}" class="image" alt="Food image"></td>
                     <td colspan="4">${d.name}</td>
                     <td colspan="4">${d.price} UAH</td>
-                    <td colspan="4">${d.category}</td>
+                    <td colspan="4">${Category.getCategory(d.categoryId).categoryName}</td>
                 </tr>
             </c:forEach>
             <tr class="floating-row-s"></tr>

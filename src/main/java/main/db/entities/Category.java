@@ -12,13 +12,7 @@ public enum Category {
         return categoryName;
     }
 
-    public static Category getCategory(String categoryStr) {
-        categoryStr = categoryStr.toUpperCase(Locale.ROOT);
-        for (Category c : Category.values()) {
-            if (c.name().equals(categoryStr)) {
-                return c;
-            }
-        }
-        return null;
+    public static Category getCategory(int categoryId) {
+        return Category.values()[categoryId];
     }
 }
