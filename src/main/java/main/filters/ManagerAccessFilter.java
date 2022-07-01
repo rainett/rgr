@@ -47,6 +47,6 @@ public class ManagerAccessFilter implements Filter {
     private boolean isManager(ServletRequest request) {
         HttpSession session = ((HttpServletRequest) request).getSession();
         User user = (User) session.getAttribute("user");
-        return (user.getRole().equals(Role.MANAGER.getRoleStr()));
+        return (Role.getRole(user.getRoleId()) == Role.MANAGER);
     }
 }

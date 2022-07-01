@@ -5,7 +5,7 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private String role;
+    private int roleId;
 
     public int getId() {
         return id;
@@ -39,17 +39,17 @@ public class User {
         this.email = email;
     }
 
-    public String getRole() {
-        return role;
+    public int getRoleId() {
+        return roleId;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
     }
 
     @Override
     public String toString() {
-        return String.format("User[clientId = %d, login = %s, password = %s, mail = %s, role = %s]",
-                id, username, password, email, role);
+        return String.format("User[clientId = %d, login = %s, password = %s, mail = %s, role = %d]",
+                id, username, password, email, roleId);
     }
 }

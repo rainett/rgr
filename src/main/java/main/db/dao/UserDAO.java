@@ -21,10 +21,10 @@ public class UserDAO {
             "SELECT * FROM users WHERE user_id =  ?";
 
     private static final String SQL_UPDATE_USER =
-            "UPDATE users SET username=?, password=?, email=?, role=? WHERE user_id=?";
+            "UPDATE users SET username=?, password=?, email=?, user_role_id=? WHERE user_id=?";
 
     private static final String SQL_INSERT_USER =
-            "INSERT INTO users (username, password, email, role) VALUES ( ?, ?, ?, ? )";
+            "INSERT INTO users (username, password, email, user_role_id) VALUES ( ?, ?, ?, ? )";
 
     private static UserDAO instance;
 
@@ -138,7 +138,7 @@ public class UserDAO {
         pstmt.setString(k++, user.getUsername());
         pstmt.setString(k++, user.getPassword());
         pstmt.setString(k++, user.getEmail());
-        pstmt.setString(k++, user.getRole());
+        pstmt.setLong(k++, user.getRoleId());
         pstmt.setLong(k, user.getId());
         pstmt.executeUpdate();
         pstmt.close();
@@ -165,7 +165,7 @@ public class UserDAO {
         pstmt.setString(k++, user.getUsername());
         pstmt.setString(k++, user.getPassword());
         pstmt.setString(k++, user.getEmail());
-        pstmt.setString(k, user.getRole());
+        pstmt.setLong(k, user.getRoleId());
         pstmt.executeUpdate();
         pstmt.close();
     }
@@ -180,7 +180,7 @@ public class UserDAO {
                 user.setUsername(rs.getString(Fields.FIELD__USERNAME));
                 user.setPassword(rs.getString(Fields.FIELD__PASSWORD));
                 user.setEmail(rs.getString(Fields.FIELD__EMAIL));
-                user.setRole(rs.getString(Fields.FIELD__ROLE));
+                user.setRoleId(rs.getInt(Fields.FIELD__ROLE_ID));
             } catch (SQLException e) {
                 e.printStackTrace();
             }

@@ -32,7 +32,7 @@ public class RegisterCommand implements Command {
         user.setUsername(username);
         user.setEmail(email);
         user.setPassword(password);
-        user.setRole(Role.CLIENT.getRoleStr());
+        user.setRoleId(Role.CLIENT.ordinal());
         UserDAO.getInstance().addUser(user);
         session.setAttribute("user", user);
         session.setMaxInactiveInterval(60*60*24); // 1 day

@@ -42,7 +42,7 @@
                             <input type="hidden" name="applicationId" value="${a.id}">
                         </form>
                     </td>
-                    <td>${a.role}</td>
+                    <td>${a.roleId}</td>
                     <td>${a.state == true ? "Розглянута" : "Нерозглянута"}</td>
                 </tr>
             </c:forEach>

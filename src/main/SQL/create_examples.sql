@@ -13,6 +13,7 @@ create table dishes
     dish_name  varchar(50) not null,
     dish_price int         not null,
     dish_photo_id   int  null,
+    dish_category  varchar(20) not null,
     constraint dishes_dish_id_uindex
     unique (dish_id),
     constraint dishes_dish_name_uindex

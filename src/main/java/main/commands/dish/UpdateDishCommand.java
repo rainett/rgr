@@ -21,13 +21,16 @@ public class UpdateDishCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int dishId = Integer.parseInt(request.getParameter("dishId"));
         String dishName = request.getParameter("dishName");
+        String dishCategory = request.getParameter("dishCategory");
         int dishPrice = Integer.parseInt(request.getParameter("dishPrice"));
         Part filePart = request.getPart("dishPic");
         Dish dish = DishDAO.getInstance().getDish(dishId);
         dish.setName(dishName);
         dish.setPrice(dishPrice);
+        if (dishCategory != null)
+            dish.setCategory(dishCategory);
         DishDAO.getInstance().updateDish(dish);
-        if (filePart != null) {
+        if (filePart.getSize() != 0) {
             Photo photo = new Photo();
             photo.setPic(filePart.getInputStream());
             photo.setId(dish.getPhotoID());

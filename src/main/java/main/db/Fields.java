@@ -5,12 +5,13 @@ public class Fields {
     public static final String FIELD__USERNAME = "username";
     public static final String FIELD__PASSWORD = "password";
     public static final String FIELD__EMAIL = "email";
-    public static final String FIELD__ROLE = "role";
+    public static final String FIELD__ROLE_ID = "user_role_id";
 
     public static final String FIELD__DISH_ID = "dish_id";
     public static final String FIELD__DISH_NAME = "dish_name";
     public static final String FIELD__DISH_PRICE = "dish_price";
     public static final String FIELD__DISH_PHOTO_ID = "dish_photo_id";
+    public static final String FIELD__DISH_CATEGORY = "dish_category";
 
     public static final String FIELD__ADDRESS_ID = "address_id";
     public static final String FIELD__ADDRESS_USER_ID = "user_id";
@@ -41,6 +42,6 @@ public class Fields {
 
     public static final String FIELD__APPLICATION_ID = "application_id";
     public static final String FIELD__APPLICATION_USER_ID = "user_id";
-    public static final String FIELD__APPLICATION_ROLE = "role";
+    public static final String FIELD__APPLICATION_ROLE_ID = "application_role_id";
     public static final String FIELD__APPLICATION_STATE = "application_state";
 }

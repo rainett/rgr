@@ -19,14 +19,17 @@ public class DishDAO {
     private static final String SQL__FIND_DISH_BY_ID =
             "SELECT * FROM dishes WHERE dish_id = ?";
 
+    private static final String SQL__GET_BOUND_PRICES =
+            "SELECT MIN(dish_price) AS min, MAX(dish_price) AS max FROM dishes";
+
     private static final String SQL__FIND_DISH_BY_NAME =
             "SELECT * FROM dishes WHERE dish_name = binary ?";
 
     private static final String SQL_UPDATE_DISH =
-            "UPDATE dishes SET dish_name=?, dish_price=?, dish_photo_id=? WHERE dish_id=?";
+            "UPDATE dishes SET dish_name=?, dish_price=?, dish_photo_id=?, dish_category=? WHERE dish_id=?";
 
     private static final String SQL_INSERT_DISH =
-            "INSERT INTO dishes (dish_name, dish_price, dish_photo_id) VALUES ( ?, ?, ? )";
+            "INSERT INTO dishes (dish_name, dish_price, dish_photo_id, dish_category) VALUES ( ?, ?, ?, ? )";
 
     private static DishDAO instance;
 
@@ -41,8 +44,8 @@ public class DishDAO {
 
     }
 
-    public List<Dish> getAllDishes(String sorting) {
-        String query = sorting == null ? SQL__GET_ALL_DISHES : DishesSorting.getSortQuery(sorting);
+    public List<Dish> getAllDishes(DishesSorting dishesFilter) {
+        String query = dishesFilter == null ? SQL__GET_ALL_DISHES : dishesFilter.getQuery();
         List<Dish> dishes = new ArrayList<>();
         PreparedStatement pstmt;
         ResultSet rs;
@@ -94,6 +97,33 @@ public class DishDAO {
         return dish;
     }
 
+    public int[] getBoundPrices() {
+        PreparedStatement pstmt;
+        ResultSet rs;
+        Connection con = null;
+        int[] prices = new int[] {0, 0};
+        try {
+            con = DBManager.getInstance().getConnection();
+            DishMapper mapper = new DishMapper();
+            pstmt = con.prepareStatement(SQL__GET_BOUND_PRICES);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                prices[0] = rs.getInt("min");
+                prices[1] = rs.getInt("max");
+            }
+            rs.close();
+            pstmt.close();
+        } catch (SQLException ex) {
+            assert con != null;
+            DBManager.getInstance().rollbackAndClose(con);
+            ex.printStackTrace();
+        } finally {
+            assert con != null;
+            DBManager.getInstance().commitAndClose(con);
+        }
+        return prices;
+    }
+
     public Dish getDish(String name) {
         Dish dish = null;
         PreparedStatement pstmt;
@@ -141,6 +171,7 @@ public class DishDAO {
         pstmt.setString(k++, dish.getName());
         pstmt.setLong(k++, dish.getPrice());
         pstmt.setLong(k++, dish.getPhotoID());
+        pstmt.setString(k++, dish.getCategory());
         pstmt.setLong(k, dish.getId());
         pstmt.executeUpdate();
         pstmt.close();
@@ -166,7 +197,8 @@ public class DishDAO {
         int k = 1;
         pstmt.setString(k++, dish.getName());
         pstmt.setLong(k++, dish.getPrice());
-        pstmt.setLong(k, dish.getPhotoID());
+        pstmt.setLong(k++, dish.getPhotoID());
+        pstmt.setString(k, dish.getCategory());
         pstmt.executeUpdate();
         pstmt.close();
     }
@@ -181,6 +213,7 @@ public class DishDAO {
                 dish.setName(rs.getString(Fields.FIELD__DISH_NAME));
                 dish.setPrice(rs.getInt(Fields.FIELD__DISH_PRICE));
                 dish.setPhotoID(rs.getInt(Fields.FIELD__DISH_PHOTO_ID));
+                dish.setCategory(rs.getString(Fields.FIELD__DISH_CATEGORY));
             } catch (SQLException e) {
                 e.printStackTrace();
             }

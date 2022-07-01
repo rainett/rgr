@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="main.commands.CommandName" %>
 <%@page import="main.Path" %>
+<%@page import="main.db.entities.Category" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -33,10 +34,19 @@
                     </td>
                 </tr>
                 <tr class="floating-row">
-                    <td colspan="2">
+                    <td>
                         <label class="custom-file-upload">
                             Завантажте зображення
                             <input type="file" class="floating-input" name="dishPic" accept=".jpeg,.jpg,.png" required>
+                        </label>
+                    </td>
+                    <td>
+                        <label>
+                            <select name="dishCategory" style="background: 0" required>
+                                <c:forEach items="${Category.values()}" var="c">
+                                    <option value="${c.categoryName}">${c.categoryName}</option>
+                                </c:forEach>
+                            </select>
                         </label>
                     </td>
                 </tr>

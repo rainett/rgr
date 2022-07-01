@@ -16,7 +16,7 @@
         <table>
             <tr>
                 <td><a href="${Path.PAGE__START}" class="logo">dlvr.</a></td>
-                <td>${sessionScope.user.role}</td>
+                <td>${Role.getRole(sessionScope.user.roleId).roleName}</td>
             </tr>
         </table>
     </div>
@@ -41,7 +41,7 @@
                             value="${CommandName.COMMAND__PAYMENTS}">Способи оплати</button>
                 </td>
             </tr>
-            <c:if test="${sessionScope.user.role.equals(Role.MANAGER.roleStr)}">
+            <c:if test="${sessionScope.user.roleId == Role.MANAGER.ordinal()}">
                 <tr class="floating-row">
                     <td>
                         <button class="floating-button" name="command" form="redirectForm"
@@ -57,7 +57,7 @@
                     </td>
                 </tr>
             </c:if>
-            <c:if test="${sessionScope.user.role.equals(Role.CLIENT.roleStr)}">
+            <c:if test="${sessionScope.user.roleId == Role.CLIENT.ordinal()}">
                 <tr class="floating-row">
                     <td>
                         <button class="floating-button" name="command" form="redirectForm"

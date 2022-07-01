@@ -5,6 +5,7 @@ public class Dish {
     private String name;
     private int price;
     private int photoID;
+    private String category;
 
     public int getId() {
         return id;
@@ -38,8 +39,17 @@ public class Dish {
         this.photoID = photoID;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
-        return String.format("Dish[id = %d, name = %s, price = %s, photoId = %d]", id, name, price, photoID);
+        return String.format("Dish[id = %d, name = %s, price = %s, photoId = %d, category = %s]",
+                id, name, price, photoID, category);
     }
 }

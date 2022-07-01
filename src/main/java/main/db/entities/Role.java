@@ -1,24 +1,16 @@
 package main.db.entities;
 
+import java.util.Locale;
+
 public enum Role {
-    CLIENT("Client"), MANAGER("Manager"), COOK("Cook"), COURIER("Courier");
+    CLIENT, MANAGER, COOK, COURIER;
 
-    Role(String role) {
-        this.roleStr = role;
+    public String getRoleName() {
+        return this.name().substring(0, 1).toUpperCase(Locale.ROOT)
+                + this.name().substring(1).toLowerCase(Locale.ROOT);
     }
 
-    private final String roleStr;
-
-    public String getRoleStr() {
-        return this.roleStr;
-    }
-
-    public static Role getRole(String roleStr) {
-        for (Role r : Role.values()) {
-            if (r.roleStr.equals(roleStr)) {
-                return r;
-            }
-        }
-        return null;
+    public static Role getRole(int roleId) {
+        return Role.values()[roleId];
     }
 }

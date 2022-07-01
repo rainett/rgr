@@ -22,14 +22,15 @@ public class SpecificOrderCommand implements Command {
         Payment payment = PaymentDAO.getInstance().getPayment(order.getPaymentId());
         List<OrderedDish> orderedDishes = OrderedDishesDAO.getInstance().getOrderedDishes(orderId);
         List<Dish> dishes = new ArrayList<>();
-        for (OrderedDish orderedDish : orderedDishes) {
-            dishes.add(DishDAO.getInstance().getDish(orderedDish.getDishId()));
-        }
+        orderedDishes.forEach(o -> dishes.add(DishDAO.getInstance().getDish(o.getDishId())));
+        List<Photo> photos = new ArrayList<>();
+        dishes.forEach(d -> photos.add(PhotoDAO.getInstance().getPhoto(d.getId())));
         request.setAttribute("order", order);
         request.setAttribute("orderedDishes", orderedDishes);
         request.setAttribute("dishes", dishes);
         request.setAttribute("address", address);
         request.setAttribute("payment", payment);
+        request.setAttribute("photos", photos);
         return Path.PAGE__SPECIFIC_ORDER;
     }
 }

@@ -26,28 +26,15 @@
         <form action="controller" method="post">
             <input type="hidden" name="command" value="${CommandName.COMMAND__SEND_APPLICATION}"/>
             <table>
-                <tr class="floating-row-s">
-                    <td>
-                        <label>
-                            <input type="radio" value="${Role.COOK.roleStr}" name="vacancy">Кухар
-                        </label>
-                    </td>
-                </tr>
-                <tr class="floating-row-s">
-                    <td>
-
-                        <input id="${Role.COURIER.roleStr}" type="radio"
-                               value="${Role.COURIER.roleStr}" name="vacancy">
-                        <label for="${Role.COURIER.roleStr}">Кур'єр</label>
-                    </td>
-                </tr>
-                <tr class="floating-row-s">
-                    <td>
-                        <label>
-                            <input type="radio" value="${Role.MANAGER.roleStr}" name="vacancy">Менеджер
-                        </label>
-                    </td>
-                </tr>
+                <c:forEach items="${Role.values()}" var="r">
+                    <tr class="floating-row-s">
+                        <td>
+                            <label>
+                                <input type="radio" value="${r.ordinal()}" name="vacancy">${r.roleName}
+                            </label>
+                        </td>
+                    </tr>
+                </c:forEach>
                 <tr class="floating-row">
                     <td>
                         <input type="submit" class="floating-button" value="Підтвердити">

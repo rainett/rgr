@@ -20,6 +20,7 @@ public class NewDishCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String dishName = request.getParameter("dishName");
+        String dishCategory = request.getParameter("dishCategory");
         int dishPrice = Integer.parseInt(request.getParameter("dishPrice"));
         Part filePart = request.getPart("dishPic");
         Dish dish = new Dish();
@@ -28,6 +29,7 @@ public class NewDishCommand implements Command {
         int photoId = PhotoDAO.getInstance().newPhoto(photo);
         dish.setName(dishName);
         dish.setPrice(dishPrice);
+        dish.setCategory(dishCategory);
         dish.setPhotoID(photoId);
         DishDAO.getInstance().newDish(dish);
         return controller + CommandName.COMMAND__SHOW_EDIT_DISHES;

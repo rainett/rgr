@@ -27,7 +27,7 @@ public class ShowSendApplicationCommand implements Command {
                 return Path.PAGE__APPLICATION;
             } else {
                 User user = UserDAO.getInstance().getUser(userId);
-                user.setRole(application.getRole());
+                user.setRoleId(application.getRoleId());
                 UserDAO.getInstance().updateUser(user);
                 ApplicationDAO.getInstance().deleteApplication(application.getId());
                 return controller + CommandName.COMMAND__LOGOUT;

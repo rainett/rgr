@@ -3,7 +3,7 @@ package main.db.entities;
 public class Application {
     private int id;
     private int userId;
-    private String role;
+    private int roleId;
     private boolean state;
 
     public int getId() {
@@ -22,12 +22,12 @@ public class Application {
         this.userId = userId;
     }
 
-    public String getRole() {
-        return role;
+    public int getRoleId() {
+        return roleId;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
     }
 
     public boolean getState() {
@@ -42,7 +42,7 @@ public class Application {
     public String toString() {
         return String.format(
                 "Application[applicationId = %d, userId = %d, role = %s, state = %s]",
-                id, userId, role, state
+                id, userId, roleId, state
         );
     }
 }

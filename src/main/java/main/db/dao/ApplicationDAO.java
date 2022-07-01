@@ -4,7 +4,6 @@ import main.db.DBManager;
 import main.db.EntityMapper;
 import main.db.Fields;
 import main.db.entities.Application;
-import main.db.entities.Dish;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,10 +23,10 @@ public class ApplicationDAO {
             "SELECT * FROM applications WHERE user_id = ?";
 
     private static final String SQL_UPDATE_APPLICATION =
-            "UPDATE applications SET user_id=?, role=?, application_state=? WHERE application_id=?";
+            "UPDATE applications SET user_id=?, application_role_id=?, application_state=? WHERE application_id=?";
 
     private static final String SQL_INSERT_APPLICATION =
-            "INSERT INTO applications (user_id, role, application_state) VALUES ( ?, ?, ? )";
+            "INSERT INTO applications (user_id, application_role_id, application_state) VALUES ( ?, ?, ? )";
 
     private static final String SQL_DELETE_APPLICATION =
             "DELETE FROM applications WHERE application_id = ?";
@@ -163,7 +162,7 @@ public class ApplicationDAO {
         PreparedStatement pstmt = con.prepareStatement(SQL_UPDATE_APPLICATION);
         int k = 1;
         pstmt.setLong(k++, application.getUserId());
-        pstmt.setString(k++, application.getRole());
+        pstmt.setLong(k++, application.getRoleId());
         pstmt.setBoolean(k++, application.getState());
         pstmt.setLong(k, application.getId());
         pstmt.executeUpdate();
@@ -189,7 +188,7 @@ public class ApplicationDAO {
         PreparedStatement pstmt = con.prepareStatement(SQL_INSERT_APPLICATION);
         int k = 1;
         pstmt.setLong(k++, application.getUserId());
-        pstmt.setString(k++, application.getRole());
+        pstmt.setLong(k++, application.getRoleId());
         pstmt.setBoolean(k, false);
         pstmt.executeUpdate();
         pstmt.close();
@@ -203,7 +202,7 @@ public class ApplicationDAO {
             try {
                 application.setId(rs.getInt(Fields.FIELD__APPLICATION_ID));
                 application.setUserId(rs.getInt(Fields.FIELD__APPLICATION_USER_ID));
-                application.setRole(rs.getString(Fields.FIELD__APPLICATION_ROLE));
+                application.setRoleId(rs.getInt(Fields.FIELD__APPLICATION_ROLE_ID));
                 application.setState(rs.getBoolean(Fields.FIELD__APPLICATION_STATE));
             } catch (SQLException e) {
                 e.printStackTrace();

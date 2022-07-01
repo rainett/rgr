@@ -30,7 +30,7 @@
                 </td>
                 <td>
                     Бажана посада:<br>
-                    ${requestScope.application.role}
+                    ${requestScope.application.roleId}
                 </td>
             </tr>
             <tr class="floating-row-s">
