@@ -6,6 +6,8 @@ public class Order {
     private int paymentId;
     private int addressId;
     private int price;
+    private int stateId;
+    private int workerId;
 
     public int getPrice() {
         return price;
@@ -47,11 +49,27 @@ public class Order {
         this.addressId = addressId;
     }
 
+    public int getStateId() {
+        return stateId;
+    }
+
+    public void setStateId(int stateId) {
+        this.stateId = stateId;
+    }
+
+    public int getWorkerId() {
+        return workerId;
+    }
+
+    public void setWorkerId(int workerId) {
+        this.workerId = workerId;
+    }
+
     @Override
     public String toString() {
         return String.format(
-                "Order[orderId = %d, clientId = %d, cardId = %s, addressId = %s, price = %s]",
-                id, userId, paymentId, addressId, price
+                "Order[orderId = %d, clientId = %d, cardId = %s, addressId = %s, price = %s, stateId = %d, workerId = %d]",
+                id, userId, paymentId, addressId, price, stateId, workerId
         );
     }
 }

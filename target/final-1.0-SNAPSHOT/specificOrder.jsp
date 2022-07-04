@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="main.Path" %>
+<%@page import="main.db.entities.OrderState" %>
 <%@page import="main.commands.CommandName" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -28,8 +29,9 @@
     <div class="floating-div">
         <table>
             <tr class="floating-row-s">
-                <td colspan="30">Замовлення №:${requestScope.order.id}</td>
-                <td colspan="30">Ціна ${requestScope.order.price}</td>
+                <td colspan="20">Замовлення №:${requestScope.order.id}</td>
+                <td colspan="20">Ціна: ${requestScope.order.price}UAH</td>
+                <td colspan="20">Стан: ${OrderState.getState(requestScope.order.stateId).stateName}</td>
             </tr>
             <tr class="floating-row-s">
                 <td colspan="${requestScope.address.apartmentNumber != null ? 15 : 20}">
@@ -75,11 +77,20 @@
                 <td colspan="12">Кількість: ${requestScope.orderedDishes.get(loop.index).dishAmount}</td>
             </tr>
             </c:forEach>
-            <tr class="floating-row">
-                <td colspan="60">
-                    <input class="floating-button-danger" type="submit" value="Відмінити замовлення" form="cancelOrder">
-                </td>
-            </tr>
+            <c:if test="${requestScope.order.stateId == OrderState.RESERVED.ordinal()}">
+                <tr class="floating-row">
+                    <td colspan="60">
+                        <input class="floating-button-danger" type="submit" value="Відмінити замовлення" form="cancelOrder">
+                    </td>
+                </tr>
+            </c:if>
+            <c:if test="${requestScope.order.stateId == OrderState.FINISHED.ordinal()}">
+                <tr class="floating-row">
+                    <td colspan="60">
+                        <input class="floating-button-danger" type="submit" value="Видалити замовлення" form="cancelOrder">
+                    </td>
+                </tr>
+            </c:if>
         </table>
         <form id="cancelOrder" action="controller" method="post">
             <input type="hidden" name="command" value="${CommandName.COMMAND__CANCEL_ORDER}"/>

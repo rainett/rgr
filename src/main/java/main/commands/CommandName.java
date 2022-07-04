@@ -29,6 +29,21 @@ public class CommandName {
     public static final String COMMAND__SHOW_ORDER_PAYMENTS = "showOrderPayments";
     public static final String COMMAND__SHOW_ORDER_CONFIRM = "showOrderConfirm";
 
+    public static final String COMMAND__SHOW_MANAGER_ORDERS = "showManagerOrders";
+    public static final String COMMAND__SPECIFIC_ORDER_MANAGER = "specificOrderManager";
+    public static final String COMMAND__ORDER_SEND_TO_COOK = "sendToCook";
+    public static final String COMMAND__ORDER_SEND_TO_DELIVERY = "sendToDelivery";
+    public static final String COMMAND__SHOW_COOK_ORDERS = "showCookOrders";
+    public static final String COMMAND__SHOW_COOK_ACTIVE_ORDERS = "showCookActiveOrders";
+    public static final String COMMAND__SHOW_SPECIFIC_ORDER_COOK = "specificOrderCook";
+    public static final String COMMAND__ORDER_COOKING = "orderCooking";
+    public static final String COMMAND__ORDER_COOKED = "orderCooked";
+    public static final String COMMAND__SHOW_DELIVERY_ORDERS = "showDeliveryOrders";
+    public static final String COMMAND__SHOW_DELIVERY_ACTIVE_ORDERS = "showDeliveryActiveOrders";
+    public static final String COMMAND__SHOW_SPECIFIC_ORDER_DELIVERY = "specificOrderDelivery";
+    public static final String COMMAND__ORDER_DELIVERING = "orderDelivering";
+    public static final String COMMAND__ORDER_DELIVERED = "orderDelivered";
+
     public static final String COMMAND__PAYMENTS = "payments";
     public static final String COMMAND__NEW_PAYMENT = "newPayment";
     public static final String COMMAND__UPDATE_PAYMENT = "updatePayment";

@@ -11,13 +11,26 @@ import java.util.List;
 
 public class OrderDAO {
     private static final String SQL_NEW_ORDER =
-            "INSERT INTO orders(user_id, payment_id, address_id, price) " +
-                    "VALUES (?, ?, ?, ?);";
+            "INSERT INTO orders(user_id, payment_id, address_id, price, order_state_id, order_worker_id) " +
+                    "VALUES (?, ?, ?, ?, ?, ?);";
+
+    private static final String SQL_UPDATE_ORDER =
+            "UPDATE orders SET user_id = ?, payment_id = ?, address_id = ?, price = ?, " +
+                    "order_state_id = ?, order_worker_id = ? WHERE order_id = ?";
 
     private static final String SQL_USER_ORDERS =
             "SELECT * FROM orders " +
                     "JOIN users u on orders.user_id = u.user_id " +
                     "WHERE u.user_id = ?";
+
+    private static final String SQL_ALL_ORDERS =
+            "SELECT * FROM orders";
+
+    private static final String SQL_WORKER_ORDERS =
+            "SELECT * FROM orders WHERE order_worker_id = ?";
+
+    private static final String SQL_STATE_ORDERS =
+            "SELECT * FROM orders WHERE order_state_id = ?";
 
     private static final String SQL_FIND_ORDER =
             "SELECT * FROM orders WHERE order_id = ?";
@@ -63,7 +76,9 @@ public class OrderDAO {
         pstmt.setLong(k++, order.getUserId());
         pstmt.setLong(k++, order.getPaymentId());
         pstmt.setLong(k++, order.getAddressId());
-        pstmt.setLong(k, order.getPrice());
+        pstmt.setLong(k++, order.getPrice());
+        pstmt.setLong(k++, order.getStateId());
+        pstmt.setLong(k, order.getWorkerId());
         pstmt.executeUpdate();
         int id = 0;
         ResultSet rs = pstmt.getGeneratedKeys();
@@ -72,6 +87,35 @@ public class OrderDAO {
         }
         pstmt.close();
         return id;
+    }
+
+    public void updateOrder(Order order) {
+        Connection con = null;
+        try {
+            con = DBManager.getInstance().getConnection();
+            updateOrder(con, order);
+        } catch (SQLException e) {
+            assert con != null;
+            DBManager.getInstance().rollbackAndClose(con);
+            e.printStackTrace();
+        } finally {
+            assert con != null;
+            DBManager.getInstance().commitAndClose(con);
+        }
+    }
+
+    private void updateOrder(Connection con, Order order) throws SQLException {
+        PreparedStatement pstmt = con.prepareStatement(SQL_UPDATE_ORDER, Statement.RETURN_GENERATED_KEYS);
+        int k = 1;
+        pstmt.setLong(k++, order.getUserId());
+        pstmt.setLong(k++, order.getPaymentId());
+        pstmt.setLong(k++, order.getAddressId());
+        pstmt.setLong(k++, order.getPrice());
+        pstmt.setLong(k++, order.getStateId());
+        pstmt.setLong(k++, order.getWorkerId());
+        pstmt.setLong(k, order.getId());
+        pstmt.executeUpdate();
+        pstmt.close();
     }
 
     public void deleteOrder(long orderId) {
@@ -91,6 +135,86 @@ public class OrderDAO {
             assert con != null;
             DBManager.getInstance().commitAndClose(con);
         }
+    }
+
+    public List<Order> getAllOrders() {
+        List<Order> orders = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement pstmt;
+        ResultSet rs;
+        try {
+            con = DBManager.getInstance().getConnection();
+            pstmt = con.prepareStatement(SQL_ALL_ORDERS);
+            rs = pstmt.executeQuery();
+            OrderMapper orderMapper = new OrderMapper();
+            while(rs.next()) {
+                orders.add(orderMapper.mapRow(rs));
+            }
+            pstmt.close();
+            rs.close();
+        } catch (SQLException e) {
+            assert con != null;
+            DBManager.getInstance().rollbackAndClose(con);
+            e.printStackTrace();
+        } finally {
+            assert con != null;
+            DBManager.getInstance().commitAndClose(con);
+        }
+        return orders;
+    }
+
+    public List<Order> getAllOrders(int orderStateId) {
+        List<Order> orders = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement pstmt;
+        ResultSet rs;
+        try {
+            con = DBManager.getInstance().getConnection();
+            pstmt = con.prepareStatement(SQL_STATE_ORDERS);
+            pstmt.setLong(1, orderStateId);
+            rs = pstmt.executeQuery();
+            OrderMapper orderMapper = new OrderMapper();
+            while(rs.next()) {
+                orders.add(orderMapper.mapRow(rs));
+            }
+            pstmt.close();
+            rs.close();
+        } catch (SQLException e) {
+            assert con != null;
+            DBManager.getInstance().rollbackAndClose(con);
+            e.printStackTrace();
+        } finally {
+            assert con != null;
+            DBManager.getInstance().commitAndClose(con);
+        }
+        return orders;
+    }
+
+    public List<Order> getWorkerOrders(int workerId) {
+        List<Order> orders = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement pstmt;
+        ResultSet rs;
+        try {
+            con = DBManager.getInstance().getConnection();
+            pstmt = con.prepareStatement(SQL_WORKER_ORDERS);
+            pstmt.setLong(1, workerId);
+            rs = pstmt.executeQuery();
+            OrderMapper orderMapper = new OrderMapper();
+            while(rs.next()) {
+                orders.add(orderMapper.mapRow(rs));
+            }
+            pstmt.close();
+            rs.close();
+        } catch (SQLException e) {
+            assert con != null;
+            DBManager.getInstance().rollbackAndClose(con);
+            e.printStackTrace();
+        } finally {
+            assert con != null;
+            DBManager.getInstance().commitAndClose(con);
+        }
+        return orders;
     }
 
     public List<Order> getUserOrders(int id) {
@@ -155,6 +279,8 @@ public class OrderDAO {
                 order.setPaymentId(rs.getInt(Fields.FIELD__ORDER_PAYMENT_ID));
                 order.setAddressId(rs.getInt(Fields.FIELD__ORDER_ADDRESS_ID));
                 order.setPrice(rs.getInt(Fields.FIELD__ORDER_PRICE));
+                order.setStateId(rs.getInt(Fields.FIELD__ORDER_STATE_ID));
+                order.setWorkerId(rs.getInt(Fields.FIELD__ORDER_WORKER_ID));
             } catch (SQLException e) {
                 e.printStackTrace();
             }

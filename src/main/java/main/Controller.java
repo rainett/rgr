@@ -19,9 +19,7 @@ public class Controller extends HttpServlet {
     public static final String controller = "controller?command=";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String commandName = request.getParameter("command");
-        Command command = CommandContainer.get(commandName);
-        String forward = command.execute(request);
+        String forward = getForward(request);
         if (forward != null) {
             RequestDispatcher disp = request.getRequestDispatcher(forward);
             disp.forward(request, response);
@@ -29,12 +27,16 @@ public class Controller extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String commandName = request.getParameter("command");
-        Command command = CommandContainer.get(commandName);
-        String forward = command.execute(request);
+        String forward = getForward(request);
         if (forward != null) {
             response.sendRedirect(forward);
         }
+    }
+
+    private String getForward(HttpServletRequest request) throws IOException, ServletException {
+        String commandName = request.getParameter("command");
+        Command command = CommandContainer.get(commandName);
+        return command.execute(request);
     }
 
 }

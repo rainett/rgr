@@ -3,7 +3,10 @@ package main.commands;
 import main.commands.address.*;
 import main.commands.application.*;
 import main.commands.dish.*;
-import main.commands.order.*;
+import main.commands.order.cook.*;
+import main.commands.order.delivery.*;
+import main.commands.order.manager.*;
+import main.commands.order.user.*;
 import main.commands.payment.*;
 import main.commands.user.*;
 
@@ -41,6 +44,20 @@ public class CommandContainer {
         commands.put(CommandName.COMMAND__SHOW_ORDER_PAYMENTS,  new ShowOrderPaymentsCommand());
         commands.put(CommandName.COMMAND__SHOW_ORDER_CONFIRM,   new ShowOrderConfirmCommand());
 
+        commands.put(CommandName.COMMAND__SHOW_MANAGER_ORDERS,  new ShowManagerOrdersCommand());
+        commands.put(CommandName.COMMAND__SPECIFIC_ORDER_MANAGER,new ShowSpecificOrderManagerCommand());
+        commands.put(CommandName.COMMAND__ORDER_SEND_TO_COOK,   new SendToCookCommand());
+        commands.put(CommandName.COMMAND__ORDER_SEND_TO_DELIVERY,new SendToDeliveryCommand());
+        commands.put(CommandName.COMMAND__SHOW_COOK_ORDERS,     new ShowCookOrdersCommand());
+        commands.put(CommandName.COMMAND__SHOW_COOK_ACTIVE_ORDERS,new ShowCookActiveOrdersCommand());
+        commands.put(CommandName.COMMAND__SHOW_SPECIFIC_ORDER_COOK,new ShowSpecificOrderCookCommand());
+        commands.put(CommandName.COMMAND__ORDER_COOKING,        new OrderCookingCommand());
+        commands.put(CommandName.COMMAND__ORDER_COOKED,         new OrderCookedCommand());
+        commands.put(CommandName.COMMAND__SHOW_DELIVERY_ORDERS, new ShowDeliverOrdersCommand());
+        commands.put(CommandName.COMMAND__SHOW_DELIVERY_ACTIVE_ORDERS,new ShowDeliverActiveOrdersCommand());
+        commands.put(CommandName.COMMAND__SHOW_SPECIFIC_ORDER_DELIVERY,new ShowSpecificOrderDeliverCommand());
+        commands.put(CommandName.COMMAND__ORDER_DELIVERING,     new OrderDeliveringCommand());
+        commands.put(CommandName.COMMAND__ORDER_DELIVERED,      new OrderDeliveredCommand());
 
         commands.put(CommandName.COMMAND__PAYMENTS,             new PaymentsCommand());
         commands.put(CommandName.COMMAND__NEW_PAYMENT,          new NewPaymentCommand());

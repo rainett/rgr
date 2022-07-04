@@ -2,7 +2,7 @@ package main.commands.dish;
 
 import main.Path;
 import main.commands.Command;
-import main.commands.order.ShowOrderDishesCommand;
+import main.commands.order.user.ShowOrderDishesCommand;
 
 import javax.servlet.http.HttpServletRequest;
 

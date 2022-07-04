@@ -55,6 +55,16 @@ public class UserAccessFilter implements Filter {
         commands.add(CommandName.COMMAND__APPLICATION_PROCESS);
         commands.add(CommandName.COMMAND__SHOW_APPLICATION_PROCESS);
         commands.add(CommandName.COMMAND__SHOW_APPLICATIONS);
+
+        commands.add(CommandName.COMMAND__ORDER_COOKED);
+        commands.add(CommandName.COMMAND__ORDER_COOKING);
+        commands.add(CommandName.COMMAND__SHOW_COOK_ACTIVE_ORDERS);
+        commands.add(CommandName.COMMAND__SHOW_COOK_ORDERS);
+        commands.add(CommandName.COMMAND__SHOW_SPECIFIC_ORDER_COOK);
+
+        commands.add(CommandName.COMMAND__ORDER_SEND_TO_COOK);
+        commands.add(CommandName.COMMAND__SHOW_MANAGER_ORDERS);
+        commands.add(CommandName.COMMAND__SPECIFIC_ORDER_MANAGER);
     }
 
     @Override

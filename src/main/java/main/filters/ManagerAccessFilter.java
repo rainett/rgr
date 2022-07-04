@@ -26,6 +26,10 @@ public class ManagerAccessFilter implements Filter {
         commands.add(CommandName.COMMAND__SHOW_APPLICATIONS);
         commands.add(CommandName.COMMAND__SHOW_APPLICATION_PROCESS);
         commands.add(CommandName.COMMAND__APPLICATION_PROCESS);
+        commands.add(CommandName.COMMAND__SHOW_MANAGER_ORDERS);
+        commands.add(CommandName.COMMAND__SPECIFIC_ORDER_MANAGER);
+        commands.add(CommandName.COMMAND__ORDER_SEND_TO_COOK);
+        commands.add(CommandName.COMMAND__ORDER_SEND_TO_DELIVERY);
     }
 
     @Override

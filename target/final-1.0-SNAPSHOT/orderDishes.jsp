@@ -93,7 +93,7 @@
                     <td colspan="4"><img src="data:image/jpeg;base64, ${requestScope.photos.get(loop.index).pic64}" class="image" alt="Food image"></td>
                     <td colspan="2">${d.name}</td>
                     <td colspan="2">${d.price} UAH</td>
-                    <td colspan="2">${d.categoryId}</td>
+                    <td colspan="2">${Category.getCategory(d.categoryId).categoryName}</td>
                     <td colspan="2">
                         <input type="hidden" name="dish_id" value="${d.id}"/>
                         <div class="counter">

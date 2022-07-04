@@ -36,6 +36,8 @@ public class Fields {
     public static final String FIELD__ORDER_PAYMENT_ID = "payment_id";
     public static final String FIELD__ORDER_ADDRESS_ID = "address_id";
     public static final String FIELD__ORDER_PRICE = "price";
+    public static final String FIELD__ORDER_STATE_ID = "order_state_id";
+    public static final String FIELD__ORDER_WORKER_ID = "order_worker_id";
 
     public static final String FIELD__PHOTO_ID = "photo_id";
     public static final String FIELD__PHOTO_BLOB = "photo_blob";
