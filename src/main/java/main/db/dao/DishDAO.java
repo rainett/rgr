@@ -22,9 +22,6 @@ public class DishDAO {
     private static final String SQL__GET_BOUND_PRICES =
             "SELECT MIN(dish_price) AS min, MAX(dish_price) AS max FROM dishes";
 
-    private static final String SQL__FIND_DISH_BY_NAME =
-            "SELECT * FROM dishes WHERE dish_name = binary ?";
-
     private static final String SQL_UPDATE_DISH =
             "UPDATE dishes SET dish_name=?, dish_price=?, dish_photo_id=?, dish_category_id=? WHERE dish_id=?";
 
@@ -104,7 +101,6 @@ public class DishDAO {
         int[] prices = new int[] {0, 0};
         try {
             con = DBManager.getInstance().getConnection();
-            DishMapper mapper = new DishMapper();
             pstmt = con.prepareStatement(SQL__GET_BOUND_PRICES);
             rs = pstmt.executeQuery();
             if (rs.next()) {
@@ -122,32 +118,6 @@ public class DishDAO {
             DBManager.getInstance().commitAndClose(con);
         }
         return prices;
-    }
-
-    public Dish getDish(String name) {
-        Dish dish = null;
-        PreparedStatement pstmt;
-        ResultSet rs;
-        Connection con = null;
-        try {
-            con = DBManager.getInstance().getConnection();
-            DishMapper mapper = new DishMapper();
-            pstmt = con.prepareStatement(SQL__FIND_DISH_BY_NAME);
-            pstmt.setString(1, name);
-            rs = pstmt.executeQuery();
-            if (rs.next())
-                dish = mapper.mapRow(rs);
-            rs.close();
-            pstmt.close();
-        } catch (SQLException ex) {
-            assert con != null;
-            DBManager.getInstance().rollbackAndClose(con);
-            ex.printStackTrace();
-        } finally {
-            assert con != null;
-            DBManager.getInstance().commitAndClose(con);
-        }
-        return dish;
     }
 
     public void updateDish(Dish dish) {

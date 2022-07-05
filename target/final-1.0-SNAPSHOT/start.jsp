@@ -2,10 +2,11 @@
 <%@page import="main.commands.CommandName" %>
 <%@page import="main.Path" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="Tags" prefix="t" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>final</title>
+    <title>Головна</title>
     <link href="css/startStyles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -13,6 +14,7 @@
 <div id="header">
     <table>
         <tr>
+            <t:someTag/>
             <td><a href="${Path.PAGE__START}" class="logo">dlvr.</a></td>
             <td><button name="command" value="${CommandName.COMMAND__DISHES}" form="redirectForm">
                 Меню страв

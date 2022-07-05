@@ -1,0 +1,17 @@
+<%@page import="main.Path" %>
+<%@page import="main.commands.CommandName" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<div id="header">
+    <table>
+        <tr>
+            <td><a href="${Path.PAGE__START}" class="logo">dlvr.</a></td>
+            <td>
+                <form action="controller">
+                    <button name="command" value="${CommandName.COMMAND__SHOW_LOGIN}">
+                        Особистий кабінет
+                    </button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>

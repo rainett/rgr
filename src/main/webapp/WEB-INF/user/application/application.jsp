@@ -4,21 +4,12 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
-<head>
-    <title>final</title>
-    <link href="${pageContext.request.contextPath}/css/startStyles.css" rel="stylesheet" type="text/css">
-</head>
+<c:set var="title" value="Заявка" scope="page"/>
+<%@ include file="/WEB-INF/jspf/head.jspf" %>
 <body>
 
-    <div id="header">
-        <table>
-            <tr>
-                <td><a href="${Path.PAGE__START}" class="logo">dlvr.</a></td>
-                <td><button name="command" value="${CommandName.COMMAND__USER}" form="redirectForm">Особистий кабінет</button></td>
-            </tr>
-        </table>
-        <form id="redirectForm" action="controller"></form>
-    </div>
+<%@include file="/WEB-INF/jspf/header.jspf"%>
+
     <div class="floating-div">
         <table>
             <tr class="floating-row-xl">

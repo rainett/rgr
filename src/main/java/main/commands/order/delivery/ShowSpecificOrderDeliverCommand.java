@@ -20,7 +20,7 @@ public class ShowSpecificOrderDeliverCommand implements Command {
         List<Dish> dishes = new ArrayList<>();
         orderedDishes.forEach(o -> dishes.add(DishDAO.getInstance().getDish(o.getDishId())));
         List<Photo> photos = new ArrayList<>();
-        dishes.forEach(d -> photos.add(PhotoDAO.getInstance().getPhoto(d.getId())));
+        dishes.forEach(d -> photos.add(PhotoDAO.getInstance().getPhoto(d.getPhotoId())));
         request.setAttribute("order", order);
         request.setAttribute("address", address);
         request.setAttribute("orderedDishes", orderedDishes);

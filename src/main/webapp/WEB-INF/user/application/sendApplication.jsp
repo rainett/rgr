@@ -5,23 +5,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
-<head>
-    <title>final</title>
-    <link href="${pageContext.request.contextPath}/css/startStyles.css" rel="stylesheet" type="text/css">
-</head>
+<c:set var="title" value="Надіслати заявку" scope="page"/>
+<%@ include file="/WEB-INF/jspf/head.jspf" %>
 <body>
 
-    <div id="header">
-        <table>
-            <tr>
-                <td><a href="${Path.PAGE__START}" class="logo">dlvr.</a></td>
-                <td><button name="command" value="${CommandName.COMMAND__USER}" form="redirectForm">
-                    Особистий кабінет
-                </button></td>
-            </tr>
-        </table>
-        <form id="redirectForm" action="controller"></form>
-    </div>
+<%@include file="/WEB-INF/jspf/header.jspf"%>
+
+
     <div class="floating-div">
         <form action="controller" method="post">
             <input type="hidden" name="command" value="${CommandName.COMMAND__SEND_APPLICATION}"/>

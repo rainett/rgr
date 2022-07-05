@@ -6,45 +6,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
-<head>
-    <title>final</title>
-    <link href="${pageContext.request.contextPath}/css/startStyles.css" rel="stylesheet" type="text/css">
-    <script src="../../../scripts/script.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-    <script>
-        $( function() {
-            $( "#slider-range" ).slider({
-                range: true,
-                min: ${requestScope.prices[0]},
-                max: ${requestScope.prices[1]},
-                values: [ ${requestScope.prices[0]}, ${requestScope.prices[1]} ],
-                slide: function( event, ui ) {
-                    $( "#amount" ).val( "UAH " + ui.values[ 0 ] + " - UAH " + ui.values[ 1 ] );
-                }
-            });
-            $( "#amount" ).val( "UAH " + $( "#slider-range" ).slider( "values", 0 ) +
-                " - UAH " + $( "#slider-range" ).slider( "values", 1 ) );
-        } );
-    </script>
-</head>
+<c:set var="title" value="Замовлення страв" scope="page"/>
+<%@ include file="/WEB-INF/jspf/sliderHead.jspf" %>
 <body>
 
-    <div id="header">
-        <table>
-            <tr>
-                <td><a href="${Path.PAGE__START}" class="logo">dlvr.</a></td>
-                <td>
-                    <form action="controller">
-                        <button name="command" value="${CommandName.COMMAND__SHOW_LOGIN}">
-                            Особистий кабінет
-                        </button>
-                    </form>
-                </td>
-            </tr>
-        </table>
-    </div>
+<%@include file="/WEB-INF/jspf/header.jspf"%>
 
     <div class="floating-div">
         <form id="dishForm" action="controller" method="post">
@@ -82,10 +48,8 @@
                         </div>
                     </td>
                     <td colspan="3">
-                        <form id="filterForm" action="controller">
-                            <input type="hidden" name="command" value="${CommandName.COMMAND__SHOW_ORDER_DISHES}">
-                            <button class="floating-button">Застосувати</button>
-                        </form>
+                        <input form="filterForm" type="hidden" name="command" value="${CommandName.COMMAND__SHOW_ORDER_DISHES}">
+                        <button form="filterForm" class="floating-button">Застосувати</button>
                     </td>
                 </tr>
                 <c:forEach items="${requestScope.dishes}" var="d" varStatus="loop">
@@ -111,6 +75,7 @@
                 </tr>
             </table>
         </form>
+        <form id="filterForm" action="controller"></form>
     </div>
     <table style="height: 30vh">
         <tr>

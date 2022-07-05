@@ -26,7 +26,7 @@ public class ShowOrderDishesCommand implements Command {
         DishesSorting dishesSorting = sorting == null ? null : new DishesSorting(price, categories, sorting);
         List<Dish> dishes = DishDAO.getInstance().getAllDishes(dishesSorting);
         List<Photo> photos = new ArrayList<>();
-        dishes.forEach(d -> photos.add(PhotoDAO.getInstance().getPhoto(d.getId())));
+        dishes.forEach(d -> photos.add(PhotoDAO.getInstance().getPhoto(d.getPhotoId())));
         int[] prices = DishDAO.getInstance().getBoundPrices();
         request.setAttribute("dishes", dishes);
         request.setAttribute("photos", photos);

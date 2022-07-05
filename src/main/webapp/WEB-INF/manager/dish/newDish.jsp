@@ -5,17 +5,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
-<head>
-    <title>final</title>
-    <link href="${pageContext.request.contextPath}/css/startStyles.css" rel="stylesheet" type="text/css">
-</head>
+<c:set var="title" value="Нова страва" scope="page"/>
+<%@ include file="/WEB-INF/jspf/head.jspf" %>
 <body>
 
-    <div id="header">
-        <table>
-            <tr><td><a href="${Path.PAGE__START}" class="logo">dlvr.</a></td></tr>
-        </table>
-    </div>
+<%@include file="/WEB-INF/jspf/header.jspf"%>
 
     <div class="floating-div">
         <form action="controller" method="post" enctype="multipart/form-data">

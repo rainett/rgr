@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>final</title>
+    <title>Головна</title>
     <link href="css/startStyles.css" rel="stylesheet" type="text/css">
 </head>
 <body>

@@ -4,26 +4,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
-<head>
-    <title>final</title>
-    <link href="${pageContext.request.contextPath}/css/startStyles.css" rel="stylesheet" type="text/css">
-</head>
+<c:set var="title" value="Замовлення" scope="page"/>
+<%@ include file="/WEB-INF/jspf/head.jspf" %>
 <body>
 
-    <div id="header">
-        <table>
-            <tr>
-                <td><a href="${Path.PAGE__START}" class="logo">dlvr.</a></td>
-                <td>
-                    <form action="controller">
-                        <button name="command" value="${CommandName.COMMAND__SHOW_LOGIN}">
-                            Особистий кабінет
-                        </button>
-                    </form>
-                </td>
-            </tr>
-        </table>
-    </div>
+<%@include file="/WEB-INF/jspf/header.jspf"%>
 
     <div class="floating-div">
         <table>

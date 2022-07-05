@@ -6,35 +6,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
-<head>
-    <title>final</title>
-    <link href="${pageContext.request.contextPath}/css/startStyles.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-    <script>
-        $( function() {
-            $( "#slider-range" ).slider({
-                range: true,
-                min: ${requestScope.prices[0]},
-                max: ${requestScope.prices[1]},
-                values: [ ${requestScope.prices[0]}, ${requestScope.prices[1]} ],
-                slide: function( event, ui ) {
-                    $( "#amount" ).val( "UAH " + ui.values[ 0 ] + " - UAH " + ui.values[ 1 ] );
-                }
-            });
-            $( "#amount" ).val( "UAH " + $( "#slider-range" ).slider( "values", 0 ) +
-                " - UAH " + $( "#slider-range" ).slider( "values", 1 ) );
-        } );
-    </script>
-</head>
+<c:set var="title" value="Редагувати страви" scope="page"/>
+<%@ include file="/WEB-INF/jspf/sliderHead.jspf" %>
 <body>
 
-    <div id="header">
-        <table>
-            <tr><td><a href="${Path.PAGE__START}" class="logo">dlvr.</a></td></tr>
-        </table>
-    </div>
+<%@include file="/WEB-INF/jspf/header.jspf"%>
 
     <div class="floating-div">
         <table>
@@ -100,7 +76,7 @@
                     </td>
                     <td colspan="4">${d.name}</td>
                     <td colspan="4">${d.price} UAH</td>
-                    <td colspan="4">${d.categoryId}</td>
+                    <td colspan="4">${Category.getCategory(d.categoryId).categoryName}</td>
                 </tr>
             </c:forEach>
             <tr class="floating-row-s"></tr>
